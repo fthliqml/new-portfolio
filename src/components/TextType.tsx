@@ -59,7 +59,7 @@ const TextType = ({
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(!startOnVisible);
   const cursorRef = useRef<HTMLSpanElement>(null);
-  const containerRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const textArray = useMemo(
     () => (Array.isArray(text) ? text : [text]),
@@ -179,6 +179,7 @@ const TextType = ({
     isVisible,
     reverseMode,
     variableSpeed,
+    getRandomSpeed,
     onSentenceComplete,
   ]);
 
@@ -186,27 +187,30 @@ const TextType = ({
     hideCursorWhileTyping &&
     (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
 
-  return createElement(
-    Component,
-    {
-      ref: containerRef,
-      className: `inline-block whitespace-pre-wrap tracking-tight ${className}`,
-      ...props,
-    },
-    <span
-      className="inline"
-      style={{ color: getCurrentTextColor() || "inherit" }}
-    >
-      {displayedText}
-    </span>,
-    showCursor && (
-      <span
-        ref={cursorRef}
-        className={`ml-1 inline-block opacity-100 ${shouldHideCursor ? "hidden" : ""} ${cursorClassName}`}
-      >
-        {cursorCharacter}
-      </span>
-    ),
+  return (
+    <div ref={containerRef} className="inline-block">
+      {createElement(
+        Component,
+        {
+          className: `inline-block whitespace-pre-wrap tracking-tight ${className}`,
+          ...props,
+        },
+        <span
+          className="inline"
+          style={{ color: getCurrentTextColor() || "inherit" }}
+        >
+          {displayedText}
+        </span>,
+        showCursor && (
+          <span
+            ref={cursorRef}
+            className={`ml-1 inline-block opacity-100 ${shouldHideCursor ? "hidden" : ""} ${cursorClassName}`}
+          >
+            {cursorCharacter}
+          </span>
+        ),
+      )}
+    </div>
   );
 };
 
