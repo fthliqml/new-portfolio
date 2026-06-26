@@ -10,7 +10,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import CodeIcon from "./code-icon";
+import CodeIcon from "./CodeIcon";
 
 const springConfig = {
   stiffness: 280,
@@ -74,8 +74,8 @@ export default function AnimatedProfile() {
 
       cursorX.set(boundedX * 100);
       cursorY.set(boundedY * 100);
-      rotateXTarget.set(offsetY * 9);
-      rotateYTarget.set(offsetX * -9);
+      rotateXTarget.set(offsetY * -9);
+      rotateYTarget.set(offsetX * 9);
       scaleTarget.set(0.982);
       shadowAlphaTarget.set(0.1);
       pressureTarget.set(1);

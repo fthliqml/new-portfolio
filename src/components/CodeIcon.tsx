@@ -1,10 +1,17 @@
-export default function CodeIcon({ className }: { className?: string }) {
+import type { SVGProps } from "react";
+
+import { cn } from "@/lib/utils";
+
+export default function CodeIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      aria-hidden="true"
+      focusable="false"
+      className={cn("size-8", className)}
+      {...props}
     >
       <path
         d="M8.01005 0.858582L6.01005 14.8586L7.98995 15.1414L9.98995 1.14142L8.01005 0.858582Z"
