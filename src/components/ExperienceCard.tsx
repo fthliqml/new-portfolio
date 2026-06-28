@@ -30,7 +30,7 @@ function ExperienceVisual({ experience }: { experience: Experience }) {
         alt={experience.imageAlt}
         fill
         sizes="(min-width: 1024px) 440px, 100vw"
-        className="object-cover grayscale-100 hover:grayscale-25"
+        className="h-full w-full object-cover grayscale transition-[filter,scale] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/media:scale-105 group-hover/media:grayscale-0 motion-reduce:transition-none motion-reduce:group-hover/media:scale-100"
       />
     );
   }
@@ -109,7 +109,7 @@ export default function ExperienceCard({
         </div>
       </div>
 
-      <div className="relative min-h-0 border-t border-card-foreground/12 sm:min-h-90 md:min-h-full md:border-l md:border-t-0">
+      <div className="group/media relative min-h-0 overflow-hidden border-t border-card-foreground/12 sm:min-h-90 md:min-h-full md:border-l md:border-t-0">
         <ExperienceVisual experience={experience} />
         <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/55 via-black/5 to-transparent" />
         <p className="absolute right-5 top-4 font-mono text-3xl font-semibold text-white sm:right-7 sm:top-6 sm:text-4xl">
