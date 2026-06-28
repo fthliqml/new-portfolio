@@ -1,0 +1,19 @@
+[
+  {
+    "id": "komatsu-remanufacturing-asia",
+    "role": "Fullstack Web Developer",
+    "company": "PT. Komatsu Remanufacturing Asia",
+    "period": "Aug 2025 — Jun 2026",
+    "duration": "10 months",
+    "summary": "Built an internal Learning Management System that centralizes employee training—from planning and approvals to scheduling, surveys, certification, and reporting.",
+    "highlights": [
+      "Requirements to delivery",
+      "Workflow & data design",
+      "Weekly stakeholder reviews",
+      "Testing & iteration"
+    ],
+    "image": "/komatsu.jpeg",
+    "imageAlt": "Iqmal with the Komatsu Remanufacturing Asia development team outside the company office",
+    "monogram": "KRA"
+  }
+]
