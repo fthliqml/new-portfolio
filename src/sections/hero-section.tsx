@@ -1,15 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useRef } from "react";
 
 import AnimatedProfile from "@/components/AnimatedProfileCard";
 import CodeIcon from "@/components/CodeIcon";
 import TextType from "@/components/TextType";
 
+gsap.registerPlugin(useGSAP);
+
 export default function HeroSection() {
-  useEffect(() => {
-    const ctx = gsap.context(() => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useGSAP(
+    () => {
       gsap
         .timeline({ defaults: { ease: "power3.out" } })
         .from(".location", { opacity: 0, x: -200 })
@@ -19,13 +24,15 @@ export default function HeroSection() {
           { scale: 0.85, opacity: 0, duration: 1, rotate: 4 },
           "-=1.7",
         );
-    }, ".hero-section");
-
-    return () => ctx.revert();
-  }, []);
+    },
+    { scope: sectionRef },
+  );
 
   return (
-    <section className="hero-section relative mb-10 grid min-h-[calc(100vh-5rem)] items-center gap-12 px-6 py-10 sm:px-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.7fr)] lg:gap-12 lg:px-24">
+    <section
+      ref={sectionRef}
+      className="hero-section relative mb-10 grid min-h-[calc(100vh-5rem)] items-center gap-12 px-6 py-10 sm:px-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.7fr)] lg:gap-12 lg:px-24"
+    >
       <CodeIcon className="absolute left-10 top-10 opacity-30" />
 
       <div className="relative z-10 max-w-4xl">
