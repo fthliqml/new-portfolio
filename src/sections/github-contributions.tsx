@@ -167,10 +167,21 @@ export default function GithubContributions() {
         lastMonth = day.monthName;
       }
     });
-    // Filter duplicates just in case and keep it clean
-    return labels.filter((item, index, self) => 
-      self.findIndex(t => t.label === item.label) === index
-    );
+
+    // Filter labels to prevent collision if they are too close to each other
+    // (e.g. at the beginning of the year where a month label might only span 1-2 weeks)
+    const filteredLabels: { label: string; x: number }[] = [];
+    for (let i = 0; i < labels.length; i++) {
+      const current = labels[i];
+      const next = labels[i + 1];
+      
+      // If the next label is too close (less than 35px / ~3 weeks away), skip the current one
+      if (next && (next.x - current.x < 35)) {
+        continue;
+      }
+      filteredLabels.push(current);
+    }
+    return filteredLabels;
   }, [days]);
 
   useGSAP(
