@@ -51,9 +51,10 @@ export default function ContactSection() {
         },
         (context) => {
           const { desktop, reduceMotion } = context.conditions ?? {};
+          const words = heading.querySelectorAll(".contact-word");
 
           if (!desktop || reduceMotion) {
-            gsap.set([heading, bgText, info, bottom], { clearProps: "all" });
+            gsap.set([heading, bgText, info, bottom, words], { clearProps: "all" });
             return;
           }
 
@@ -85,24 +86,31 @@ export default function ContactSection() {
             },
           });
 
+          // Animate words slide-up + fade-in
           timeline
             .fromTo(
-              heading,
-              { y: 120, opacity: 0 },
-              { y: 0, opacity: 1, ease: "power1.out", duration: 1 },
+              words,
+              { yPercent: 100, opacity: 0 },
+              {
+                yPercent: 0,
+                opacity: 1,
+                stagger: 0.15,
+                duration: 1.2,
+                ease: "power2.out",
+              },
               0
             )
             .fromTo(
               info,
               { y: 60, opacity: 0 },
               { y: 0, opacity: 1, ease: "power1.out", duration: 1 },
-              0.25
+              0.4
             )
             .fromTo(
               bottom,
               { y: 40, opacity: 0 },
               { y: 0, opacity: 1, ease: "power1.out", duration: 1 },
-              0.5
+              0.65
             );
         }
       );
@@ -145,9 +153,19 @@ export default function ContactSection() {
           <h2
             id="contact-heading"
             ref={headingRef}
-            className="text-[clamp(3.5rem,10vw,8.5rem)] font-bold uppercase leading-[0.9] tracking-[-0.055em] text-white will-change-transform"
+            className="text-[clamp(3.5rem,10vw,8.5rem)] font-bold uppercase leading-[0.9] tracking-[-0.055em] text-white"
           >
-            Let's Work<br />Together
+            {/* Word-by-word reveal wrapping */}
+            <span className="inline-block overflow-hidden mr-[0.2em] py-1">
+              <span className="contact-word inline-block will-change-transform">Let's</span>
+            </span>
+            <span className="inline-block overflow-hidden py-1">
+              <span className="contact-word inline-block will-change-transform">Work</span>
+            </span>
+            <br />
+            <span className="inline-block overflow-hidden py-1">
+              <span className="contact-word inline-block will-change-transform">Together</span>
+            </span>
           </h2>
 
           <div ref={infoRef} className="mt-4 flex flex-col items-center gap-10">
