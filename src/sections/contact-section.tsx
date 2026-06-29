@@ -11,6 +11,8 @@ export default function ContactSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const bgTextRef = useRef<HTMLDivElement | null>(null);
+  const infoRef = useRef<HTMLDivElement | null>(null);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
   const [time, setTime] = useState<string>("");
 
   useEffect(() => {
@@ -33,9 +35,12 @@ export default function ContactSection() {
 
   useGSAP(
     () => {
+      const section = sectionRef.current;
       const heading = headingRef.current;
       const bgText = bgTextRef.current;
-      if (!heading || !bgText) return;
+      const info = infoRef.current;
+      const bottom = bottomRef.current;
+      if (!section || !heading || !bgText || !info || !bottom) return;
 
       const media = gsap.matchMedia();
 
@@ -48,7 +53,7 @@ export default function ContactSection() {
           const { desktop, reduceMotion } = context.conditions ?? {};
 
           if (!desktop || reduceMotion) {
-            gsap.set([heading, bgText], { clearProps: "all" });
+            gsap.set([heading, bgText, info, bottom], { clearProps: "all" });
             return;
           }
 
@@ -61,7 +66,7 @@ export default function ContactSection() {
               opacity: 1,
               ease: "none",
               scrollTrigger: {
-                trigger: sectionRef.current,
+                trigger: section,
                 start: "top bottom",
                 end: "bottom bottom",
                 scrub: true,
@@ -69,21 +74,36 @@ export default function ContactSection() {
             }
           );
 
-          // Slide up and fade in reveal for the main heading
-          gsap.fromTo(
-            heading,
-            { y: 80, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 1.4,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 80%",
-              },
-            }
-          );
+          // Scrubbed staggered reveal timeline for the footer contents
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom bottom",
+              scrub: 0.85,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          timeline
+            .fromTo(
+              heading,
+              { y: 120, opacity: 0 },
+              { y: 0, opacity: 1, ease: "power1.out", duration: 1 },
+              0
+            )
+            .fromTo(
+              info,
+              { y: 60, opacity: 0 },
+              { y: 0, opacity: 1, ease: "power1.out", duration: 1 },
+              0.25
+            )
+            .fromTo(
+              bottom,
+              { y: 40, opacity: 0 },
+              { y: 0, opacity: 1, ease: "power1.out", duration: 1 },
+              0.5
+            );
         }
       );
 
@@ -130,7 +150,7 @@ export default function ContactSection() {
             Let's Work<br />Together
           </h2>
 
-          <div className="mt-4 flex flex-col items-center gap-10">
+          <div ref={infoRef} className="mt-4 flex flex-col items-center gap-10">
             <a
               href="mailto:fthliqml@gmail.com"
               className="group relative inline-flex items-center gap-2 font-sans text-xl font-light text-white/70 transition-colors duration-300 hover:text-white sm:text-2xl lg:text-3xl"
@@ -172,7 +192,7 @@ export default function ContactSection() {
         </div>
 
         {/* Bottom Mascot and Copyright */}
-        <div className="flex flex-col items-center gap-4">
+        <div ref={bottomRef} className="flex flex-col items-center gap-4">
           <div className="text-white/45 hover:text-white transition-colors duration-300">
             <svg
               width="40"
