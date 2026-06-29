@@ -363,9 +363,9 @@ export default function GithubContributions() {
             <div className="relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <svg
                 ref={gridRef}
-                width={700}
+                width={720}
                 height={125}
-                viewBox="0 0 700 125"
+                viewBox="0 0 720 125"
                 className="mx-auto"
                 onMouseLeave={() => setHoveredCell(null)}
               >
