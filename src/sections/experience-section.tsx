@@ -6,6 +6,8 @@ import experienceData from "@/data/experiences.json";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import { A11y, Keyboard, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -18,6 +20,7 @@ export default function ExperienceSection() {
   const progressRef = useRef<HTMLDivElement | null>(null);
   const bgTextRef = useRef<HTMLDivElement | null>(null);
   const headerRef = useRef<HTMLDivElement | null>(null);
+  const mobileSwiperRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
     () => {
@@ -27,8 +30,9 @@ export default function ExperienceSection() {
       const progress = progressRef.current;
       const bgText = bgTextRef.current;
       const header = headerRef.current;
+      const mobileSwiper = mobileSwiperRef.current;
 
-      if (!section || !viewport || !track || !progress || !bgText || !header) {
+      if (!section || !bgText || !header) {
         return;
       }
 
@@ -36,22 +40,26 @@ export default function ExperienceSection() {
 
       media.add(
         {
-          isAll: "(min-width: 0px)",
+          isDesktop: "(min-width: 1024px)",
+          isMobileTablet: "(max-width: 1023px)",
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const { reduceMotion } = context.conditions ?? {};
-          const cards = track.querySelectorAll("[data-experience-card]");
+          const { isDesktop, isMobileTablet, reduceMotion } =
+            context.conditions ?? {};
+          const desktopCards =
+            track?.querySelectorAll("[data-experience-card]") ?? [];
+          const mobileCards =
+            mobileSwiper?.querySelectorAll("[data-experience-card]") ?? [];
 
           if (reduceMotion) {
-            gsap.set([track, progress, bgText, header, cards], { clearProps: "all" });
+            gsap.set(
+              [track, progress, bgText, header, desktopCards, mobileCards],
+              { clearProps: "all" },
+            );
             return;
           }
 
-          const getScrollDistance = () =>
-            Math.max(0, track.scrollWidth - viewport.clientWidth);
-
-          // 1. ScrollTrigger to reveal the background text as the section enters the screen
           ScrollTrigger.create({
             trigger: section,
             start: "top bottom",
@@ -65,7 +73,49 @@ export default function ExperienceSection() {
             invalidateOnRefresh: true,
           });
 
-          // 2. Main ScrollTrigger for pinning, headers/cards reveal, and horizontal scroll
+          if (isMobileTablet) {
+            gsap.fromTo(
+              header,
+              { opacity: 0, y: 18 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.65,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 72%",
+                },
+              },
+            );
+
+            gsap.fromTo(
+              mobileCards,
+              { opacity: 0, y: 70, scale: 0.96 },
+              {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                stagger: 0.12,
+                duration: 0.75,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: mobileSwiper,
+                  start: "top 78%",
+                },
+              },
+            );
+
+            return;
+          }
+
+          if (!isDesktop || !viewport || !track || !progress) {
+            return;
+          }
+
+          const getScrollDistance = () =>
+            Math.max(0, track.scrollWidth - viewport.clientWidth);
+
           const timeline = gsap.timeline({
             defaults: { ease: "none" },
             scrollTrigger: {
@@ -79,26 +129,22 @@ export default function ExperienceSection() {
             },
           });
 
-          // Set initial states for elements that reveal once pinned
           gsap.set(header, { opacity: 0, y: 20 });
-          gsap.set(cards, { opacity: 0, y: 120, scale: 0.92 });
+          gsap.set(desktopCards, { opacity: 0, y: 120, scale: 0.92 });
 
           timeline
-            // Phase 1: Headers fade in and slide to original position
             .fromTo(
               header,
               { opacity: 0, y: 20 },
               { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
               0,
             )
-            // Phase 2: Experience cards enter staggered
             .fromTo(
-              cards,
+              desktopCards,
               { opacity: 0, y: 120, scale: 0.92 },
               { opacity: 1, y: 0, scale: 1, stagger: 0.15, duration: 0.5, ease: "power2.out" },
               0.2,
             )
-            // Phase 3: Horizontal scroll + progress bar scaling
             .to(
               track,
               { x: () => -getScrollDistance(), duration: 1.2 },
@@ -123,7 +169,7 @@ export default function ExperienceSection() {
       id="experience"
       ref={sectionRef}
       aria-labelledby="experience-heading"
-      className="relative z-20 h-svh overflow-hidden bg-subtle p-4 sm:px-10 sm:py-8 lg:px-24 lg:py-10 motion-reduce:h-auto motion-reduce:min-h-svh motion-reduce:overflow-visible"
+      className="relative z-20 h-svh overflow-hidden bg-subtle px-4 py-5 sm:px-8 sm:py-7 lg:px-24 lg:py-10 motion-reduce:h-auto motion-reduce:min-h-svh motion-reduce:overflow-visible"
     >
       <h2 id="experience-heading" className="sr-only">
         Professional experience
@@ -137,16 +183,16 @@ export default function ExperienceSection() {
         EXPERIENCES
       </div>
 
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col">
+      <div className="relative z-10 mx-auto flex h-full min-h-0 max-w-7xl flex-col">
         <div
           ref={headerRef}
-          className="mb-6 flex shrink-0 items-end justify-between gap-6 lg:mb-8"
+          className="mb-4 flex shrink-0 items-end justify-between gap-6 sm:mb-5 lg:mb-8"
         >
           <div>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-white/45">
+            <p className="font-mono text-[0.58rem] uppercase tracking-[0.28em] text-white/45 sm:text-[0.65rem]">
               Career archive
             </p>
-            <p className="mt-3 text-3xl font-semibold uppercase tracking-[-0.035em] text-white">
+            <p className="mt-2 text-[clamp(1.9rem,9vw,2.6rem)] font-semibold uppercase leading-none tracking-[-0.035em] text-white sm:mt-3 lg:text-3xl">
               experiences
             </p>
           </div>
@@ -157,9 +203,46 @@ export default function ExperienceSection() {
         </div>
 
         <div
+          ref={mobileSwiperRef}
+          data-experience-swiper
+          className="min-h-0 flex-1 overflow-hidden lg:hidden"
+        >
+          <Swiper
+            modules={[Pagination, A11y, Keyboard]}
+            className="experience-swiper"
+            slidesPerView={1}
+            spaceBetween={16}
+            speed={720}
+            grabCursor
+            keyboard={{ enabled: true, onlyInViewport: true }}
+            pagination={{ clickable: true }}
+            breakpoints={{
+              640: {
+                slidesPerView: 1.04,
+                spaceBetween: 24,
+              },
+              768: {
+                slidesPerView: 1.08,
+                spaceBetween: 28,
+              },
+            }}
+          >
+            {experiences.map((experience, index) => (
+              <SwiperSlide key={experience.id}>
+                <ExperienceCard
+                  experience={experience}
+                  index={index}
+                  className="h-full w-full sm:w-full lg:w-full"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        <div
           ref={viewportRef}
           data-experience-viewport
-          className="min-h-0 flex-1 overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:overflow-visible motion-reduce:overflow-visible"
+          className="hidden min-h-0 flex-1 overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:block lg:overflow-visible motion-reduce:overflow-visible"
         >
           <div
             ref={trackRef}
@@ -178,7 +261,7 @@ export default function ExperienceSection() {
 
         <div
           aria-hidden="true"
-          className="mt-6 h-px shrink-0 overflow-hidden bg-white/12 motion-reduce:hidden"
+          className="mt-6 hidden h-px shrink-0 overflow-hidden bg-white/12 lg:block motion-reduce:hidden"
         >
           <div
             ref={progressRef}

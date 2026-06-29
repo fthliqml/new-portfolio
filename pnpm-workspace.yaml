@@ -1,3 +1,5 @@
 allowBuilds:
   sharp: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - swiper@14.0.1

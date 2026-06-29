@@ -47,7 +47,21 @@ export default function ProjectsSection() {
             return;
           }
 
-          // --- 1. Transition animations removed to optimize performance and prevent layout pinning conflicts ---
+          gsap.fromTo(
+            section,
+            { yPercent: 16 },
+            {
+              yPercent: 0,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: section,
+                start: "top bottom",
+                end: "top 58%",
+                scrub: 0.65,
+                invalidateOnRefresh: true,
+              },
+            },
+          );
 
           // --- 2. Parallax background text ---
           gsap.fromTo(
@@ -71,18 +85,18 @@ export default function ProjectsSection() {
           cards.forEach((card) => {
             gsap.fromTo(
               card,
-              { opacity: 0, y: 100, scale: 0.95 },
+              { opacity: 0, y: 56, scale: 0.97 },
               {
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                duration: 1,
+                duration: 0.75,
                 ease: "power2.out",
                 scrollTrigger: {
                   trigger: card,
-                  start: "top 85%", // start animation when card is 85% from top of viewport
-                  end: "top 50%",
-                  scrub: 0.5,
+                  start: "top 112%",
+                  end: "top 72%",
+                  scrub: 0.35,
                 },
               },
             );
@@ -100,7 +114,7 @@ export default function ProjectsSection() {
       id="projects"
       ref={sectionRef}
       aria-labelledby="projects-heading"
-      className="projects-section relative z-30 -mt-[10vh] rounded-t-[2.5rem] bg-background px-6 pt-24 pb-24 text-foreground shadow-[0_-30px_60px_rgba(0,0,0,0.15)] sm:px-10 sm:pt-36 lg:px-24 lg:pt-48"
+      className="projects-section relative z-30 -mt-[22vh] rounded-t-[2.5rem] bg-background px-6 pt-24 pb-24 text-foreground shadow-[0_-30px_60px_rgba(0,0,0,0.15)] sm:-mt-[18vh] sm:px-10 sm:pt-36 lg:-mt-[10vh] lg:px-24 lg:pt-48"
     >
       <h2 id="projects-heading" className="sr-only">
         Selected projects
@@ -117,7 +131,7 @@ export default function ProjectsSection() {
 
       <div ref={containerRef} className="relative z-10 mx-auto max-w-7xl">
         {/* Section Header */}
-        <div className="mb-16 flex items-end justify-between gap-6 border-b border-foreground/10 pb-8 lg:mb-24">
+        <div className="mb-9 flex items-end justify-between gap-6 border-b border-foreground/10 pb-6 sm:mb-12 sm:pb-8 lg:mb-24">
           <div>
             <p className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-foreground/45">
               Portfolio showcase

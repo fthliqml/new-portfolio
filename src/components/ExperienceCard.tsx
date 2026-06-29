@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 export interface Experience {
   id: string;
@@ -16,6 +17,7 @@ export interface Experience {
 interface ExperienceCardProps {
   experience: Experience;
   index: number;
+  className?: string;
 }
 
 function formatCardNumber(value: number) {
@@ -30,7 +32,7 @@ function ExperienceVisual({ experience }: { experience: Experience }) {
         alt={experience.imageAlt}
         fill
         sizes="(min-width: 1024px) 440px, 100vw"
-        className="h-full w-full object-cover grayscale transition-[filter,scale] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/media:scale-105 group-hover/media:grayscale-0 motion-reduce:transition-none motion-reduce:group-hover/media:scale-100"
+        className="h-full w-full object-cover object-[center_62%] grayscale transition-[filter,scale] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] lg:group-hover/media:scale-105 group-hover/media:grayscale-0 motion-reduce:transition-none motion-reduce:group-hover/media:scale-100"
       />
     );
   }
@@ -62,45 +64,49 @@ function ExperienceVisual({ experience }: { experience: Experience }) {
 export default function ExperienceCard({
   experience,
   index,
+  className,
 }: ExperienceCardProps) {
   return (
     <article
       data-experience-card
-      className="experience-card grid h-full w-[calc(100vw-2rem)] shrink-0 snap-center grid-rows-[auto_minmax(0,1fr)] overflow-hidden border border-white/10 bg-card text-card-foreground shadow-[0_32px_90px_rgba(0,0,0,0.28)] sm:w-[calc(100vw-5rem)] sm:grid-rows-none md:snap-none md:grid-cols-[1.28fr_0.92fr] lg:w-[min(1120px,calc(100vw-12rem))] motion-reduce:h-auto motion-reduce:w-full motion-reduce:snap-none"
+      className={cn(
+        "experience-card grid h-full w-[calc(100vw-2rem)] shrink-0 snap-center grid-rows-[auto_minmax(10rem,1fr)] overflow-hidden border border-white/10 bg-card text-card-foreground shadow-[0_32px_90px_rgba(0,0,0,0.28)] sm:w-[calc(100vw-5rem)] sm:grid-rows-[auto_minmax(12rem,1fr)] md:snap-none md:grid-cols-[1.28fr_0.92fr] md:grid-rows-none lg:w-[min(1120px,calc(100vw-12rem))] motion-reduce:h-auto motion-reduce:w-full motion-reduce:snap-none",
+        className,
+      )}
     >
-      <div className="flex min-h-0 flex-col px-6 py-5 sm:px-10 sm:py-10 lg:px-14 lg:py-12">
+      <div className="flex min-h-0 flex-col overflow-hidden px-5 py-4 sm:px-8 sm:py-6 lg:px-14 lg:py-12">
         <header>
-          <div className="font-mono text-[0.65rem] uppercase tracking-[0.26em] text-card-foreground/50">
+          <div className="font-mono text-[0.55rem] uppercase tracking-[0.24em] text-card-foreground/50 sm:text-[0.65rem]">
             <span>Professional experience</span>
           </div>
 
-          <h3 className="mt-5 max-w-[16ch] text-[clamp(1.75rem,8vw,2.15rem)] font-bold uppercase leading-[0.9] tracking-[-0.055em] sm:mt-10 sm:text-[clamp(2rem,4.2vw,4rem)] sm:leading-[0.93]">
+          <h3 className="mt-3 max-w-[16ch] text-[clamp(1.45rem,6.8vw,1.9rem)] font-bold uppercase leading-[0.9] tracking-[-0.055em] sm:mt-6 sm:text-[clamp(2rem,4.2vw,4rem)] sm:leading-[0.93] lg:mt-10">
             {experience.role}
           </h3>
 
-          <p className="mt-4 text-[0.8rem] font-bold uppercase leading-relaxed tracking-[0.08em] sm:mt-5 sm:text-base">
+          <p className="mt-3 text-[0.68rem] font-bold uppercase leading-relaxed tracking-[0.08em] sm:mt-4 sm:text-sm lg:mt-5 lg:text-base">
             {experience.company}
           </p>
         </header>
 
-        <p className="mt-6 max-w-[55ch] text-[0.8rem] leading-normal text-card-foreground/75 sm:mt-12 sm:text-lg sm:leading-[1.65] lg:mt-auto lg:pt-14">
+        <p className="mt-3 max-w-[55ch] text-[0.7rem] leading-[1.4] text-card-foreground/75 sm:mt-6 sm:text-base sm:leading-[1.55] lg:mt-auto lg:pt-14 lg:text-lg lg:leading-[1.65]">
           {experience.summary}
         </p>
 
-        <div className="mt-5 sm:mt-10">
-          <p className="mb-2 text-[0.6rem] font-bold uppercase tracking-[0.24em] text-card-foreground/50 sm:mb-4 sm:text-xs">
+        <div className="mt-3 sm:mt-6 lg:mt-10">
+          <p className="mb-1.5 text-[0.55rem] font-bold uppercase tracking-[0.24em] text-card-foreground/50 sm:mb-3 sm:text-xs lg:mb-4">
             Highlights
           </p>
           <ol className="grid sm:grid-cols-2">
             {experience.highlights.map((highlight, highlightIndex) => (
               <li
                 key={highlight}
-                className="flex items-center gap-3 border-t border-card-foreground/18 py-2 pr-2 sm:min-h-16 sm:gap-4 sm:py-4 sm:pr-4"
+                className="flex items-center gap-2 border-t border-card-foreground/18 py-1.5 pr-2 sm:min-h-12 sm:gap-3 sm:py-3 sm:pr-4 lg:min-h-16 lg:gap-4 lg:py-4"
               >
-                <span className="font-mono text-[0.6rem] font-semibold text-card-foreground/45 sm:text-xs">
+                <span className="font-mono text-[0.55rem] font-semibold text-card-foreground/45 sm:text-xs">
                   {formatCardNumber(highlightIndex + 1)}
                 </span>
-                <span className="text-[0.65rem] font-semibold uppercase leading-[1.35] tracking-[0.06em] sm:text-[0.8rem] sm:leading-relaxed">
+                <span className="text-[0.58rem] font-semibold uppercase leading-[1.25] tracking-[0.06em] sm:text-[0.72rem] sm:leading-relaxed lg:text-[0.8rem]">
                   {highlight}
                 </span>
               </li>
@@ -109,7 +115,7 @@ export default function ExperienceCard({
         </div>
       </div>
 
-      <div className="group/media relative min-h-0 overflow-hidden border-t border-card-foreground/12 sm:min-h-90 md:min-h-full md:border-l md:border-t-0">
+      <div className="group/media relative min-h-0 overflow-hidden border-t border-card-foreground/12 bg-black/90 md:min-h-full md:border-l md:border-t-0">
         <ExperienceVisual experience={experience} />
         <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/55 via-black/5 to-transparent" />
         <p className="absolute right-5 top-4 font-mono text-3xl font-semibold text-white sm:right-7 sm:top-6 sm:text-4xl">
