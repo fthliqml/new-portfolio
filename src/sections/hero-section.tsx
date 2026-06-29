@@ -47,9 +47,6 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Soft Emerald Glow Behind Profile Card */}
-      <div className="pointer-events-none absolute right-[-5%] top-[10%] -z-10 h-[350px] w-[350px] rounded-full bg-emerald-500/8 blur-[100px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
-
       <div className="hero-socials absolute left-6 top-6 flex items-center gap-6 sm:left-10 sm:top-10 lg:left-24">
         <a
           href="https://github.com/fthliqml"
