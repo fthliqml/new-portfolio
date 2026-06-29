@@ -198,13 +198,13 @@ export default function GithubContributions() {
 
       media.add(
         {
-          desktop: "(min-width: 768px)",
+          isAll: "(min-width: 0px)",
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const { desktop, reduceMotion } = context.conditions ?? {};
+          const { reduceMotion } = context.conditions ?? {};
 
-          if (!desktop || reduceMotion) {
+          if (reduceMotion) {
             gsap.set(".contrib-cell", { scale: 1, opacity: 1 });
             return;
           }
@@ -358,9 +358,25 @@ export default function GithubContributions() {
           {/* GitHub Grid Calendar Wrapper */}
           <div
             ref={wrapperRef}
-            className="contrib-grid-wrapper relative flex flex-col justify-center rounded-2xl border border-foreground/12 bg-card/10 p-6 sm:p-8"
+            className="contrib-grid-wrapper min-w-0 relative flex flex-col justify-center rounded-2xl border border-foreground/12 bg-card/10 p-6 sm:p-8"
           >
-            <div className="relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div
+              data-lenis-prevent
+              className="relative w-full min-w-0 overflow-x-auto pb-2 contrib-grid-scroll"
+            >
+              <style>{`
+                .contrib-grid-scroll::-webkit-scrollbar {
+                  height: 4px;
+                }
+                .contrib-grid-scroll::-webkit-scrollbar-track {
+                  background: rgba(255, 255, 255, 0.03);
+                  border-radius: 99px;
+                }
+                .contrib-grid-scroll::-webkit-scrollbar-thumb {
+                  background: rgba(255, 255, 255, 0.12);
+                  border-radius: 99px;
+                }
+              `}</style>
               <svg
                 ref={gridRef}
                 width={720}

@@ -36,14 +36,14 @@ export default function ExperienceSection() {
 
       media.add(
         {
-          desktop: "(min-width: 768px)",
+          isAll: "(min-width: 0px)",
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const { desktop, reduceMotion } = context.conditions ?? {};
+          const { reduceMotion } = context.conditions ?? {};
           const cards = track.querySelectorAll("[data-experience-card]");
 
-          if (!desktop || reduceMotion) {
+          if (reduceMotion) {
             gsap.set([track, progress, bgText, header, cards], { clearProps: "all" });
             return;
           }
@@ -140,7 +140,7 @@ export default function ExperienceSection() {
       <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col">
         <div
           ref={headerRef}
-          className="mb-6 hidden shrink-0 items-end justify-between gap-6 sm:flex lg:mb-8"
+          className="mb-6 flex shrink-0 items-end justify-between gap-6 lg:mb-8"
         >
           <div>
             <p className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-white/45">
@@ -159,7 +159,7 @@ export default function ExperienceSection() {
         <div
           ref={viewportRef}
           data-experience-viewport
-          className="min-h-0 flex-1 snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:snap-none md:overflow-visible md:overscroll-auto motion-reduce:overflow-visible"
+          className="min-h-0 flex-1 overflow-x-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:overflow-visible motion-reduce:overflow-visible"
         >
           <div
             ref={trackRef}
@@ -178,7 +178,7 @@ export default function ExperienceSection() {
 
         <div
           aria-hidden="true"
-          className="mt-6 hidden h-px shrink-0 overflow-hidden bg-white/12 md:block motion-reduce:hidden"
+          className="mt-6 h-px shrink-0 overflow-hidden bg-white/12 motion-reduce:hidden"
         >
           <div
             ref={progressRef}

@@ -46,14 +46,14 @@ export default function ContactSection() {
 
       media.add(
         {
-          desktop: "(min-width: 768px)",
+          isAll: "(min-width: 0px)",
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const { desktop, reduceMotion } = context.conditions ?? {};
+          const { reduceMotion } = context.conditions ?? {};
           const words = heading.querySelectorAll(".contact-word");
 
-          if (!desktop || reduceMotion) {
+          if (reduceMotion) {
             gsap.set([heading, bgText, info, bottom, words], {
               clearProps: "all",
             });

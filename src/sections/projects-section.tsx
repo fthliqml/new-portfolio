@@ -28,14 +28,14 @@ export default function ProjectsSection() {
 
       media.add(
         {
-          desktop: "(min-width: 768px)",
+          isAll: "(min-width: 0px)",
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const { desktop, reduceMotion } = context.conditions ?? {};
+          const { reduceMotion } = context.conditions ?? {};
 
-          if (!desktop || reduceMotion) {
-            // Reset any inline styles if resizing to mobile
+          if (reduceMotion) {
+            // Reset any inline styles if reduced motion
             const cards = container.querySelectorAll("[data-project-card]");
             const experienceSection = document.querySelector(
               "section[aria-labelledby='experience-heading']",
@@ -47,44 +47,7 @@ export default function ProjectsSection() {
             return;
           }
 
-          // --- 1. Parallax Stack Transition from Experience Section ---
-          // Select the experience section to translate it upward faster
-          const experienceSection = document.querySelector(
-            "section[aria-labelledby='experience-heading']",
-          );
-
-          if (experienceSection) {
-            gsap.fromTo(
-              experienceSection,
-              { yPercent: 0 },
-              {
-                yPercent: -20,
-                ease: "none",
-                scrollTrigger: {
-                  trigger: section,
-                  start: "top bottom", // when projects top enters viewport bottom
-                  end: "top top", // when projects top reaches viewport top
-                  scrub: true,
-                },
-              },
-            );
-          }
-
-          // Animate the projects section entrance (scaling & shadow) during stack transition
-          gsap.fromTo(
-            section,
-            { scale: 0.96 },
-            {
-              scale: 1,
-              ease: "power1.out",
-              scrollTrigger: {
-                trigger: section,
-                start: "top bottom",
-                end: "top top",
-                scrub: true,
-              },
-            },
-          );
+          // --- 1. Transition animations removed to optimize performance and prevent layout pinning conflicts ---
 
           // --- 2. Parallax background text ---
           gsap.fromTo(
@@ -137,7 +100,7 @@ export default function ProjectsSection() {
       id="projects"
       ref={sectionRef}
       aria-labelledby="projects-heading"
-      className="projects-section relative z-10 -mt-[15vh] rounded-t-[2.5rem] bg-background px-6 pt-32 pb-24 text-foreground shadow-[0_-30px_60px_rgba(0,0,0,0.15)] sm:px-10 lg:px-24"
+      className="projects-section relative z-30 -mt-[10vh] rounded-t-[2.5rem] bg-background px-6 pt-24 pb-24 text-foreground shadow-[0_-30px_60px_rgba(0,0,0,0.15)] sm:px-10 sm:pt-36 lg:px-24 lg:pt-48"
     >
       <h2 id="projects-heading" className="sr-only">
         Selected projects
