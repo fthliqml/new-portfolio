@@ -100,6 +100,7 @@ export default function IntroSection() {
 
   return (
     <section
+      id="about"
       ref={sectionRef}
       className="relative flex h-fit flex-col items-center justify-center gap-20 bg-subtle px-6 pb-32 pt-20"
     >

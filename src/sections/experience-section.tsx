@@ -120,6 +120,7 @@ export default function ExperienceSection() {
 
   return (
     <section
+      id="experience"
       ref={sectionRef}
       aria-labelledby="experience-heading"
       className="relative z-20 h-svh overflow-hidden bg-subtle p-4 sm:px-10 sm:py-8 lg:px-24 lg:py-10 motion-reduce:h-auto motion-reduce:min-h-svh motion-reduce:overflow-visible"

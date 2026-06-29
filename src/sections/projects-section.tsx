@@ -134,6 +134,7 @@ export default function ProjectsSection() {
 
   return (
     <section
+      id="projects"
       ref={sectionRef}
       aria-labelledby="projects-heading"
       className="projects-section relative z-10 -mt-[15vh] rounded-t-[2.5rem] bg-background px-6 pt-32 pb-24 text-foreground shadow-[0_-30px_60px_rgba(0,0,0,0.15)] sm:px-10 lg:px-24"

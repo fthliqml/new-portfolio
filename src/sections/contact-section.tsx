@@ -124,6 +124,7 @@ export default function ContactSection() {
 
   return (
     <footer
+      id="contact"
       ref={sectionRef}
       aria-labelledby="contact-heading"
       className="contact-section relative z-10 w-full bg-subtle text-white flex flex-col justify-between overflow-hidden px-6 py-20 sm:px-10 text-center md:sticky md:bottom-0 md:h-screen md:min-h-[600px] md:px-24 md:py-16"
@@ -160,7 +161,7 @@ export default function ContactSection() {
             {/* Word-by-word reveal wrapping */}
             <span className="inline-block overflow-hidden mr-[0.2em] py-1">
               <span className="contact-word inline-block will-change-transform">
-                Let's
+                Let&apos;s
               </span>
             </span>
             <span className="inline-block overflow-hidden py-1">
@@ -178,10 +179,10 @@ export default function ContactSection() {
 
           <div ref={infoRef} className="mt-4 flex flex-col items-center gap-10">
             <a
-              href="mailto:fthliqml@gmail.com"
+              href="mailto:fatihuliqmazzz@gmail.com"
               className="group relative inline-flex items-center gap-2 font-sans text-xl font-light text-white/70 transition-colors duration-300 hover:text-white sm:text-2xl lg:text-3xl"
             >
-              <span>fthliqml@gmail.com</span>
+              <span>fatihuliqmazzz@gmail.com</span>
               <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
                 ↗
               </span>
@@ -198,7 +199,7 @@ export default function ContactSection() {
                 Github
               </a>
               <a
-                href="https://linkedin.com/in/fthliqml"
+                href="https://linkedin.com/in/mfiqmal"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors duration-300"

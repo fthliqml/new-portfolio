@@ -40,6 +40,7 @@ export default function HeroSection() {
 
   return (
     <section
+      id="home"
       ref={sectionRef}
       className="hero-section relative mb-10 grid min-h-[calc(100vh-5rem)] items-center gap-12 px-6 py-10 sm:px-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.7fr)] lg:gap-12 lg:px-24"
     >
