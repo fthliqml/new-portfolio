@@ -29,9 +29,12 @@ const lines = [
   ],
 ];
 
+const skills = ["Next.js", "Laravel", "Node.js", "Express", "Redis", "Redux"];
+
 export default function IntroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const shapeRef = useRef<HTMLDivElement | null>(null);
+  const marqueeRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(
     () => {
@@ -63,6 +66,16 @@ export default function IntroSection() {
         "-=0.1",
       );
 
+      const marquee = marqueeRef.current;
+      if (marquee) {
+        tl.fromTo(
+          marquee,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1.5, ease: "power2.out" },
+          "-=0.5"
+        );
+      }
+
       gsap.fromTo(
         shapeRef.current,
         {
@@ -88,14 +101,14 @@ export default function IntroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-fit flex-col items-center justify-center gap-28 border-b border-dashed border-zinc-600 bg-subtle px-6 pb-32"
+      className="relative flex h-fit flex-col items-center justify-center gap-20 border-b border-dashed border-zinc-600 bg-subtle px-6 pb-32 pt-20"
     >
       <div
         ref={shapeRef}
         className="absolute left-1/2 -top-31 h-[180px] w-[130vw] -translate-x-1/2 rounded-[50%] bg-subtle"
       />
 
-      <p className="max-w-6xl text-center font-sans text-[clamp(2.1rem,4.8vw,5.2rem)] leading-[1.12] tracking-[-0.055em]">
+      <p className="max-w-5xl text-center font-sans text-[clamp(1.75rem,3.8vw,3.6rem)] leading-[1.18] tracking-[-0.04em]">
         {lines.map((line, lineIndex) => (
           <span key={lineIndex} className="block overflow-hidden">
             <span className="line block will-change-transform">
@@ -127,6 +140,37 @@ export default function IntroSection() {
           </span>
         ))}
       </p>
+
+      {/* Infinite Skills Marquee */}
+      <div
+        ref={marqueeRef}
+        className="relative z-10 mt-8 w-full max-w-5xl overflow-hidden border-y border-white/10 py-6"
+        style={{
+          maskImage: "linear-gradient(to right, transparent, white 20%, white 80%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, white 20%, white 80%, transparent)",
+        }}
+      >
+        <div className="animate-marquee flex gap-16 text-xs font-semibold uppercase tracking-[0.25em] text-white/50 sm:text-sm sm:gap-24">
+          {/* First set */}
+          {Array(3).fill(skills).flat().map((skill, idx) => (
+            <div key={`first-${idx}`} className="flex items-center gap-4 sm:gap-6">
+              <span className="text-white hover:text-white transition-colors duration-300 cursor-default">
+                {skill}
+              </span>
+              <span className="text-white/20 select-none">✦</span>
+            </div>
+          ))}
+          {/* Second set for infinite loop */}
+          {Array(3).fill(skills).flat().map((skill, idx) => (
+            <div key={`second-${idx}`} className="flex items-center gap-4 sm:gap-6">
+              <span className="text-white hover:text-white transition-colors duration-300 cursor-default">
+                {skill}
+              </span>
+              <span className="text-white/20 select-none">✦</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
