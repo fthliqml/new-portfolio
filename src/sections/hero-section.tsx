@@ -23,6 +23,11 @@ export default function HeroSection() {
           ".profile-card",
           { scale: 0.85, opacity: 0, duration: 1, rotate: 4 },
           "-=1.7",
+        )
+        .from(
+          ".hero-scroll-indicator",
+          { opacity: 0, y: 15, duration: 1 },
+          "-=1.3",
         );
     },
     { scope: sectionRef },
@@ -33,6 +38,18 @@ export default function HeroSection() {
       ref={sectionRef}
       className="hero-section relative mb-10 grid min-h-[calc(100vh-5rem)] items-center gap-12 px-6 py-10 sm:px-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.7fr)] lg:gap-12 lg:px-24"
     >
+      {/* Background Dotted Grid Overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(17,17,20,0.05)_1.5px,transparent_1.5px)] [background-size:32px_32px]"
+        style={{
+          maskImage: "radial-gradient(ellipse at center, white 40%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse at center, white 40%, transparent 100%)",
+        }}
+      />
+
+      {/* Soft Emerald Glow Behind Profile Card */}
+      <div className="pointer-events-none absolute right-[-5%] top-[10%] -z-10 h-[350px] w-[350px] rounded-full bg-emerald-500/8 blur-[100px] sm:h-[500px] sm:w-[500px] sm:blur-[120px]" />
+
       <div className="hero-socials absolute left-6 top-6 flex items-center gap-6 sm:left-10 sm:top-10 lg:left-24">
         <a
           href="https://github.com/fthliqml"
@@ -129,6 +146,13 @@ export default function HeroSection() {
       </div>
 
       <AnimatedProfile />
+
+      {/* Animated Mouse Scroll Indicator */}
+      <div className="hero-scroll-indicator absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none opacity-45">
+        <div className="w-5 h-8 border border-foreground/50 rounded-full flex justify-center p-1">
+          <div className="w-1 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDuration: "1.8s" }} />
+        </div>
+      </div>
     </section>
   );
 }
