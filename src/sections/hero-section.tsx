@@ -148,9 +148,27 @@ export default function HeroSection() {
       <AnimatedProfile />
 
       {/* Animated Mouse Scroll Indicator */}
-      <div className="hero-scroll-indicator absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none opacity-45">
+      <div className="hero-scroll-indicator absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none opacity-45">
         <div className="w-5 h-8 border border-foreground/50 rounded-full flex justify-center p-1">
           <div className="w-1 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDuration: "1.8s" }} />
+        </div>
+        <div className="flex flex-col items-center gap-1">
+          <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-foreground/65">Scroll Down</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="10"
+            height="10"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-2.5 w-2.5 animate-bounce text-foreground/50"
+            style={{ animationDuration: "1.5s" }}
+          >
+            <path d="M12 5v14M19 12l-7 7-7-7" />
+          </svg>
         </div>
       </div>
     </section>
