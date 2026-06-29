@@ -148,7 +148,7 @@ export default function AnimatedProfile() {
           transformStyle: "preserve-3d",
         }}
       >
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_34%),linear-gradient(180deg,#25252a_0%,#131418_48%,#050506_100%)]" />
+        <div className="absolute inset-0 rounded-[2rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_34%),linear-gradient(180deg,#25252a_0%,#131418_48%,#050506_100%)]" />
         <div className="absolute inset-x-8 top-8 h-px bg-white/10" />
 
         <CodeIcon className="absolute left-8 top-24 h-20 w-20 -rotate-12 text-white/10" />
@@ -161,18 +161,18 @@ export default function AnimatedProfile() {
           fill
           priority
           sizes="(min-width: 1024px) 520px, (min-width: 640px) 450px, 90vw"
-          className="relative z-10 object-cover object-bottom grayscale-100 hover:grayscale-50 transition-[filter] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          className="relative z-10 object-cover object-bottom rounded-[2rem] grayscale-100 hover:grayscale-50 transition-[filter] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
         />
 
-        <div className="absolute inset-x-0 bottom-0 z-20 h-40 bg-gradient-to-t from-[#050506] via-[#050506]/80 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 z-20 h-40 rounded-b-[2rem] bg-gradient-to-t from-[#050506] via-[#050506]/80 to-transparent" />
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-20 mix-blend-multiply"
+          className="pointer-events-none absolute inset-0 z-20 mix-blend-multiply rounded-[2rem]"
           style={{ background: pressureShadow }}
         />
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-20"
+          className="pointer-events-none absolute inset-0 z-20 rounded-[2rem]"
           style={{ background: pressureGlare }}
         />
 
