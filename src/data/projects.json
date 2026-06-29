@@ -1,0 +1,53 @@
+[
+  {
+    "id": "kra-lms",
+    "number": "01",
+    "name": "Learning Management System",
+    "role": "Fullstack Developer",
+    "summary": "An internal enterprise LMS built for PT. Komatsu Remanufacturing Asia that centralizes employee training workflows — from planning, approvals, scheduling, to certification tracking and reporting dashboards.",
+    "highlights": [
+      "Role-based access control with multi-level approval workflows",
+      "Interactive scheduling system with calendar integration",
+      "Automated certification tracking and expiry notifications",
+      "Real-time reporting dashboards with exportable data"
+    ],
+    "techStack": ["Next.js", "TypeScript", "Laravel", "PostgreSQL", "Tailwind CSS", "REST API"],
+    "image": "/projects/lms.png",
+    "imageAlt": "Learning Management System dashboard interface",
+    "link": null
+  },
+  {
+    "id": "tiketku-flight",
+    "number": "02",
+    "name": "TiketKu — Flight Booking App",
+    "role": "Lead Frontend Developer",
+    "summary": "A full-featured flight booking application developed during Binar Academy's Kampus Merdeka program. Led the frontend team to deliver end-to-end booking flows, seat selection, payment processing, and e-ticket generation.",
+    "highlights": [
+      "Multi-passenger booking flow with dynamic seat selection",
+      "Payment gateway integration with transaction history",
+      "E-ticket generation with QR code validation",
+      "State management architecture using Redux Toolkit"
+    ],
+    "techStack": ["React", "Redux", "Vite", "Tailwind CSS", "Node.js", "Midtrans"],
+    "image": "/projects/tiketku.png",
+    "imageAlt": "TiketKu flight booking application interface",
+    "link": null
+  },
+  {
+    "id": "itk-academic-api",
+    "number": "03",
+    "name": "Academic Information System API",
+    "role": "Backend Developer",
+    "summary": "A comprehensive RESTful API system for Institut Teknologi Kalimantan's internal academic modules — handling student data, course management, grading systems, and inter-service communication.",
+    "highlights": [
+      "RESTful API architecture with versioned endpoints",
+      "Complex relational database schema design",
+      "Eloquent ORM with optimized query performance",
+      "Swagger/OpenAPI documentation for team collaboration"
+    ],
+    "techStack": ["Laravel", "PHP", "MySQL", "Eloquent ORM", "Swagger", "Postman"],
+    "image": "/projects/academic-api.png",
+    "imageAlt": "Academic Information System API documentation",
+    "link": null
+  }
+]
