@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, Manrope, Geist } from "next/font/google";
 import "./globals.css";
+import "lenis/dist/lenis.css";
 import { cn } from "@/lib/utils";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -39,8 +41,11 @@ export default function RootLayout({
       )}
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">
-        {children}
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );
 }
+
