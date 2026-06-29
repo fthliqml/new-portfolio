@@ -15,5 +15,41 @@
     "image": "/komatsu.jpeg",
     "imageAlt": "Iqmal with the Komatsu Remanufacturing Asia development team outside the company office",
     "monogram": "KRA"
+  },
+
+  {
+    "id": "institut-teknologi-kalimantan",
+    "role": "Backend Developer Intern",
+    "company": "Institut Teknologi Kalimantan",
+    "period": "Feb 2025 — Jun 2025",
+    "duration": "5 months",
+    "summary": "Supported the development of internal system modules by building RESTful APIs, designing relational database logic, and documenting endpoints for team use.",
+    "highlights": [
+      "RESTful API development",
+      "Relational database design",
+      "Eloquent ORM implementation",
+      "Swagger API documentation"
+    ],
+    "image": "/itk.jpeg",
+    "imageAlt": "Iqmal during his Backend Developer internship at Institut Teknologi Kalimantan",
+    "monogram": "ITK"
+  },
+
+  {
+    "id": "binar-academy",
+    "role": "Lead Frontend Developer",
+    "company": "Binar Academy · Kampus Merdeka",
+    "period": "Nov 2024 — Dec 2024",
+    "duration": "2 months",
+    "summary": "Led frontend development for a flight booking application, delivering booking flows, seat selection, multi-passenger support, payment history, and e-ticket generation.",
+    "highlights": [
+      "Frontend team leadership",
+      "Booking flow implementation",
+      "State management with Redux",
+      "Team-based product delivery"
+    ],
+    "image": "/binar.jpeg",
+    "imageAlt": "Iqmal during the Binar Academy Kampus Merdeka program",
+    "monogram": "BA"
   }
 ]

@@ -66,7 +66,7 @@ export default function ExperienceCard({
   return (
     <article
       data-experience-card
-      className="experience-card grid h-[calc(100svh-2rem)] w-[calc(100vw-2rem)] shrink-0 grid-rows-[auto_minmax(0,1fr)] overflow-hidden border border-white/10 bg-card text-card-foreground shadow-[0_32px_90px_rgba(0,0,0,0.28)] sm:h-auto sm:w-[calc(100vw-5rem)] sm:grid-rows-none md:min-h-155 md:grid-cols-[1.28fr_0.92fr] lg:w-[min(1120px,calc(100vw-12rem))]"
+      className="experience-card grid h-full w-[calc(100vw-2rem)] shrink-0 snap-center grid-rows-[auto_minmax(0,1fr)] overflow-hidden border border-white/10 bg-card text-card-foreground shadow-[0_32px_90px_rgba(0,0,0,0.28)] sm:w-[calc(100vw-5rem)] sm:grid-rows-none md:snap-none md:grid-cols-[1.28fr_0.92fr] lg:w-[min(1120px,calc(100vw-12rem))] motion-reduce:h-auto motion-reduce:w-full motion-reduce:snap-none"
     >
       <div className="flex min-h-0 flex-col px-6 py-5 sm:px-10 sm:py-10 lg:px-14 lg:py-12">
         <header>
