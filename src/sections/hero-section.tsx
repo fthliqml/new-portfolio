@@ -14,26 +14,74 @@ export default function HeroSection() {
 
   useGSAP(
     () => {
-      gsap
-        .timeline({ defaults: { ease: "power3.out" } })
-        .from(".hero-socials a", {
-          opacity: 0,
-          y: -20,
-          stagger: 0.1,
-          duration: 0.8,
-        })
-        .from(".location", { opacity: 0, x: -200 }, "-=0.6")
-        .from(".greetings", { opacity: 0, x: 200, duration: 2 }, "-=0.8")
-        .from(
-          ".profile-card",
-          { scale: 0.85, opacity: 0, duration: 1, rotate: 4 },
-          "-=1.7",
-        )
-        .from(
-          ".hero-scroll-indicator",
-          { opacity: 0, y: 15, duration: 1 },
-          "-=1.3",
-        );
+      const media = gsap.matchMedia();
+
+      media.add(
+        {
+          isDesktop: "(min-width: 768px)",
+          isMobile: "(max-width: 767px)",
+          reduceMotion: "(prefers-reduced-motion: reduce)",
+        },
+        (context) => {
+          const { isDesktop, reduceMotion } = context.conditions ?? {};
+
+          if (reduceMotion) {
+            gsap.set(
+              [
+                ".hero-socials a",
+                ".location",
+                ".greetings",
+                ".profile-card",
+                ".hero-scroll-indicator",
+              ],
+              { clearProps: "all" },
+            );
+            return;
+          }
+
+          const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+          if (isDesktop) {
+            timeline
+              .from(".hero-socials a", {
+                opacity: 0,
+                y: -20,
+                stagger: 0.1,
+                duration: 0.8,
+              })
+              .from(".location", { opacity: 0, x: -200 }, "-=0.6")
+              .from(".greetings", { opacity: 0, x: 200, duration: 2 }, "-=0.8")
+              .from(
+                ".profile-card",
+                { scale: 0.85, opacity: 0, duration: 1, rotate: 4 },
+                "-=1.7",
+              )
+              .from(
+                ".hero-scroll-indicator",
+                { opacity: 0, y: 15, duration: 1 },
+                "-=1.3",
+              );
+
+            return;
+          }
+
+          timeline
+            .from(".hero-socials a", {
+              opacity: 0,
+              stagger: 0.08,
+              duration: 0.45,
+            })
+            .from(".location", { opacity: 0, duration: 0.4 }, "-=0.25")
+            .from(".greetings", { opacity: 0, duration: 0.55 }, "-=0.2")
+            .from(
+              ".hero-scroll-indicator",
+              { opacity: 0, duration: 0.35 },
+              "-=0.15",
+            );
+        },
+      );
+
+      return () => media.revert();
     },
     { scope: sectionRef },
   );
@@ -42,7 +90,7 @@ export default function HeroSection() {
     <section
       id="home"
       ref={sectionRef}
-      className="hero-section relative mb-10 grid min-h-[calc(100vh-5rem)] items-center gap-12 px-6 py-10 sm:px-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.7fr)] lg:gap-12 lg:px-24"
+      className="hero-section relative mb-10 grid min-h-[calc(100vh-5rem)] content-start items-start gap-12 px-6 py-28 sm:px-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.7fr)] lg:content-center lg:items-center lg:gap-12 lg:px-24 lg:py-10"
     >
       {/* Background Dotted Grid Overlay */}
       <div
@@ -134,11 +182,11 @@ export default function HeroSection() {
           Central Java · Indonesia
         </p>
 
-        <h1 className="greetings mt-5 max-w-[11ch] font-serif text-6xl leading-none sm:text-8xl lg:text-9xl">
+        <h1 className="greetings mt-5 min-h-[7.5rem] max-w-[11ch] font-serif text-6xl leading-none sm:min-h-[12rem] sm:text-8xl lg:min-h-[9rem] lg:text-9xl">
           Hi, I’m <span className="italic">Iqmal.</span>
         </h1>
         <TextType
-          text={["Fullstack Web Developer"]}
+          text={["Web Developer"]}
           typingSpeed={75}
           pauseDuration={1500}
           initialDelay={5}
@@ -146,7 +194,7 @@ export default function HeroSection() {
           cursorCharacter="█"
           deletingSpeed={50}
           cursorBlinkDuration={0.5}
-          className="role mt-3 text-3xl font-thin! leading-tight tracking-[0.06em]! sm:text-5xl"
+          className="role mt-3 block min-h-[5rem] min-w-[18ch] text-3xl font-thin! leading-tight tracking-[0.06em]! sm:min-h-[7rem] sm:text-5xl lg:min-h-[3.75rem]"
         />
       </div>
 

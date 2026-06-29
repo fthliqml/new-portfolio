@@ -59,8 +59,16 @@ export default function AnimatedProfile() {
       cursorY.set(50);
     }
 
+    if (
+      prefersReducedMotion ||
+      !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) {
+      resetCard();
+      return;
+    }
+
     function handleMouseMove(event: MouseEvent) {
-      if (prefersReducedMotion || !card) {
+      if (!card) {
         return;
       }
 
@@ -82,30 +90,18 @@ export default function AnimatedProfile() {
     }
 
     function handleMouseEnter() {
-      if (prefersReducedMotion) {
-        return;
-      }
-
       scaleTarget.set(0.986);
       shadowAlphaTarget.set(0.12);
       pressureTarget.set(0.72);
     }
 
     function handleMouseDown() {
-      if (prefersReducedMotion) {
-        return;
-      }
-
       scaleTarget.set(0.965);
       pressureTarget.set(1);
       shadowAlphaTarget.set(0.08);
     }
 
     function handleMouseUp() {
-      if (prefersReducedMotion) {
-        return;
-      }
-
       scaleTarget.set(0.982);
       shadowAlphaTarget.set(0.1);
     }

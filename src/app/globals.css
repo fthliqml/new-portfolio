@@ -156,6 +156,17 @@ body {
   animation-play-state: paused;
 }
 
+@keyframes text-type-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.text-type-cursor {
+  animation: text-type-cursor-blink var(--cursor-blink-duration, 0.5s)
+    ease-in-out infinite alternate;
+}
+
 .experience-swiper.swiper {
   display: block;
   height: 100%;
@@ -239,9 +250,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .text-type-cursor,
   .experience-swiper .swiper-wrapper,
   .experience-swiper .swiper-slide,
   .experience-swiper .swiper-pagination-bullet {
+    animation: none;
     transition: none;
   }
 }

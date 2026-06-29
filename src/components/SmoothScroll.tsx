@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
+import type LenisInstance from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -13,28 +13,46 @@ export default function SmoothScroll({
   children: React.ReactNode;
 }) {
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-    });
+    if (
+      window.matchMedia("(pointer: coarse), (max-width: 767px)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
 
-    // Sync Lenis scroll position with GSAP ScrollTrigger
-    lenis.on("scroll", ScrollTrigger.update);
+    let lenis: LenisInstance | null = null;
+    let cancelled = false;
 
-    // Use GSAP ticker instead of manual rAF for perfect sync with GSAP animations
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    const updateLenis = (time: number) => {
+      lenis?.raf(time * 1000);
+    };
 
-    // Disable GSAP's built-in lag smoothing so Lenis handles it
-    gsap.ticker.lagSmoothing(0);
+    async function setupLenis() {
+      const { default: LenisClass } = await import("lenis");
+
+      if (cancelled) {
+        return;
+      }
+
+      lenis = new LenisClass({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+      });
+
+      lenis.on("scroll", ScrollTrigger.update);
+      gsap.ticker.add(updateLenis);
+      gsap.ticker.lagSmoothing(0);
+    }
+
+    setupLenis();
 
     return () => {
-      lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
+      cancelled = true;
+      gsap.ticker.remove(updateLenis);
+      lenis?.destroy();
     };
   }, []);
 
