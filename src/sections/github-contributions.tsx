@@ -140,6 +140,7 @@ export default function GithubContributions() {
   const streakCounterRef = useRef<HTMLDivElement | null>(null);
   const activeCounterRef = useRef<HTMLDivElement | null>(null);
   const bgTextRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   const [hoveredCell, setHoveredCell] = useState<{
     date: string;
@@ -344,7 +345,10 @@ export default function GithubContributions() {
           </div>
 
           {/* GitHub Grid Calendar Wrapper */}
-          <div className="contrib-grid-wrapper flex flex-col justify-center rounded-2xl border border-foreground/12 bg-card/10 p-6 sm:p-8">
+          <div
+            ref={wrapperRef}
+            className="contrib-grid-wrapper relative flex flex-col justify-center rounded-2xl border border-foreground/12 bg-card/10 p-6 sm:p-8"
+          >
             <div className="relative overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <svg
                 ref={gridRef}
@@ -397,13 +401,13 @@ export default function GithubContributions() {
                         y={row * 13}
                         onMouseEnter={(e) => {
                           const rect = e.currentTarget.getBoundingClientRect();
-                          const svgRect = gridRef.current?.getBoundingClientRect();
-                          if (svgRect) {
+                          const wrapperRect = wrapperRef.current?.getBoundingClientRect();
+                          if (wrapperRect) {
                             setHoveredCell({
                               date: day.date,
                               count: day.count,
-                              x: rect.left - svgRect.left + rect.width / 2,
-                              y: rect.top - svgRect.top - 45,
+                              x: rect.left - wrapperRect.left + rect.width / 2,
+                              y: rect.top - wrapperRect.top - 45,
                             });
                           }
                         }}
@@ -412,23 +416,23 @@ export default function GithubContributions() {
                   })}
                 </g>
               </svg>
-
-              {/* Grid Hover Tooltip */}
-              {hoveredCell && (
-                <div
-                  className="pointer-events-none absolute z-20 rounded-md bg-foreground px-2.5 py-1.5 text-center font-mono text-[10px] leading-tight text-background shadow-lg transition-all duration-100 ease-out -translate-x-1/2"
-                  style={{
-                    left: `${hoveredCell.x}px`,
-                    top: `${hoveredCell.y}px`,
-                  }}
-                >
-                  <span className="font-semibold block text-[11px]">
-                    {hoveredCell.count === 0 ? "No" : hoveredCell.count} contributions
-                  </span>
-                  <span className="opacity-70 text-[9px] mt-0.5 block">{hoveredCell.date}</span>
-                </div>
-              )}
             </div>
+
+            {/* Grid Hover Tooltip */}
+            {hoveredCell && (
+              <div
+                className="pointer-events-none absolute z-30 rounded-md bg-foreground px-2.5 py-1.5 text-center font-mono text-[10px] leading-tight text-background shadow-lg transition-all duration-100 ease-out -translate-x-1/2"
+                style={{
+                  left: `${hoveredCell.x}px`,
+                  top: `${hoveredCell.y}px`,
+                }}
+              >
+                <span className="font-semibold block text-[11px]">
+                  {hoveredCell.count === 0 ? "No" : hoveredCell.count} contributions
+                </span>
+                <span className="opacity-70 text-[9px] mt-0.5 block">{hoveredCell.date}</span>
+              </div>
+            )}
 
             {/* Legend */}
             <div className="mt-6 flex items-center justify-between text-[10px] text-foreground/45 border-t border-foreground/8 pt-4">
