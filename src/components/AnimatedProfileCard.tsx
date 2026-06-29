@@ -161,7 +161,7 @@ export default function AnimatedProfile() {
           fill
           priority
           sizes="(min-width: 1024px) 520px, (min-width: 640px) 450px, 90vw"
-          className="relative z-10 object-cover object-bottom"
+          className="relative z-10 object-cover object-bottom grayscale-100 hover:grayscale-50 transition-[filter] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
         />
 
         <div className="absolute inset-x-0 bottom-0 z-20 h-40 bg-gradient-to-t from-[#050506] via-[#050506]/80 to-transparent" />

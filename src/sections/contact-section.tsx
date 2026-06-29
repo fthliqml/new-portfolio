@@ -54,7 +54,9 @@ export default function ContactSection() {
           const words = heading.querySelectorAll(".contact-word");
 
           if (!desktop || reduceMotion) {
-            gsap.set([heading, bgText, info, bottom, words], { clearProps: "all" });
+            gsap.set([heading, bgText, info, bottom, words], {
+              clearProps: "all",
+            });
             return;
           }
 
@@ -72,7 +74,7 @@ export default function ContactSection() {
                 end: "bottom bottom",
                 scrub: true,
               },
-            }
+            },
           );
 
           // Scrubbed staggered reveal timeline for the footer contents
@@ -98,26 +100,26 @@ export default function ContactSection() {
                 duration: 1.2,
                 ease: "power2.out",
               },
-              0
+              0,
             )
             .fromTo(
               info,
               { y: 60, opacity: 0 },
               { y: 0, opacity: 1, ease: "power1.out", duration: 1 },
-              0.4
+              0.4,
             )
             .fromTo(
               bottom,
               { y: 40, opacity: 0 },
               { y: 0, opacity: 1, ease: "power1.out", duration: 1 },
-              0.65
+              0.65,
             );
-        }
+        },
       );
 
       return () => media.revert();
     },
-    { scope: sectionRef }
+    { scope: sectionRef },
   );
 
   return (
@@ -143,7 +145,7 @@ export default function ContactSection() {
           </p>
           {time && (
             <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-white/35">
-              Semarang, ID / {time} WIB
+              Surakarta, ID / {time} WIB
             </p>
           )}
         </div>
@@ -157,14 +159,20 @@ export default function ContactSection() {
           >
             {/* Word-by-word reveal wrapping */}
             <span className="inline-block overflow-hidden mr-[0.2em] py-1">
-              <span className="contact-word inline-block will-change-transform">Let's</span>
+              <span className="contact-word inline-block will-change-transform">
+                Let's
+              </span>
             </span>
             <span className="inline-block overflow-hidden py-1">
-              <span className="contact-word inline-block will-change-transform">Work</span>
+              <span className="contact-word inline-block will-change-transform">
+                Work
+              </span>
             </span>
             <br />
             <span className="inline-block overflow-hidden py-1">
-              <span className="contact-word inline-block will-change-transform">Together</span>
+              <span className="contact-word inline-block will-change-transform">
+                Together
+              </span>
             </span>
           </h2>
 

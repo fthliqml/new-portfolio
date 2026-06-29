@@ -72,7 +72,7 @@ export default function IntroSection() {
           marquee,
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, duration: 1.5, ease: "power2.out" },
-          "-=0.5"
+          "-=0.5",
         );
       }
 
@@ -101,7 +101,7 @@ export default function IntroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-fit flex-col items-center justify-center gap-20 border-b border-dashed border-zinc-600 bg-subtle px-6 pb-32 pt-20"
+      className="relative flex h-fit flex-col items-center justify-center gap-20 bg-subtle px-6 pb-32 pt-20"
     >
       <div
         ref={shapeRef}
@@ -146,29 +146,43 @@ export default function IntroSection() {
         ref={marqueeRef}
         className="relative z-10 mt-8 w-full max-w-5xl overflow-hidden border-y border-white/10 py-6"
         style={{
-          maskImage: "linear-gradient(to right, transparent, white 20%, white 80%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, white 20%, white 80%, transparent)",
+          maskImage:
+            "linear-gradient(to right, transparent, white 20%, white 80%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, white 20%, white 80%, transparent)",
         }}
       >
         <div className="animate-marquee flex gap-16 text-xs font-semibold uppercase tracking-[0.25em] text-white/50 sm:text-sm sm:gap-24">
           {/* First set */}
-          {Array(3).fill(skills).flat().map((skill, idx) => (
-            <div key={`first-${idx}`} className="flex items-center gap-4 sm:gap-6">
-              <span className="text-white hover:text-white transition-colors duration-300 cursor-default">
-                {skill}
-              </span>
-              <span className="text-white/20 select-none">✦</span>
-            </div>
-          ))}
+          {Array(3)
+            .fill(skills)
+            .flat()
+            .map((skill, idx) => (
+              <div
+                key={`first-${idx}`}
+                className="flex items-center gap-4 sm:gap-6"
+              >
+                <span className="text-white hover:text-white transition-colors duration-300 cursor-default">
+                  {skill}
+                </span>
+                <span className="text-white/20 select-none">✦</span>
+              </div>
+            ))}
           {/* Second set for infinite loop */}
-          {Array(3).fill(skills).flat().map((skill, idx) => (
-            <div key={`second-${idx}`} className="flex items-center gap-4 sm:gap-6">
-              <span className="text-white hover:text-white transition-colors duration-300 cursor-default">
-                {skill}
-              </span>
-              <span className="text-white/20 select-none">✦</span>
-            </div>
-          ))}
+          {Array(3)
+            .fill(skills)
+            .flat()
+            .map((skill, idx) => (
+              <div
+                key={`second-${idx}`}
+                className="flex items-center gap-4 sm:gap-6"
+              >
+                <span className="text-white hover:text-white transition-colors duration-300 cursor-default">
+                  {skill}
+                </span>
+                <span className="text-white/20 select-none">✦</span>
+              </div>
+            ))}
         </div>
       </div>
     </section>

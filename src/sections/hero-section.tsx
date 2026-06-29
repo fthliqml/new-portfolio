@@ -16,7 +16,12 @@ export default function HeroSection() {
     () => {
       gsap
         .timeline({ defaults: { ease: "power3.out" } })
-        .from(".hero-socials a", { opacity: 0, y: -20, stagger: 0.1, duration: 0.8 })
+        .from(".hero-socials a", {
+          opacity: 0,
+          y: -20,
+          stagger: 0.1,
+          duration: 0.8,
+        })
         .from(".location", { opacity: 0, x: -200 }, "-=0.6")
         .from(".greetings", { opacity: 0, x: 200, duration: 2 }, "-=0.8")
         .from(
@@ -42,8 +47,10 @@ export default function HeroSection() {
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(17,17,20,0.05)_1.5px,transparent_1.5px)] [background-size:32px_32px]"
         style={{
-          maskImage: "radial-gradient(ellipse at center, white 40%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse at center, white 40%, transparent 100%)",
+          maskImage:
+            "radial-gradient(ellipse at center, white 40%, transparent 100%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at center, white 40%, transparent 100%)",
         }}
       />
 
@@ -72,7 +79,7 @@ export default function HeroSection() {
           </svg>
         </a>
         <a
-          href="https://linkedin.com/in/fthliqml"
+          href="https://linkedin.com/in/mfiqmal"
           target="_blank"
           rel="noopener noreferrer"
           className="text-foreground/45 hover:text-foreground transition-colors duration-300"
@@ -130,7 +137,7 @@ export default function HeroSection() {
           Hi, I’m <span className="italic">Iqmal.</span>
         </h1>
         <TextType
-          text={["Fullstack Web Developer", "AI Automation"]}
+          text={["Fullstack Web Developer"]}
           typingSpeed={75}
           pauseDuration={1500}
           initialDelay={5}
@@ -147,10 +154,15 @@ export default function HeroSection() {
       {/* Animated Mouse Scroll Indicator */}
       <div className="hero-scroll-indicator absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none opacity-45">
         <div className="w-5 h-8 border border-foreground/50 rounded-full flex justify-center p-1">
-          <div className="w-1 h-2 bg-foreground rounded-full animate-bounce" style={{ animationDuration: "1.8s" }} />
+          <div
+            className="w-1 h-2 bg-foreground rounded-full animate-bounce"
+            style={{ animationDuration: "1.8s" }}
+          />
         </div>
         <div className="flex flex-col items-center gap-1">
-          <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-foreground/65">Scroll Down</span>
+          <span className="font-mono text-[8px] uppercase tracking-[0.25em] text-foreground/65">
+            Scroll Down
+          </span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="10"
