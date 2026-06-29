@@ -37,7 +37,9 @@ export default function ProjectsSection() {
           if (!desktop || reduceMotion) {
             // Reset any inline styles if resizing to mobile
             const cards = container.querySelectorAll("[data-project-card]");
-            const experienceSection = document.querySelector("section[aria-labelledby='experience-heading']");
+            const experienceSection = document.querySelector(
+              "section[aria-labelledby='experience-heading']",
+            );
             if (experienceSection) {
               gsap.set(experienceSection, { clearProps: "y,yPercent" });
             }
@@ -47,8 +49,10 @@ export default function ProjectsSection() {
 
           // --- 1. Parallax Stack Transition from Experience Section ---
           // Select the experience section to translate it upward faster
-          const experienceSection = document.querySelector("section[aria-labelledby='experience-heading']");
-          
+          const experienceSection = document.querySelector(
+            "section[aria-labelledby='experience-heading']",
+          );
+
           if (experienceSection) {
             gsap.fromTo(
               experienceSection,
@@ -59,10 +63,10 @@ export default function ProjectsSection() {
                 scrollTrigger: {
                   trigger: section,
                   start: "top bottom", // when projects top enters viewport bottom
-                  end: "top top",    // when projects top reaches viewport top
+                  end: "top top", // when projects top reaches viewport top
                   scrub: true,
                 },
-              }
+              },
             );
           }
 
@@ -79,7 +83,7 @@ export default function ProjectsSection() {
                 end: "top top",
                 scrub: true,
               },
-            }
+            },
           );
 
           // --- 2. Parallax background text ---
@@ -96,7 +100,7 @@ export default function ProjectsSection() {
                 end: "bottom top",
                 scrub: true,
               },
-            }
+            },
           );
 
           // --- 3. Scroll Reveal for Project Cards ---
@@ -117,15 +121,15 @@ export default function ProjectsSection() {
                   end: "top 50%",
                   scrub: 0.5,
                 },
-              }
+              },
             );
           });
-        }
+        },
       );
 
       return () => media.revert();
     },
-    { scope: sectionRef }
+    { scope: sectionRef },
   );
 
   return (
@@ -159,18 +163,14 @@ export default function ProjectsSection() {
             </p>
           </div>
           <p className="hidden max-w-104 text-right text-sm leading-relaxed text-foreground/45 md:block">
-            Featured applications, systems, and open-source contributions.
+            Featured applications, systems, and contributions.
           </p>
         </div>
 
         {/* Projects List */}
         <div className="flex flex-col gap-24 sm:gap-32 lg:gap-40">
           {projects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-            />
+            <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
       </div>

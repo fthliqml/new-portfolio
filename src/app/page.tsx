@@ -3,6 +3,7 @@ import HeroSection from "@/sections/hero-section";
 import IntroSection from "@/sections/intro-section";
 import ProjectsSection from "@/sections/projects-section";
 import GithubContributions from "@/sections/github-contributions";
+import ContactSection from "@/sections/contact-section";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <ExperienceSection />
       <ProjectsSection />
       <GithubContributions />
+      <ContactSection />
     </main>
   );
 }

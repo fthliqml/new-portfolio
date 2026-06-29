@@ -279,7 +279,7 @@ export default function GithubContributions() {
     <section
       ref={sectionRef}
       aria-labelledby="github-heading"
-      className="github-section relative z-10 -mt-8 bg-background px-6 pt-24 pb-32 text-foreground sm:px-10 lg:px-24"
+      className="github-section relative z-20 -mt-8 bg-background px-6 pt-24 pb-32 text-foreground shadow-[0_20px_50px_rgba(0,0,0,0.08)] sm:px-10 lg:px-24"
     >
       <h2 id="github-heading" className="sr-only">
         GitHub Contributions
