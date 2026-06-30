@@ -3,6 +3,7 @@
     "id": "komatsu-remanufacturing-asia",
     "role": "Fullstack Web Developer",
     "company": "PT. Komatsu Remanufacturing Asia",
+    "type": "Work",
     "period": "Aug 2025 — Jun 2026",
     "duration": "10 months",
     "summary": "Built an internal Learning Management System that centralizes employee training—from planning and approvals to scheduling, surveys, certification, and reporting.",
@@ -19,15 +20,16 @@
 
   {
     "id": "institut-teknologi-kalimantan",
-    "role": "Backend Developer Intern",
+    "role": "Backend Developer",
     "company": "Institut Teknologi Kalimantan",
+    "type": "Intern",
     "period": "Feb 2025 — Jun 2025",
     "duration": "5 months",
     "summary": "Supported the development of internal system modules by building RESTful APIs, designing relational database logic, and documenting endpoints for team use.",
     "highlights": [
       "RESTful API development",
       "Relational database design",
-      "Eloquent ORM implementation",
+      "Daily Stand-up",
       "Swagger API documentation"
     ],
     "image": "/itk.jpeg",
@@ -37,16 +39,17 @@
 
   {
     "id": "binar-academy",
-    "role": "Lead Frontend Developer",
+    "role": "FullStack Web Developer",
     "company": "Binar Academy · Kampus Merdeka",
-    "period": "Nov 2024 — Dec 2024",
-    "duration": "2 months",
-    "summary": "Led frontend development for a flight booking application, delivering booking flows, seat selection, multi-passenger support, payment history, and e-ticket generation.",
+    "type": "Trainee",
+    "period": "Sep 2024 - Dec 2024",
+    "duration": "3 months",
+    "summary": "Completed an intensive full-stack web development program covering frontend and backend development, databases, RESTful APIs, authentication with JWT, testing, and deployment.",
     "highlights": [
-      "Frontend team leadership",
-      "Booking flow implementation",
-      "State management with Redux",
-      "Team-based product delivery"
+      "React and Redux Toolkit",
+      "Node.js and Express.js",
+      "RESTful APIs and JWT authentication",
+      "Database and ORM fundamentals"
     ],
     "image": "/binar.jpeg",
     "imageAlt": "Iqmal during the Binar Academy Kampus Merdeka program",

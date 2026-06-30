@@ -5,6 +5,7 @@ export interface Experience {
   id: string;
   role: string;
   company: string;
+  type: string;
   period: string;
   duration: string;
   summary: string;
@@ -76,11 +77,14 @@ export default function ExperienceCard({
     >
       <div className="flex min-h-0 flex-col overflow-hidden px-5 py-4 sm:px-8 sm:py-6 lg:px-14 lg:py-12">
         <header>
-          <div className="font-mono text-[0.55rem] uppercase tracking-[0.24em] text-card-foreground/50 sm:text-[0.65rem]">
+          <div className="flex flex-wrap items-center gap-2 font-mono text-[0.55rem] uppercase tracking-[0.24em] text-card-foreground/50 sm:gap-3 sm:text-[0.65rem]">
             <span>Professional experience</span>
+            <span className="rounded-full border border-card-foreground/14 px-2 py-1 text-[0.48rem] font-semibold tracking-[0.18em] text-card-foreground/65 sm:px-2.5 sm:text-[0.58rem]">
+              {experience.type}
+            </span>
           </div>
 
-          <h3 className="mt-3 max-w-[16ch] text-[clamp(1.45rem,6.8vw,1.9rem)] font-bold uppercase leading-[0.9] tracking-[-0.055em] sm:mt-6 sm:text-[clamp(2rem,4.2vw,4rem)] sm:leading-[0.93] lg:mt-10">
+          <h3 className="mt-3 max-w-[16ch] text-[clamp(1.45rem,6.8vw,1.9rem)] font-bold uppercase leading-[0.9] tracking-[-0.055em] sm:mt-4 sm:text-[clamp(2rem,4.2vw,4rem)] sm:leading-[0.93] lg:mt-7">
             {experience.role}
           </h3>
 
@@ -121,8 +125,10 @@ export default function ExperienceCard({
         <p className="absolute right-5 top-4 font-mono text-3xl font-semibold text-white sm:right-7 sm:top-6 sm:text-4xl">
           {formatCardNumber(index + 1)}
         </p>
-        <p className="absolute bottom-4 left-5 font-mono text-[0.65rem] uppercase tracking-[0.22em] text-white sm:bottom-6 sm:left-7 sm:text-xs">
-          {experience.period}
+        <p className="absolute bottom-4 left-5 flex max-w-[calc(100%-2.5rem)] flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.58rem] uppercase tracking-[0.2em] text-white sm:bottom-6 sm:left-7 sm:max-w-[calc(100%-3.5rem)] sm:text-xs sm:tracking-[0.22em]">
+          <span>{experience.period}</span>
+          <span aria-hidden="true">·</span>
+          <span>{experience.duration}</span>
         </p>
       </div>
     </article>
