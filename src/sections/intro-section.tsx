@@ -7,7 +7,13 @@ import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const lines = [
+type IntroLinePart = {
+  text: string;
+  highlight: boolean;
+  italic?: boolean;
+};
+
+const lines: IntroLinePart[][] = [
   [
     { text: "I build", highlight: false },
     { text: "fullstack web systems", highlight: true },
