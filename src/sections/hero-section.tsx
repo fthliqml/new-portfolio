@@ -186,7 +186,7 @@ export default function HeroSection() {
           Hi, I’m <span className="italic">Iqmal.</span>
         </h1>
         <TextType
-          text={["Web Developer"]}
+          text={["Fullstack Web Dev."]}
           typingSpeed={75}
           pauseDuration={1500}
           initialDelay={5}

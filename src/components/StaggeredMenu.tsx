@@ -546,7 +546,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               />
             ) : (
               <>
-                <span className="sm-logo-mark" aria-hidden="true">M</span>
+                <span className="sm-logo-mark" aria-hidden="true">
+                  <span>I</span>
+                </span>
                 <span className="sm-logo-copy">{logoText}</span>
               </>
             )}
@@ -670,7 +672,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .staggered-menu-header > * { pointer-events: auto; }
 .sm-scope .sm-logo { display: flex; align-items: center; gap: 0.65rem; width: fit-content; color: #111114; text-decoration: none; user-select: none; }
 .sm-scope .sm-logo-img { display: block; height: 32px; width: auto; object-fit: contain; }
-.sm-scope .sm-logo-mark { display: grid; width: 2.25rem; height: 2.25rem; place-items: center; border-radius: 999px; background: #111114; color: #e8e8e5; font-family: var(--font-instrument-serif), serif; font-size: 1.15rem; font-style: italic; }
+.sm-scope .sm-logo-mark { display: grid; width: 2.25rem; height: 2.25rem; place-items: center; border-radius: 999px; background: #111114; color: #e8e8e5; font-family: var(--font-instrument-serif), serif; font-size: 1.15rem; font-style: italic; line-height: 1; }
+.sm-scope .sm-logo-mark > span { display: block; transform: translateX(-0.08em); }
 .sm-scope .sm-logo-copy { padding: 0.6rem 0.8rem; border: 1px solid rgba(17, 17, 20, 0.12); border-radius: 999px; background: rgba(232, 232, 229, 0.86); backdrop-filter: blur(12px); font-family: monospace; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; }
 .sm-scope .sm-toggle { position: relative; display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.8rem 1rem; background: rgba(232, 232, 229, 0.9); backdrop-filter: blur(12px); border: 1px solid rgba(17, 17, 20, 0.12); border-radius: 999px; cursor: pointer; color: #111114; font-family: monospace; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; line-height: 1; text-transform: uppercase; overflow: visible; box-shadow: 0 8px 30px rgba(17, 17, 20, 0.08); }
 .sm-scope .sm-toggle:focus-visible { outline: 2px solid #111114; outline-offset: 4px; }

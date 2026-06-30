@@ -28,15 +28,16 @@ export default function ProjectsSection() {
 
       media.add(
         {
-          isAll: "(min-width: 0px)",
+          isDesktop: "(min-width: 768px)",
+          isMobile: "(max-width: 767px)",
           reduceMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
-          const { reduceMotion } = context.conditions ?? {};
+          const { isDesktop, isMobile, reduceMotion } =
+            context.conditions ?? {};
+          const cards = container.querySelectorAll("[data-project-card]");
 
           if (reduceMotion) {
-            // Reset any inline styles if reduced motion
-            const cards = container.querySelectorAll("[data-project-card]");
             const experienceSection = document.querySelector(
               "section[aria-labelledby='experience-heading']",
             );
@@ -44,6 +45,35 @@ export default function ProjectsSection() {
               gsap.set(experienceSection, { clearProps: "y,yPercent" });
             }
             gsap.set([section, bgText, cards], { clearProps: "all" });
+            return;
+          }
+
+          if (isMobile) {
+            gsap.set([section, bgText], { clearProps: "all" });
+
+            cards.forEach((card) => {
+              gsap.fromTo(
+                card,
+                { autoAlpha: 0, y: 36 },
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                  ease: "none",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: "top 92%",
+                    end: "top 62%",
+                    scrub: 0.25,
+                    invalidateOnRefresh: true,
+                  },
+                },
+              );
+            });
+
+            return;
+          }
+
+          if (!isDesktop) {
             return;
           }
 
@@ -81,7 +111,6 @@ export default function ProjectsSection() {
           );
 
           // --- 3. Scroll Reveal for Project Cards ---
-          const cards = container.querySelectorAll("[data-project-card]");
           cards.forEach((card) => {
             gsap.fromTo(
               card,
@@ -114,7 +143,7 @@ export default function ProjectsSection() {
       id="projects"
       ref={sectionRef}
       aria-labelledby="projects-heading"
-      className="projects-section relative z-30 -mt-[22vh] rounded-t-[2.5rem] bg-background px-6 pt-24 pb-24 text-foreground shadow-[0_-30px_60px_rgba(0,0,0,0.15)] sm:-mt-[18vh] sm:px-10 sm:pt-36 lg:-mt-[10vh] lg:px-24 lg:pt-48"
+      className="projects-section relative z-30 mt-0 rounded-t-[2rem] bg-background px-6 pt-16 pb-20 text-foreground sm:px-10 sm:pt-24 md:-mt-[14vh] md:rounded-t-[2.5rem] md:pt-36 md:shadow-[0_-30px_60px_rgba(0,0,0,0.15)] lg:-mt-[10vh] lg:px-24 lg:pt-48"
     >
       <h2 id="projects-heading" className="sr-only">
         Selected projects
@@ -124,7 +153,7 @@ export default function ProjectsSection() {
       <div
         ref={bgTextRef}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-20 flex select-none items-center justify-center text-center text-[clamp(5rem,17vw,17rem)] font-bold leading-none tracking-[-0.075em] text-foreground/4.5 blur-[3px]"
+        className="pointer-events-none absolute inset-x-0 top-20 hidden select-none items-center justify-center text-center text-[clamp(5rem,17vw,17rem)] font-bold leading-none tracking-[-0.075em] text-foreground/4.5 blur-[3px] md:flex"
       >
         PROJECTS
       </div>
@@ -146,7 +175,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* Projects List */}
-        <div className="flex flex-col gap-24 sm:gap-32 lg:gap-40">
+        <div className="flex flex-col gap-16 sm:gap-32 lg:gap-40">
           {projects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}

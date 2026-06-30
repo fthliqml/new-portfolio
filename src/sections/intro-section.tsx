@@ -66,16 +66,6 @@ export default function IntroSection() {
         "-=0.1",
       );
 
-      const marquee = marqueeRef.current;
-      if (marquee) {
-        tl.fromTo(
-          marquee,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 1.5, ease: "power2.out" },
-          "-=0.5",
-        );
-      }
-
       gsap.fromTo(
         shapeRef.current,
         {

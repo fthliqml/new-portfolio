@@ -21,6 +21,10 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "M. Fatihul Iqmal",
   description: "Portfolio of Muhammad Fatihul Iqmal}",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+  },
 };
 
 export default function RootLayout({

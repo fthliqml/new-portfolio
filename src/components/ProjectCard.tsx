@@ -24,7 +24,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <article
       data-project-card
-      className={`grid gap-6 sm:gap-8 lg:gap-12 lg:grid-cols-2 will-change-[transform,opacity] ${
+      className={`grid gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12 lg:will-change-[transform,opacity] ${
         isReversed ? "lg:[direction:rtl]" : ""
       }`}
     >
