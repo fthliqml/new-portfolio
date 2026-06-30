@@ -97,7 +97,7 @@ export default function HeroSection() {
     <section
       id="home"
       ref={sectionRef}
-      className="hero-section relative mb-10 grid min-h-[calc(100vh-5rem)] content-start items-start gap-12 px-6 py-28 sm:px-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.7fr)] lg:content-center lg:items-center lg:gap-12 lg:px-24 lg:py-10"
+      className="hero-section relative mb-10 grid min-h-[calc(100vh-5rem)] content-start items-start gap-8 px-6 pb-10 pt-24 sm:gap-10 sm:px-10 sm:pb-14 sm:pt-28 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.7fr)] lg:content-center lg:items-center lg:gap-12 lg:px-24 lg:py-10"
     >
       {/* Background Dotted Grid Overlay */}
       <div
@@ -111,7 +111,7 @@ export default function HeroSection() {
       />
 
       <div className="relative z-10 max-w-4xl">
-        <div className="hero-socials mb-6 flex items-center gap-6">
+        <div className="hero-socials mb-4 flex items-center gap-6 sm:mb-5 lg:mb-6">
           <a
             href="https://github.com/fthliqml"
             target="_blank"
@@ -210,7 +210,7 @@ export default function HeroSection() {
           Central Java · Indonesia
         </p>
 
-        <h1 className="greetings mt-5 min-h-[7.5rem] max-w-[11ch] font-serif text-6xl leading-none sm:min-h-[12rem] sm:text-8xl lg:min-h-[9rem] lg:text-9xl">
+        <h1 className="greetings mt-4 min-h-[4.5rem] max-w-[11ch] font-serif text-6xl leading-none sm:mt-5 sm:min-h-[7rem] sm:text-8xl lg:min-h-[9rem] lg:text-9xl">
           Hi, I’m <span className="italic">Iqmal.</span>
         </h1>
         <TextType
@@ -222,10 +222,10 @@ export default function HeroSection() {
           cursorCharacter="█"
           deletingSpeed={50}
           cursorBlinkDuration={0.5}
-          className="role mt-3 block min-h-[5rem] min-w-[18ch] text-3xl font-thin! leading-tight tracking-[0.06em]! sm:min-h-[7rem] sm:text-5xl lg:min-h-[3.75rem]"
+          className="role mt-1 block min-h-[3rem] min-w-[18ch] text-3xl font-thin! leading-tight tracking-[0.06em]! sm:mt-2 sm:min-h-[4.5rem] sm:text-5xl lg:mt-3 lg:min-h-[3.75rem]"
         />
 
-        <div className="hero-resume mt-6 flex">
+        <div className="hero-resume mt-4 flex sm:mt-5 lg:mt-6">
           <a
             href="/resume.pdf"
             target="_blank"
