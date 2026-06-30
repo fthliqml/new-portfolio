@@ -1,4 +1,6 @@
-import Image from "next/image";
+import ProjectMediaCarousel, {
+  type ProjectImageSlide,
+} from "@/components/ProjectMediaCarousel";
 
 export interface Project {
   id: string;
@@ -8,8 +10,7 @@ export interface Project {
   summary: string;
   highlights: string[];
   techStack: string[];
-  image: string;
-  imageAlt: string;
+  images: ProjectImageSlide[];
   link: string | null;
 }
 
@@ -28,20 +29,11 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         isReversed ? "lg:[direction:rtl]" : ""
       }`}
     >
-      {/* Image */}
-      <div className="group/img relative aspect-[16/10] overflow-hidden rounded-lg bg-secondary lg:[direction:ltr]">
-        <Image
-          src={project.image}
-          alt={project.imageAlt}
-          fill
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          className="h-full w-full object-cover grayscale transition-[filter,scale] duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/img:scale-105 group-hover/img:grayscale-0 motion-reduce:transition-none motion-reduce:group-hover/img:scale-100"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
-        <p className="absolute right-5 top-4 font-mono text-3xl font-semibold text-white/80 sm:right-7 sm:top-6 sm:text-4xl">
-          {project.number}
-        </p>
-      </div>
+      <ProjectMediaCarousel
+        projectNumber={project.number}
+        eagerFirstImage={index === 0}
+        images={project.images}
+      />
 
       {/* Content */}
       <div className="flex flex-col justify-center lg:[direction:ltr]">

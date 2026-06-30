@@ -249,11 +249,48 @@ body {
   width: 2.75rem;
 }
 
+.project-media-swiper.swiper {
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.project-media-swiper .swiper-wrapper {
+  box-sizing: content-box;
+  display: flex;
+  height: 100%;
+  position: relative;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  z-index: 1;
+}
+
+.project-media-swiper.swiper-horizontal {
+  touch-action: pan-y;
+}
+
+.project-media-swiper .swiper-slide {
+  display: block;
+  flex-shrink: 0;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.project-media-swiper .swiper-slide > div {
+  height: 100%;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .text-type-cursor,
   .experience-swiper .swiper-wrapper,
   .experience-swiper .swiper-slide,
-  .experience-swiper .swiper-pagination-bullet {
+  .experience-swiper .swiper-pagination-bullet,
+  .project-media-swiper .swiper-wrapper {
     animation: none;
     transition: none;
   }

@@ -11,43 +11,162 @@
       "Automated certification tracking and expiry notifications",
       "Real-time reporting dashboards with exportable data"
     ],
-    "techStack": ["Next.js", "TypeScript", "Laravel", "PostgreSQL", "Tailwind CSS", "REST API"],
-    "image": "/projects/lms.png",
-    "imageAlt": "Learning Management System dashboard interface",
+    "techStack": [
+      "TypeScript",
+      "Laravel",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "REST API"
+    ],
+    "images": [
+      {
+        "src": "/projects/kra-lms/admin-dashboard.png",
+        "alt": "Learning Management System dashboard overview",
+        "label": "Dashboard Overview",
+        "description": "Training metrics, active courses, recommendations, and recent activity."
+      },
+      {
+        "src": "/projects/kra-lms/training-schedule.png",
+        "alt": "Learning Management System course management workflow",
+        "label": "Training Workflow",
+        "description": "Course planning, scheduling, and employee learning progress in one flow."
+      },
+      {
+        "src": "/projects/kra-lms/course.png",
+        "alt": "Learning Management System reporting interface",
+        "label": "Reporting View",
+        "description": "Certification tracking and report-ready data for internal stakeholders."
+      }
+    ],
     "link": null
   },
   {
-    "id": "tiketku-flight",
+    "id": "flight-booking",
     "number": "02",
-    "name": "TiketKu — Flight Booking App",
+    "name": "Flight Booking & E-Ticketing Platform",
     "role": "Lead Frontend Developer",
-    "summary": "A full-featured flight booking application developed during Binar Academy's Kampus Merdeka program. Led the frontend team to deliver end-to-end booking flows, seat selection, payment processing, and e-ticket generation.",
+    "summary": "A team-based online flight booking and e-ticketing platform developed during Binar Academy's Kampus Merdeka program. Led frontend delivery for responsive booking experiences while collaborating with the backend team on API integration, authentication, payments, notifications, and digital ticket generation.",
     "highlights": [
-      "Multi-passenger booking flow with dynamic seat selection",
-      "Payment gateway integration with transaction history",
-      "E-ticket generation with QR code validation",
-      "State management architecture using Redux Toolkit"
+      "Led frontend task planning and delivery using ClickUp for team coordination",
+      "Built flight search, seat selection, multi-passenger booking, payment history, and ticket printing flows",
+      "Integrated frontend features with APIs for authentication, flight data, bookings, payments, and notifications",
+      "Managed application state with Redux Toolkit for structured and maintainable user flows"
     ],
-    "techStack": ["React", "Redux", "Vite", "Tailwind CSS", "Node.js", "Midtrans"],
-    "image": "/projects/tiketku.png",
-    "imageAlt": "TiketKu flight booking application interface",
+    "techStack": [
+      "React",
+      "Redux Toolkit",
+      "Midtrans",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Prisma",
+      "ClickUp"
+    ],
+    "images": [
+      {
+        "src": "/projects/flight-booking/homepage.png",
+        "alt": "Flight search and booking interface",
+        "label": "Flight Search",
+        "description": "A responsive flight search flow for selecting routes, schedules, and passenger requirements."
+      },
+      {
+        "src": "/projects/flight-booking/select-flight.png",
+        "alt": "Flight selection interface",
+        "label": "Select Flight",
+        "description": "A flight selection interface that lets users compare available routes, departure schedules, fares, and airline options before continuing with the booking process."
+      },
+      {
+        "src": "/projects/flight-booking/payment.png",
+        "alt": "Payment confirmation interface",
+        "label": "Payment",
+        "description": "A payment page that summarizes booking details, selected payment method, and the next steps required to complete the reservation."
+      }
+    ],
     "link": null
   },
   {
-    "id": "itk-academic-api",
+    "id": "kalimantan-biodiversity-portal",
     "number": "03",
-    "name": "Academic Information System API",
-    "role": "Backend Developer",
-    "summary": "A comprehensive RESTful API system for Institut Teknologi Kalimantan's internal academic modules — handling student data, course management, grading systems, and inter-service communication.",
+    "name": "Kalimantan Biodiversity Portal",
+    "role": "Frontend Developer",
+    "summary": "A web-based biodiversity portal that helps users explore species and forest data across Kalimantan through responsive information pages, filters, and interactive maps.",
     "highlights": [
-      "RESTful API architecture with versioned endpoints",
-      "Complex relational database schema design",
-      "Eloquent ORM with optimized query performance",
-      "Swagger/OpenAPI documentation for team collaboration"
+      "Delivered the complete user-facing portal from documented SRS requirements",
+      "Built interactive maps for species distribution and forest area visualization",
+      "Implemented species and conservation filters with regional drill-downs",
+      "Collaborated with the backend team to integrate biodiversity and spatial data"
     ],
-    "techStack": ["Laravel", "PHP", "MySQL", "Eloquent ORM", "Swagger", "Postman"],
-    "image": "/projects/academic-api.png",
-    "imageAlt": "Academic Information System API documentation",
+    "techStack": [
+      "Django",
+      "Tailwind",
+      "Alpine.js",
+      "HTMX",
+      "Leaflet.js",
+      "PostgreSQL"
+    ],
+    "images": [
+      {
+        "src": "/projects/kalimantan-biodiversity-portal/overview.png",
+        "alt": "Kalimantan Biodiversity Portal overview",
+        "label": "Portal Overview",
+        "description": "A responsive portal for exploring biodiversity information, species records, and forest-related data across Kalimantan."
+      },
+      {
+        "src": "/projects/kalimantan-biodiversity-portal/species-detail.png",
+        "alt": "Species Detail",
+        "label": "Species Detail Information",
+        "description": "A detailed species information view presenting key data such as scientific name, conservation status, habitat, distribution, and related biodiversity records."
+      },
+      {
+        "src": "/projects/kalimantan-biodiversity-portal/species-distribution-map.png",
+        "alt": "Species distribution visualization map",
+        "label": "Species Distribution Visualization",
+        "description": "An interactive map with species filters, conservation status filtering, hover details, and regional drill-downs."
+      }
+    ],
+    "link": null
+  },
+  {
+    "id": "new-portfolio",
+    "number": "04",
+    "name": "Personal Portfolio",
+    "role": "Fullstack Web Developer",
+    "summary": "A performance-conscious personal portfolio built with Next.js, GSAP, Swiper, Lenis, and data-driven sections to present experience, projects, resume access, and contact information through smooth responsive interactions.",
+    "highlights": [
+      "Built scroll-based section transitions and reveals with GSAP ScrollTrigger",
+      "Implemented responsive Swiper carousels for experience and project media",
+      "Optimized mobile behavior by reducing heavy scroll effects and layout shifts",
+      "Audited performance with Lighthouse across desktop and mobile production builds"
+    ],
+    "techStack": [
+      "Next.js",
+      "TypeScript",
+      "GSAP",
+      "Swiper",
+      "Lenis",
+      "Lighthouse"
+    ],
+    "images": [
+      {
+        "src": "/projects/new-portfolio/hero-fullstack-overview.png",
+        "alt": "Personal portfolio hero section with animated introduction",
+        "label": "Hero Experience",
+        "description": "Animated hero layout with social links, resume CTA, profile visual, and responsive typography."
+      },
+      {
+        "src": "/projects/new-portfolio/experiences-one-two.png",
+        "alt": "Personal portfolio experience carousel section",
+        "label": "Experience Carousel",
+        "description": "Responsive experience cards using GSAP on desktop and Swiper interaction on mobile/tablet."
+      },
+      {
+        "src": "/projects/new-portfolio/projects-showcase.png",
+        "alt": "Personal portfolio projects carousel section",
+        "label": "Project Showcase",
+        "description": "Data-driven project cards with multi-image Swiper media, slide controls, and performance-aware loading."
+      }
+    ],
     "link": null
   }
 ]
