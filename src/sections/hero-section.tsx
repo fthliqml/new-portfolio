@@ -183,6 +183,27 @@ export default function HeroSection() {
               <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
             </svg>
           </a>
+          <a
+            href="mailto:fatihuliqmazzz@gmail.com"
+            className="text-foreground/45 hover:text-foreground transition-colors duration-300"
+            aria-label="Email"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-5 w-5"
+            >
+              <rect width="20" height="16" x="2" y="4" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            </svg>
+          </a>
         </div>
 
         <p className="location font-sans text-sm uppercase tracking-[0.28em] text-muted-foreground">

@@ -10,22 +10,20 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const lines = [
   [
     { text: "I build", highlight: false },
-    { text: "end-to-end web systems", highlight: true },
+    { text: "fullstack web systems", highlight: true },
   ],
   [
+    { text: "with clean user interfaces,", highlight: false },
+    { text: "reliable backend architecture,", highlight: true },
+  ],
+  [{ text: "and database-driven workflows", highlight: false }],
+  [{ text: "helping teams turn complex processes", highlight: false }],
+  [
+    { text: "into", highlight: false },
     {
-      text: "that connect clean interfaces, reliable backend logic,",
-      highlight: false,
+      text: "efficient digital products.",
+      highlight: true,
     },
-  ],
-  [
-    { text: "and", highlight: false },
-    { text: "AI-powered automation", highlight: true, italic: true },
-  ],
-  [
-    { text: "helping businesses streamline workflows,", highlight: false },
-    { text: "reduce manual work", highlight: true },
-    { text: "and operate more efficiently.", highlight: false },
   ],
 ];
 

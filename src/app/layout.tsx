@@ -19,7 +19,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "M. Fatihul Iqmal",
+  title: "M. Fatihul Iqmal | Full-stack Web Developer",
   description: "Portfolio of Muhammad Fatihul Iqmal}",
   icons: {
     icon: "/icon.svg",
@@ -45,11 +45,8 @@ export default function RootLayout({
       )}
     >
       <body suppressHydrationWarning className="min-h-full flex flex-col">
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );
 }
-

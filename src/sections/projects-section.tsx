@@ -166,7 +166,7 @@ export default function ProjectsSection() {
               Portfolio showcase
             </p>
             <p className="mt-3 text-3xl font-semibold uppercase tracking-[-0.035em] text-foreground">
-              projects
+              selected projects
             </p>
           </div>
           <p className="hidden max-w-104 text-right text-sm leading-relaxed text-foreground/45 md:block">
