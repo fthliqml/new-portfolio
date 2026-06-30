@@ -32,6 +32,7 @@ export default function HeroSection() {
                 ".location",
                 ".greetings",
                 ".profile-card",
+                ".hero-resume",
                 ".hero-scroll-indicator",
               ],
               { clearProps: "all" },
@@ -57,6 +58,11 @@ export default function HeroSection() {
                 "-=1.7",
               )
               .from(
+                ".hero-resume",
+                { opacity: 0, y: 10, duration: 0.6 },
+                "-=1.1",
+              )
+              .from(
                 ".hero-scroll-indicator",
                 { opacity: 0, y: 15, duration: 1 },
                 "-=1.3",
@@ -73,6 +79,7 @@ export default function HeroSection() {
             })
             .from(".location", { opacity: 0, duration: 0.4 }, "-=0.25")
             .from(".greetings", { opacity: 0, duration: 0.55 }, "-=0.2")
+            .from(".hero-resume", { opacity: 0, duration: 0.35 }, "-=0.1")
             .from(
               ".hero-scroll-indicator",
               { opacity: 0, duration: 0.35 },
@@ -196,6 +203,17 @@ export default function HeroSection() {
           cursorBlinkDuration={0.5}
           className="role mt-3 block min-h-[5rem] min-w-[18ch] text-3xl font-thin! leading-tight tracking-[0.06em]! sm:min-h-[7rem] sm:text-5xl lg:min-h-[3.75rem]"
         />
+
+        <div className="hero-resume mt-6 flex">
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex w-fit items-center rounded-full border border-foreground/15 bg-foreground px-5 py-3 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-300 hover:bg-transparent hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
+          >
+            Resume
+          </a>
+        </div>
       </div>
 
       <AnimatedProfile />

@@ -617,6 +617,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                       className="sm-panel-item relative text-black font-semibold text-[4rem] cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[1.4em]"
                       href={it.link}
                       aria-label={it.ariaLabel}
+                      target={it.link.startsWith('#') ? undefined : '_blank'}
+                      rel={it.link.startsWith('#') ? undefined : 'noopener noreferrer'}
                       data-index={idx + 1}
                       tabIndex={open ? 0 : -1}
                       onClick={(event) => handleItemClick(event, it.link)}

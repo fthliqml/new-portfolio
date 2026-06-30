@@ -23,6 +23,7 @@ const navigationItems = [
 ];
 
 const socialItems = [
+  { label: "Resume", link: "/resume.pdf" },
   { label: "GitHub", link: "https://github.com/fthliqml" },
   { label: "LinkedIn", link: "https://linkedin.com/in/mfiqmal" },
   { label: "Instagram", link: "https://instagram.com/fthliqml" },
