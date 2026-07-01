@@ -298,7 +298,7 @@ export default function GithubContributions() {
         {/* Section Header */}
         <div className="mb-16 flex items-end justify-between gap-6 border-b border-foreground/10 pb-8 lg:mb-20">
           <div>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-foreground/45">
+            <p className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-foreground/65">
               Coding activity
             </p>
             <p className="mt-3 text-3xl font-semibold uppercase tracking-[-0.035em] text-foreground">
@@ -315,7 +315,7 @@ export default function GithubContributions() {
           {/* Stats Cards */}
           <div className="flex flex-col justify-center gap-6">
             <div className="rounded-2xl border border-foreground/12 bg-card/30 p-6 backdrop-blur-xs">
-              <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-foreground/50">
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-foreground/65">
                 Last 365 Days
               </p>
               <div
@@ -331,7 +331,7 @@ export default function GithubContributions() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-xl border border-foreground/12 bg-card/20 p-5">
-                <p className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-foreground/50">
+                <p className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-foreground/65">
                   Longest Streak
                 </p>
                 <div
@@ -342,7 +342,7 @@ export default function GithubContributions() {
                 </div>
               </div>
               <div className="rounded-xl border border-foreground/12 bg-card/20 p-5">
-                <p className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-foreground/50">
+                <p className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-foreground/65">
                   Active Days
                 </p>
                 <div
@@ -462,7 +462,7 @@ export default function GithubContributions() {
             )}
 
             {/* Legend */}
-            <div className="mt-6 flex items-center justify-between text-[10px] text-foreground/45 border-t border-foreground/8 pt-4">
+            <div className="mt-6 flex items-center justify-between text-[10px] text-foreground/65 border-t border-foreground/8 pt-4">
               <a
                 href="https://github.com/fthliqml"
                 target="_blank"

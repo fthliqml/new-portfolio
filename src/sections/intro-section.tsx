@@ -96,8 +96,13 @@ export default function IntroSection() {
     <section
       id="about"
       ref={sectionRef}
+      aria-labelledby="about-heading"
       className="relative flex h-fit flex-col items-center justify-center gap-20 bg-subtle px-6 pb-32 pt-20"
     >
+      <h2 id="about-heading" className="sr-only">
+        About Muhammad Fatihul Iqmal, Full-Stack Web Developer
+      </h2>
+
       <div
         ref={shapeRef}
         className="absolute left-1/2 -top-31 h-[180px] w-[130vw] -translate-x-1/2 rounded-[50%] bg-subtle"

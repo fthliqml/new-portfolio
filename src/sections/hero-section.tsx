@@ -214,7 +214,7 @@ export default function HeroSection() {
           Hi, I’m <span className="italic">Iqmal.</span>
         </h1>
         <TextType
-          text={["Fullstack Web Dev."]}
+          text={["Full-Stack Web Developer"]}
           typingSpeed={75}
           pauseDuration={1500}
           initialDelay={5}
@@ -222,7 +222,9 @@ export default function HeroSection() {
           cursorCharacter="█"
           deletingSpeed={50}
           cursorBlinkDuration={0.5}
-          className="role mt-1 block min-h-[3rem] min-w-[18ch] text-3xl font-thin! leading-tight tracking-[0.06em]! sm:mt-2 sm:min-h-[4.5rem] sm:text-5xl lg:mt-3 lg:min-h-[3.75rem]"
+          loop={false}
+          aria-label="Full-Stack Web Developer"
+          className="role mt-1 block min-h-[2rem] min-w-[18ch] whitespace-nowrap! text-xl font-thin! leading-tight tracking-[0.06em]! sm:mt-2 sm:min-h-[3.5rem] sm:text-4xl lg:mt-3 lg:min-h-[3.75rem] lg:text-5xl"
         />
 
         <div className="hero-resume mt-4 flex sm:mt-5 lg:mt-6">

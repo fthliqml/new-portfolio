@@ -141,11 +141,11 @@ export default function ContactSection() {
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between items-center gap-12 md:gap-0">
         {/* Top Header */}
         <div className="flex flex-col items-center gap-2">
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-white/45">
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-white/55">
             Get in touch
           </p>
           {time && (
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-white/35">
+            <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-white/55">
               Surakarta, ID / {time} WIB
             </p>
           )}

@@ -532,7 +532,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           <a
             href="#home"
             className="sm-logo flex items-center select-none pointer-events-auto"
-            aria-label="Back to home"
             onClick={(event) => handleItemClick(event, '#home')}
           >
             {logoUrl ? (

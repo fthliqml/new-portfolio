@@ -162,7 +162,7 @@ export default function ProjectsSection() {
         {/* Section Header */}
         <div className="mb-9 flex items-end justify-between gap-6 border-b border-foreground/10 pb-6 sm:mb-12 sm:pb-8 lg:mb-24">
           <div>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-foreground/45">
+            <p className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-foreground/65">
               Portfolio showcase
             </p>
             <p className="mt-3 text-3xl font-semibold uppercase tracking-[-0.035em] text-foreground">
@@ -180,7 +180,7 @@ export default function ProjectsSection() {
             <div key={project.id} className="contents">
               <ProjectCard project={project} index={index} />
               {index < projects.length - 1 && (
-                <div className="flex items-center gap-4 py-2 font-mono text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-foreground/32 sm:py-6 sm:text-[0.65rem] lg:py-8">
+                <div className="flex items-center gap-4 py-2 font-mono text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-foreground/65 sm:py-6 sm:text-[0.65rem] lg:py-8">
                   <span className="h-px flex-1 bg-foreground/10" />
                   <span className="shrink-0">
                     Next project · {String(index + 2).padStart(2, "0")} /{" "}
