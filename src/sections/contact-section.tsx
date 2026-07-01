@@ -179,10 +179,10 @@ export default function ContactSection() {
 
           <div ref={infoRef} className="mt-4 flex flex-col items-center gap-10">
             <a
-              href="mailto:fatihuliqmazzz@gmail.com"
+              href="mailto:fatihuliqmalzzz@gmail.com"
               className="group relative inline-flex items-center gap-2 font-sans text-xl font-light text-white/70 transition-colors duration-300 hover:text-white sm:text-2xl lg:text-3xl"
             >
-              <span>fatihuliqmazzz@gmail.com</span>
+              <span>fatihuliqmalzzz@gmail.com</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20"

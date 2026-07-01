@@ -184,7 +184,7 @@ export default function HeroSection() {
             </svg>
           </a>
           <a
-            href="mailto:fatihuliqmazzz@gmail.com"
+            href="mailto:fatihuliqmalzzz@gmail.com"
             className="text-foreground/45 hover:text-foreground transition-colors duration-300"
             aria-label="Email"
           >
