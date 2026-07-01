@@ -9,6 +9,13 @@ export const size = {
 };
 export const contentType = "image/png";
 
+const technologies = [
+  { name: "NEXT.JS", mark: "N", color: "#f4f4f1", markColor: "#111412" },
+  { name: "TYPESCRIPT", mark: "TS", color: "#3178c6", markColor: "#ffffff" },
+  { name: "LARAVEL", mark: "L", color: "#ff2d20", markColor: "#ffffff" },
+  { name: "NODE.JS", mark: "JS", color: "#5fa04e", markColor: "#ffffff" },
+];
+
 export default function OpenGraphImage() {
   return new ImageResponse(
     <div
@@ -16,99 +23,232 @@ export default function OpenGraphImage() {
         width: "100%",
         height: "100%",
         display: "flex",
-        flexDirection: "column",
-        background: "#111114",
+        position: "relative",
+        overflow: "hidden",
+        background: "#0d0f0e",
         color: "#f4f4f1",
-        padding: "52px 64px",
-        fontFamily: "sans-serif",
+        fontFamily: "Arial, sans-serif",
       }}
     >
       <div
         style={{
+          position: "absolute",
+          inset: 0,
           display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
+          opacity: 0.16,
+          backgroundImage:
+            "linear-gradient(#aeb8b0 1px, transparent 1px), linear-gradient(90deg, #aeb8b0 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          top: -260,
+          right: -90,
+          width: 720,
+          height: 720,
+          display: "flex",
+          borderRadius: 360,
+          background: "#b7c7b9",
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          right: 34,
+          bottom: -124,
+          width: 510,
+          height: 590,
+          display: "flex",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 32,
-              background: "#f4f4f1",
-              color: "#111114",
-              fontFamily: "serif",
-              fontSize: 38,
-              fontStyle: "italic",
-            }}
-          >
-            I
-          </div>
-          <span style={{ fontSize: 24, fontWeight: 700 }}>
-            IQMAL / PORTFOLIO
-          </span>
-        </div>
-        <span style={{ color: "#aeb8b0", fontSize: 24 }}>iqmal.dev</span>
+        {/* eslint-disable-next-line @next/next/no-img-element -- next/og renders native image elements. */}
+        <img
+          alt=""
+          src={`${siteConfig.url}/iqmal.png`}
+          width="510"
+          height="590"
+          style={{
+            width: 510,
+            height: 590,
+            objectFit: "contain",
+            objectPosition: "bottom center",
+            filter: "drop-shadow(0 24px 34px rgba(0, 0, 0, 0.28))",
+          }}
+        />
       </div>
 
       <div
         style={{
+          position: "absolute",
+          top: 36,
+          left: 42,
+          right: 42,
+          bottom: 36,
           display: "flex",
           flexDirection: "column",
-          gap: 14,
-          marginTop: 92,
-          width: "100%",
+          border: "1px solid rgba(244, 244, 241, 0.24)",
+          borderRadius: 24,
+          padding: "30px 34px",
         }}
       >
-        <span style={{ color: "#aeb8b0", fontSize: 24 }}>
-          CENTRAL JAVA · INDONESIA
-        </span>
         <div
           style={{
             display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
             width: "100%",
-            fontSize: 62,
-            fontWeight: 700,
-            letterSpacing: -2,
-            lineHeight: 1.05,
-            whiteSpace: "nowrap",
           }}
         >
-          Muhammad Fatihul Iqmal
-        </div>
-        <span style={{ color: "#d2d2cf", fontSize: 34 }}>
-          Full-Stack Web Developer
-        </span>
-      </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 20,
+                background: "#f4f4f1",
+                color: "#111412",
+                fontFamily: "Georgia, serif",
+                fontSize: 24,
+                fontStyle: "italic",
+              }}
+            >
+              I
+            </div>
+            <span style={{ fontSize: 17, fontWeight: 700, letterSpacing: 1.2 }}>
+              IQMAL / PORTFOLIO
+            </span>
+          </div>
 
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 14,
-          marginTop: "auto",
-        }}
-      >
-        {["NEXT.JS", "TYPESCRIPT", "LARAVEL", "POSTGRESQL"].map((skill) => (
-          <span
-            key={skill}
+          <div
             style={{
               display: "flex",
-              border: "1px solid #3d403f",
-              borderRadius: 6,
-              padding: "10px 16px",
-              color: "#aeb8b0",
-              fontSize: 18,
+              alignItems: "center",
+              gap: 9,
+              borderRadius: 100,
+              padding: "9px 15px",
+              background: "rgba(13, 15, 14, 0.72)",
+              color: "#f4f4f1",
+              fontSize: 15,
+              fontWeight: 700,
+              letterSpacing: 0.7,
             }}
           >
-            {skill}
+            <span
+              style={{
+                width: 9,
+                height: 9,
+                display: "flex",
+                borderRadius: 5,
+                background: "#8df19e",
+              }}
+            />
+            AVAILABLE FOR WORK
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginTop: 62,
+            width: 700,
+          }}
+        >
+          <span
+            style={{
+              color: "#b7c7b9",
+              fontSize: 17,
+              fontWeight: 700,
+              letterSpacing: 2.4,
+            }}
+          >
+            FULL-STACK WEB DEVELOPER
           </span>
-        ))}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginTop: 13,
+              fontSize: 73,
+              fontWeight: 700,
+              letterSpacing: -3.6,
+              lineHeight: 0.94,
+            }}
+          >
+            <span>Building the web</span>
+            <span style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              with <span style={{ color: "#b7c7b9" }}>purpose.</span>
+            </span>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
+              marginTop: 25,
+              color: "#c7cac7",
+              fontSize: 20,
+            }}
+          >
+            <span>{siteConfig.name}</span>
+            <span style={{ color: "#7f8981" }}>/</span>
+            <span>Indonesia</span>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+            marginTop: "auto",
+          }}
+        >
+          {technologies.map((technology) => (
+            <span
+              key={technology.name}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 9,
+                borderRadius: 100,
+                padding: "7px 13px 7px 8px",
+                background: "rgba(244, 244, 241, 0.1)",
+                border: "1px solid rgba(244, 244, 241, 0.22)",
+                color: "#e5e6e3",
+                fontSize: 14,
+                fontWeight: 700,
+                letterSpacing: 0.5,
+              }}
+            >
+              <span
+                style={{
+                  width: 27,
+                  height: 27,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: 14,
+                  background: technology.color,
+                  color: technology.markColor,
+                  fontSize: technology.mark.length > 1 ? 9 : 12,
+                  fontWeight: 800,
+                  letterSpacing: -0.2,
+                }}
+              >
+                {technology.mark}
+              </span>
+              {technology.name}
+            </span>
+          ))}
+        </div>
       </div>
     </div>,
     size,
