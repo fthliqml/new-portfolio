@@ -45,19 +45,6 @@ export default function OpenGraphImage() {
       <div
         style={{
           position: "absolute",
-          top: -260,
-          right: -90,
-          width: 720,
-          height: 720,
-          display: "flex",
-          borderRadius: 360,
-          background: "#b7c7b9",
-        }}
-      />
-
-      <div
-        style={{
-          position: "absolute",
           right: 34,
           bottom: -124,
           width: 510,
@@ -129,27 +116,34 @@ export default function OpenGraphImage() {
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              gap: 9,
-              borderRadius: 100,
-              padding: "9px 15px",
-              background: "rgba(13, 15, 14, 0.72)",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              gap: 5,
               color: "#f4f4f1",
-              fontSize: 15,
-              fontWeight: 700,
-              letterSpacing: 0.7,
             }}
           >
             <span
               style={{
-                width: 9,
-                height: 9,
-                display: "flex",
-                borderRadius: 5,
-                background: "#8df19e",
+                color: "#89938b",
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: 2,
               }}
-            />
-            AVAILABLE FOR WORK
+            >
+              LET&apos;S CONNECT
+            </span>
+            <span
+              style={{
+                display: "flex",
+                paddingBottom: 5,
+                borderBottom: "1px solid rgba(244, 244, 241, 0.82)",
+                fontSize: 16,
+                fontWeight: 600,
+                letterSpacing: 0.25,
+              }}
+            >
+              linkedin.com/in/mfiqmal
+            </span>
           </div>
         </div>
 
@@ -182,7 +176,7 @@ export default function OpenGraphImage() {
               lineHeight: 0.94,
             }}
           >
-            <span>Building the web</span>
+            <span>Building website</span>
             <span style={{ display: "flex", alignItems: "center", gap: 16 }}>
               with <span style={{ color: "#b7c7b9" }}>purpose.</span>
             </span>
