@@ -4,6 +4,8 @@
     "number": "01",
     "name": "Learning Management System",
     "role": "Fullstack Developer",
+    "category": "fullstack",
+    "featured": true,
     "summary": "An internal enterprise LMS built for PT. Komatsu Remanufacturing Asia that centralizes employee training workflows — from planning, approvals, scheduling, to certification tracking and reporting dashboards.",
     "highlights": [
       "Role-based access control with multi-level approval workflows",
@@ -45,6 +47,8 @@
     "number": "02",
     "name": "Flight Booking & E-Ticketing Platform",
     "role": "Lead Frontend Developer",
+    "category": "frontend",
+    "featured": true,
     "summary": "A team-based online flight booking and e-ticketing platform developed during Binar Academy's Kampus Merdeka program. Led frontend delivery for responsive booking experiences while collaborating with the backend team on API integration, authentication, payments, notifications, and digital ticket generation.",
     "highlights": [
       "Led frontend task planning and delivery using ClickUp for team coordination",
@@ -90,6 +94,8 @@
     "number": "03",
     "name": "Kalimantan Biodiversity Portal",
     "role": "Frontend Developer",
+    "category": "frontend",
+    "featured": true,
     "summary": "A web-based biodiversity portal that helps users explore species and forest data across Kalimantan through responsive information pages, filters, and interactive maps.",
     "highlights": [
       "Delivered the complete user-facing portal from documented SRS requirements",
@@ -132,6 +138,8 @@
     "number": "04",
     "name": "Personal Portfolio",
     "role": "Fullstack Web Developer",
+    "category": "fullstack",
+    "featured": true,
     "summary": "A performance-conscious personal portfolio built with Next.js, GSAP, Swiper, Lenis, and data-driven sections to present experience, projects, resume access, and contact information through smooth responsive interactions.",
     "highlights": [
       "Built scroll-based section transitions and reveals with GSAP ScrollTrigger",
