@@ -52,6 +52,9 @@ export default async function ProjectDetailPage({
   const previousProject =
     projects[(projectIndex - 1 + projects.length) % projects.length];
   const nextProject = projects[(projectIndex + 1) % projects.length];
+  const hasProjectStory = Boolean(
+    project.contributions?.length && project.impacts?.length,
+  );
 
   return (
     <main className="min-h-dvh bg-background text-foreground">
@@ -113,6 +116,24 @@ export default async function ProjectDetailPage({
               <p className="mt-2 text-sm font-semibold">
                 {formatProjectCategory(project.category)} Development
               </p>
+
+              {project.experienceId && (
+                <>
+                  <p className="mt-6 font-mono text-[0.58rem] font-semibold uppercase tracking-[0.2em] text-foreground/40">
+                    Related experience
+                  </p>
+                  <Link
+                    href={`/#experience-${project.experienceId}`}
+                    className="group mt-2 inline-flex items-start gap-2 text-sm font-semibold leading-relaxed underline decoration-foreground/20 underline-offset-4 transition-[text-decoration-color] hover:decoration-foreground"
+                  >
+                    <span>{project.experienceLabel ?? "View experience"}</span>
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="mt-0.5 size-4 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    />
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </header>
@@ -125,42 +146,144 @@ export default async function ProjectDetailPage({
           />
         </section>
 
-        <section className="mx-auto grid max-w-7xl gap-14 px-6 py-20 sm:px-10 sm:py-24 lg:grid-cols-2 lg:gap-20 lg:px-12 lg:py-28">
-          <div>
-            <p className="border-b border-foreground/15 pb-4 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-foreground/40">
-              Key highlights
-            </p>
-            <ol className="mt-6 space-y-5">
-              {project.highlights.map((highlight, index) => (
-                <li
-                  key={highlight}
-                  className="grid grid-cols-[2rem_1fr] gap-3 text-sm leading-relaxed text-foreground/68 sm:text-base"
-                >
-                  <span className="font-mono text-[0.58rem] font-semibold text-foreground/35">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
+        {hasProjectStory ? (
+          <section className="mx-auto max-w-7xl px-6 py-20 sm:px-10 sm:py-24 lg:px-12 lg:py-28">
+            <header className="mb-10 border-b border-foreground/15 pb-7 sm:mb-14 sm:flex sm:items-end sm:justify-between sm:gap-8">
+              <div>
+                <p className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-foreground/40">
+                  Project story
+                </p>
+                <h2 className="mt-3 text-3xl font-semibold tracking-[-0.045em] sm:text-5xl">
+                  Contribution &amp; impact
+                </h2>
+              </div>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-foreground/50 sm:mt-0 sm:text-right">
+                What I owned throughout delivery and what changed after the
+                platform was introduced.
+              </p>
+            </header>
 
-          <div>
-            <p className="border-b border-foreground/15 pb-4 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-foreground/40">
-              Technology
-            </p>
-            <ul className="mt-6 flex flex-wrap gap-2">
-              {project.techStack.map((technology) => (
-                <li
-                  key={technology}
-                  className="rounded-full border border-foreground/15 px-3.5 py-2 text-xs font-semibold text-foreground/65 sm:text-sm"
-                >
-                  {technology}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.12fr)_minmax(22rem,0.88fr)] lg:items-start lg:gap-12">
+              <div>
+                <div className="flex items-center justify-between gap-5 pb-4">
+                  <h3 className="text-xl font-semibold tracking-[-0.025em] sm:text-2xl">
+                    My Contribution
+                  </h3>
+                  <span className="font-mono text-[0.58rem] font-semibold uppercase tracking-[0.2em] text-foreground/35">
+                    End-to-end ownership
+                  </span>
+                </div>
+                <ol>
+                  {project.contributions?.map((contribution, index) => (
+                    <li
+                      key={contribution}
+                      className="grid grid-cols-[2.25rem_1fr] gap-3 border-t border-foreground/12 py-4 text-sm leading-relaxed text-foreground/68 sm:grid-cols-[2.75rem_1fr] sm:gap-4 sm:py-5 sm:text-base"
+                    >
+                      <span className="font-mono text-[0.58rem] font-semibold text-foreground/35">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span>{contribution}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              <aside className="rounded-[1.75rem] bg-foreground p-7 text-background sm:p-9 lg:sticky lg:top-24">
+                <p className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.24em] text-background/45">
+                  Impact
+                </p>
+                <p className="mt-5 text-xl font-medium leading-relaxed tracking-[-0.025em] text-background/90 sm:text-2xl">
+                  {project.impactSummary}
+                </p>
+
+                {project.impactStats && project.impactStats.length > 0 && (
+                  <dl className="mt-8 grid grid-cols-2 gap-3 border-y border-background/15 py-6">
+                    {project.impactStats.map((stat) => (
+                      <div key={stat.label}>
+                        <dd className="text-4xl font-semibold tracking-[-0.06em] sm:text-5xl">
+                          {stat.value}
+                        </dd>
+                        <dt className="mt-2 font-mono text-[0.55rem] font-semibold uppercase tracking-[0.2em] text-background/45">
+                          {stat.label}
+                        </dt>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+
+                <ul className="mt-7 space-y-4">
+                  {project.impacts?.map((impact) => (
+                    <li
+                      key={impact}
+                      className="grid grid-cols-[0.45rem_1fr] gap-3 text-sm leading-relaxed text-background/68"
+                    >
+                      <span className="mt-2 size-1.5 rounded-full bg-background/65" />
+                      <span>{impact}</span>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            </div>
+
+            <div className="mt-14 border-t border-foreground/15 pt-7 sm:mt-20 sm:flex sm:items-start sm:justify-between sm:gap-10">
+              <div>
+                <p className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-foreground/40">
+                  Technology
+                </p>
+                <p className="mt-2 text-sm text-foreground/48">
+                  Core tools used to deliver the platform.
+                </p>
+              </div>
+              <ul className="mt-5 flex max-w-2xl flex-wrap gap-2 sm:mt-0 sm:justify-end">
+                {project.techStack.map((technology) => (
+                  <li
+                    key={technology}
+                    className="rounded-full border border-foreground/15 px-3.5 py-2 text-xs font-semibold text-foreground/65 sm:text-sm"
+                  >
+                    {technology}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        ) : (
+          <section className="mx-auto grid max-w-7xl gap-14 px-6 py-20 sm:px-10 sm:py-24 lg:grid-cols-2 lg:gap-20 lg:px-12 lg:py-28">
+            <div>
+              <p className="border-b border-foreground/15 pb-4 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-foreground/40">
+                Key highlights
+              </p>
+              <ol className="mt-6 space-y-5">
+                {project.highlights.map((highlight, index) => (
+                  <li
+                    key={highlight}
+                    className="grid grid-cols-[2rem_1fr] gap-3 text-sm leading-relaxed text-foreground/68 sm:text-base"
+                  >
+                    <span className="font-mono text-[0.58rem] font-semibold text-foreground/35">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div>
+              <p className="border-b border-foreground/15 pb-4 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.24em] text-foreground/40">
+                Technology
+              </p>
+              <ul className="mt-6 flex flex-wrap gap-2">
+                {project.techStack.map((technology) => (
+                  <li
+                    key={technology}
+                    className="rounded-full border border-foreground/15 px-3.5 py-2 text-xs font-semibold text-foreground/65 sm:text-sm"
+                  >
+                    {technology}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
 
         <nav
           aria-label="Previous and next projects"

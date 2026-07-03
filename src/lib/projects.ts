@@ -19,6 +19,11 @@ export interface ProjectImage {
   description: string;
 }
 
+export interface ProjectImpactStat {
+  value: string;
+  label: string;
+}
+
 export interface Project {
   id: string;
   number: string;
@@ -26,7 +31,13 @@ export interface Project {
   role: string;
   category: ProjectCategory;
   featured: boolean;
+  experienceId?: string;
+  experienceLabel?: string;
   summary: string;
+  contributions?: string[];
+  impactSummary?: string;
+  impactStats?: ProjectImpactStat[];
+  impacts?: string[];
   highlights: string[];
   techStack: string[];
   images: ProjectImage[];

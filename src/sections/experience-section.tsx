@@ -171,6 +171,11 @@ export default function ExperienceSection() {
       aria-labelledby="experience-heading"
       className="relative z-20 h-svh overflow-hidden bg-subtle px-4 py-5 sm:px-8 sm:py-7 lg:px-24 lg:py-10 motion-reduce:h-auto motion-reduce:min-h-svh motion-reduce:overflow-visible"
     >
+      <span
+        id="experience-komatsu-remanufacturing-asia"
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0"
+      />
       <h2 id="experience-heading" className="sr-only">
         Professional experience
       </h2>

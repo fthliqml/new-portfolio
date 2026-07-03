@@ -6,7 +6,34 @@
     "role": "Fullstack Developer",
     "category": "fullstack",
     "featured": true,
+    "experienceId": "komatsu-remanufacturing-asia",
+    "experienceLabel": "PT. Komatsu Remanufacturing Asia",
     "summary": "An internal enterprise LMS built for PT. Komatsu Remanufacturing Asia that centralizes employee training workflows — from planning, approvals, scheduling, to certification tracking and reporting dashboards.",
+    "contributions": [
+      "Led requirement discovery with the client and translated operational needs into clear system workflows and features",
+      "Drove weekly progress reviews, gathered stakeholder feedback, and proactively recommended improvements to the proposed solution",
+      "Developed the web application across the full implementation lifecycle and independently performed functional testing before UAT",
+      "Managed a two-stage UAT process, starting with the Section Head and continuing through managerial review",
+      "Resolved findings and implemented revisions as business requirements evolved throughout the project",
+      "Partnered closely with the internal IT team to align data structures, business rules, and system implementation"
+    ],
+    "impactSummary": "Transformed fragmented, spreadsheet-based training processes into a centralized platform serving employees across the organization.",
+    "impactStats": [
+      {
+        "value": "300",
+        "label": "Employees"
+      },
+      {
+        "value": "15",
+        "label": "Departments"
+      }
+    ],
+    "impacts": [
+      "Consolidated training data previously distributed across multiple spreadsheets into a centralized source of information",
+      "Turned an internal innovation plan into an operational platform with reusable and standardized curricula for recurring training programs",
+      "Automated survey reminder emails, reducing the need for manual follow-ups after training sessions",
+      "Improved traceability across the training lifecycle, from planning and approval to completion and certification"
+    ],
     "highlights": [
       "Role-based access control with multi-level approval workflows",
       "Interactive scheduling system with calendar integration",
