@@ -74,6 +74,11 @@ const navigationItems = [
     ariaLabel: "Go to projects section",
     link: "#projects",
   },
+  {
+    label: "All Projects",
+    ariaLabel: "View all projects",
+    link: "/projects",
+  },
   { label: "Contact", ariaLabel: "Go to contact section", link: "#contact" },
 ];
 

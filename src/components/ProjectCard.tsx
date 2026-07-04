@@ -1,18 +1,8 @@
-import ProjectMediaCarousel, {
-  type ProjectImageSlide,
-} from "@/components/ProjectMediaCarousel";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
-export interface Project {
-  id: string;
-  number: string;
-  name: string;
-  role: string;
-  summary: string;
-  highlights: string[];
-  techStack: string[];
-  images: ProjectImageSlide[];
-  link: string | null;
-}
+import ProjectMediaCarousel from "@/components/ProjectMediaCarousel";
+import type { Project } from "@/lib/projects";
 
 interface ProjectCardProps {
   project: Project;
@@ -42,9 +32,18 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             {project.role}
           </p>
 
-          <h3 className="mt-4 text-[clamp(1.5rem,4vw,2.5rem)] font-bold leading-[1.05] tracking-[-0.04em]">
-            {project.name}
-          </h3>
+          <Link
+            href={`/projects/${project.id}`}
+            className="group/title mt-4 inline-flex items-start gap-3"
+          >
+            <h3 className="text-[clamp(1.5rem,4vw,2.5rem)] font-bold leading-[1.05] tracking-[-0.04em] decoration-foreground/35 decoration-1 underline-offset-6 transition-[text-decoration-color] group-hover/title:underline">
+              {project.name}
+            </h3>
+            <ArrowUpRight
+              aria-hidden="true"
+              className="mt-1 size-5 shrink-0 text-foreground/35 transition-transform duration-300 group-hover/title:-translate-y-0.5 group-hover/title:translate-x-0.5 sm:size-6"
+            />
+          </Link>
 
           <p className="mt-4 max-w-[55ch] text-sm leading-relaxed text-foreground/65 sm:text-base sm:leading-[1.7]">
             {project.summary}
@@ -82,6 +81,17 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             </span>
           ))}
         </div>
+
+        <Link
+          href={`/projects/${project.id}`}
+          className="group/link mt-8 inline-flex w-fit items-center gap-3 border-b border-foreground/25 pb-1.5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-foreground transition-colors hover:border-foreground sm:mt-10"
+        >
+          View project
+          <ArrowUpRight
+            aria-hidden="true"
+            className="size-4 transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+          />
+        </Link>
       </div>
     </article>
   );
