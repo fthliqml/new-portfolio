@@ -19,6 +19,7 @@ export const siteConfig = {
     linkedin: "https://linkedin.com/in/mfiqmal",
     instagram: "https://instagram.com/fthliqml",
   },
+  projectArchive: "https://link.iqmal.dev/projects",
   keywords: [
     "Muhammad Fatihul Iqmal",
     "M. Fatihul Iqmal",

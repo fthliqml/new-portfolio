@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 import ProjectPageHeader from "@/components/ProjectPageHeader";
 import ProjectsExplorer from "@/components/ProjectsExplorer";
 import { projects } from "@/lib/projects";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "All Projects",
@@ -42,6 +44,18 @@ export default function ProjectsPage() {
               A growing archive of digital products, internal systems, and web
               experiences — from interface craft to fullstack delivery.
             </p>
+            <a
+              href={siteConfig.projectArchive}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-8 inline-flex items-center gap-3 border-b border-foreground pb-1.5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em]"
+            >
+              Open project archive
+              <ArrowUpRight
+                aria-hidden="true"
+                className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
           </div>
         </section>
 

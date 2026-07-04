@@ -10,6 +10,7 @@ import {
   getProjectBySlug,
   projects,
 } from "@/lib/projects";
+import { siteConfig } from "@/lib/site";
 
 interface ProjectDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -87,20 +88,35 @@ export default async function ProjectDetailPage({
                 {project.summary}
               </p>
 
-              {project.link && (
+              <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-4">
                 <a
-                  href={project.link}
+                  href={siteConfig.projectArchive}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-7 inline-flex items-center gap-3 border-b border-foreground pb-1.5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em]"
+                  className="group inline-flex items-center gap-3 border-b border-foreground pb-1.5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em]"
                 >
-                  Visit live project
+                  View project archive
                   <ArrowUpRight
                     aria-hidden="true"
                     className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                   />
                 </a>
-              )}
+
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-3 border-b border-foreground pb-1.5 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em]"
+                  >
+                    Visit live project
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    />
+                  </a>
+                )}
+              </div>
             </div>
 
             <div className="border-l border-foreground/15 pl-5 lg:mb-2">
