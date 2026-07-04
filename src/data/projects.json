@@ -41,10 +41,12 @@
       "Real-time reporting dashboards with exportable data"
     ],
     "techStack": [
-      "TypeScript",
+      "Laravel Livewire",
+      "Blade",
       "Laravel",
-      "PostgreSQL",
+      "PHP",
       "Tailwind CSS",
+      "Alpine.js",
       "REST API"
     ],
     "images": [
@@ -52,19 +54,19 @@
         "src": "/projects/kra-lms/admin-dashboard.png",
         "alt": "Learning Management System dashboard overview",
         "label": "Dashboard Overview",
-        "description": "Training metrics, active courses, recommendations, and recent activity."
+        "description": "Active courses, upcoming training schedules, pending surveys, and employee learning progress."
       },
       {
         "src": "/projects/kra-lms/training-schedule.png",
-        "alt": "Learning Management System course management workflow",
-        "label": "Training Workflow",
-        "description": "Course planning, scheduling, and employee learning progress in one flow."
+        "alt": "Learning Management System training calendar",
+        "label": "Training Schedule",
+        "description": "A calendar view for reviewing scheduled employee training sessions."
       },
       {
         "src": "/projects/kra-lms/course.png",
-        "alt": "Learning Management System reporting interface",
-        "label": "Reporting View",
-        "description": "Certification tracking and report-ready data for internal stakeholders."
+        "alt": "Learning Management System course detail interface",
+        "label": "Course Detail",
+        "description": "A structured learning flow covering the pre-test, learning module, post-test, and result."
       }
     ],
     "link": null
@@ -86,12 +88,17 @@
     "techStack": [
       "React",
       "Redux Toolkit",
-      "Midtrans",
+      "JavaScript",
       "Tailwind CSS",
       "Node.js",
       "Express.js",
-      "PostgreSQL",
-      "Prisma",
+      "PostgreSQL (Supabase)",
+      "Prisma ORM",
+      "JWT",
+      "OTP",
+      "Vite",
+      "Vercel",
+      "GitHub Actions",
       "ClickUp"
     ],
     "images": [
@@ -131,10 +138,10 @@
       "Collaborated with the backend team to integrate biodiversity and spatial data"
     ],
     "techStack": [
+      "Jinja Templating",
       "Django",
-      "Tailwind",
+      "Tailwind CSS",
       "Alpine.js",
-      "HTMX",
       "Leaflet.js",
       "PostgreSQL"
     ],
@@ -165,7 +172,7 @@
     "number": "04",
     "name": "Personal Portfolio",
     "role": "Fullstack Web Developer",
-    "category": "fullstack",
+    "category": "frontend",
     "featured": true,
     "summary": "A performance-conscious personal portfolio built with Next.js, GSAP, Swiper, Lenis, and data-driven sections to present experience, projects, resume access, and contact information through smooth responsive interactions.",
     "highlights": [
@@ -176,11 +183,13 @@
     ],
     "techStack": [
       "Next.js",
+      "React",
       "TypeScript",
+      "Tailwind CSS",
       "GSAP",
+      "Motion",
       "Swiper",
-      "Lenis",
-      "Lighthouse"
+      "Lenis"
     ],
     "images": [
       {

@@ -29,7 +29,7 @@ export default function ProjectsPage() {
         <section className="relative overflow-hidden pb-16 sm:pb-24 lg:pb-28">
           <p
             aria-hidden="true"
-            className="pointer-events-none absolute -right-3 -top-10 select-none text-[clamp(7rem,22vw,18rem)] font-bold leading-none tracking-[-0.08em] text-foreground/[0.035]"
+            className="pointer-events-none absolute right-0 top-0 select-none text-[clamp(5rem,26vw,7rem)] font-bold leading-none tracking-[-0.08em] text-foreground/[0.035] sm:-right-3 sm:-top-10 sm:text-[clamp(7rem,22vw,18rem)]"
           >
             WORK
           </p>
