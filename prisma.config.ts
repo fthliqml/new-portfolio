@@ -1,6 +1,8 @@
-import "dotenv/config";
-
+import { config } from "dotenv";
 import { defineConfig } from "prisma/config";
+
+config({ path: ".env.local", quiet: true });
+config({ path: ".env", quiet: true });
 
 const fallbackDatabaseUrl =
   "postgresql://portfolio:portfolio@127.0.0.1:5432/portfolio";
