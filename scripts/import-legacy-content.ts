@@ -4,6 +4,7 @@ import path from "node:path";
 
 import { PrismaPg } from "@prisma/adapter-pg";
 import { createClient } from "@supabase/supabase-js";
+import { config } from "dotenv";
 import sharp from "sharp";
 
 import experiencesFixture from "../prisma/seed/experiences.v1.json";
@@ -23,6 +24,9 @@ import {
   sourceChecksum,
 } from "../src/domain/migration/legacy";
 import { mediaPolicy } from "../src/domain/media/policy";
+
+config({ path: ".env.local", quiet: true });
+config({ path: ".env", quiet: true });
 
 interface LegacyImage {
   src: string;
