@@ -9,6 +9,7 @@ import {
   formatStorageBytes,
   isDashboardEmpty,
 } from "@/data/admin/dashboard-state";
+import { storageUsageState } from "@/domain/ops/maintenance";
 import {
   getDashboardData,
 } from "@/data/admin/dashboard";
@@ -32,6 +33,7 @@ function formatActivityTime(value: Date) {
 
 export default async function AdminPage() {
   const data = await getDashboardData();
+  const storageUsage = storageUsageState(data.media.sizeBytes);
   const empty = isDashboardEmpty(data);
   const metrics = [
     {
@@ -179,6 +181,10 @@ export default async function AdminPage() {
                   Original uploads tracked by the CMS. Review Supabase for the
                   provider-level quota.
                 </p>
+                <div className="mt-5 h-1.5 overflow-hidden bg-white/15" aria-label={`${storageUsage.percentage.toFixed(1)} percent of the free storage allowance tracked`}>
+                  <div className={`h-full ${storageUsage.warning ? "bg-[#d2a263]" : "bg-[#aeb8b0]"}`} style={{ width: `${storageUsage.percentage}%` }} />
+                </div>
+                {storageUsage.warning && <p className="mt-3 text-xs font-semibold text-[#e7bd83]">Storage has crossed the 80% warning threshold.</p>}
               </section>
 
               <section className="border border-border bg-card p-6">
