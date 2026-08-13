@@ -1,7 +1,7 @@
 "use client";
 
 import { GripVertical, LoaderCircle, Plus, Trash2 } from "lucide-react";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 
 import {
   createExperience,
@@ -9,6 +9,7 @@ import {
   updateExperience,
 } from "@/app/admin/(protected)/experiences/actions";
 import { createSlug } from "@/domain/content/format";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 interface ExperienceFormProps {
   experience?: {
@@ -47,6 +48,8 @@ export function ExperienceForm({
     ? updateExperience.bind(null, experience.id)
     : createExperience;
   const [state, formAction, pending] = useActionState(action, initialState);
+  const errorRef = useRef<HTMLParagraphElement>(null);
+  const { markDirty, markClean, markDirtyOnButtonClick } = useUnsavedChanges(!readOnly);
   const [company, setCompany] = useState(experience?.company ?? "");
   const [isCurrent, setIsCurrent] = useState(experience?.isCurrent ?? false);
   const [highlights, setHighlights] = useState(
@@ -55,6 +58,13 @@ export function ExperienceForm({
     ],
   );
   const slug = experience?.slug ?? createSlug(company);
+
+  useEffect(() => {
+    if (state.error) {
+      markDirty();
+      errorRef.current?.focus();
+    }
+  }, [markDirty, state.error]);
 
   function moveHighlight(index: number, offset: number) {
     const target = index + offset;
@@ -67,9 +77,9 @@ export function ExperienceForm({
   }
 
   return (
-    <form action={formAction} className="space-y-8">
+    <form action={formAction} autoComplete="off" onChangeCapture={markDirty} onClickCapture={markDirtyOnButtonClick} onSubmit={markClean} className="space-y-8">
       {state.error && (
-        <p role="alert" className="border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+        <p ref={errorRef} tabIndex={-1} role="alert" aria-live="assertive" className="border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive outline-none focus-visible:ring-2 focus-visible:ring-destructive/30">
           {state.error}
         </p>
       )}
@@ -89,10 +99,10 @@ export function ExperienceForm({
           <input required name="role" defaultValue={experience?.role} disabled={readOnly} className="admin-input" />
         </Field>
         <Field label="Type" error={state.fieldErrors?.type?.[0]}>
-          <input required name="type" defaultValue={experience?.type} placeholder="Work, Intern, Trainee" disabled={readOnly} className="admin-input" />
+          <input required name="type" defaultValue={experience?.type} placeholder="e.g. Work…" disabled={readOnly} className="admin-input" />
         </Field>
         <Field label="Monogram" error={state.fieldErrors?.monogram?.[0]}>
-          <input required name="monogram" maxLength={8} defaultValue={experience?.monogram} placeholder="KRA" disabled={readOnly} className="admin-input uppercase" />
+          <input required name="monogram" maxLength={8} defaultValue={experience?.monogram} placeholder="e.g. KRA…" disabled={readOnly} className="admin-input uppercase" />
         </Field>
       </div>
 
@@ -114,7 +124,7 @@ export function ExperienceForm({
           <input required={!isCurrent} type="month" name="endMonth" defaultValue={experience?.endDate?.toISOString().slice(0, 7)} disabled={readOnly || isCurrent} className="admin-input" />
         </Field>
         <Field label="Duration override" error={state.fieldErrors?.durationLabel?.[0]}>
-          <input name="durationLabel" maxLength={80} defaultValue={experience?.durationLabel ?? ""} placeholder="Calculated when empty" disabled={readOnly} className="admin-input" />
+          <input name="durationLabel" maxLength={80} defaultValue={experience?.durationLabel ?? ""} placeholder="e.g. 10 months…" disabled={readOnly} className="admin-input" />
         </Field>
       </div>
 
@@ -138,7 +148,7 @@ export function ExperienceForm({
       <fieldset>
         <div className="flex items-end justify-between border-b border-border pb-3">
           <div><legend className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.16em]">Ordered highlights</legend><p className="mt-1 text-xs text-muted-foreground">Short scannable outcomes shown on the public card.</p></div>
-          <button type="button" disabled={readOnly} onClick={() => setHighlights((items) => [...items, { id: crypto.randomUUID(), text: "" }])} className="inline-flex min-h-9 items-center gap-2 border border-border px-3 font-mono text-[0.58rem] uppercase tracking-[0.12em] hover:bg-accent disabled:opacity-40"><Plus className="size-3.5" /> Add</button>
+          <button type="button" disabled={readOnly} onClick={() => setHighlights((items) => [...items, { id: crypto.randomUUID(), text: "" }])} className="inline-flex min-h-9 items-center gap-2 border border-border px-3 font-mono text-[0.58rem] uppercase tracking-[0.12em] hover:bg-accent disabled:opacity-40"><Plus className="size-3.5" aria-hidden="true" /> Add</button>
         </div>
         <div className="mt-4 space-y-3">
           {highlights.map((highlight, index) => (
@@ -148,7 +158,7 @@ export function ExperienceForm({
               <div className="flex">
                 <button type="button" disabled={readOnly || index === 0} onClick={() => moveHighlight(index, -1)} className="size-9 border border-border text-xs disabled:opacity-30" aria-label={`Move highlight ${index + 1} up`}>↑</button>
                 <button type="button" disabled={readOnly || index === highlights.length - 1} onClick={() => moveHighlight(index, 1)} className="size-9 border border-border text-xs disabled:opacity-30" aria-label={`Move highlight ${index + 1} down`}>↓</button>
-                <button type="button" disabled={readOnly || highlights.length === 1} onClick={() => setHighlights((items) => items.filter((_, itemIndex) => itemIndex !== index))} className="grid size-9 place-items-center border border-border disabled:opacity-30" aria-label={`Remove highlight ${index + 1}`}><Trash2 className="size-3.5" /></button>
+                <button type="button" disabled={readOnly || highlights.length === 1} onClick={() => setHighlights((items) => items.filter((_, itemIndex) => itemIndex !== index))} className="grid size-9 place-items-center border border-border disabled:opacity-30" aria-label={`Remove highlight ${index + 1}`}><Trash2 className="size-3.5" aria-hidden="true" /></button>
               </div>
             </div>
           ))}
@@ -156,8 +166,8 @@ export function ExperienceForm({
       </fieldset>
 
       <button type="submit" disabled={pending || readOnly} className="inline-flex min-h-11 items-center gap-2 bg-primary px-5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-primary-foreground disabled:opacity-40">
-        {pending && <LoaderCircle className="size-4 animate-spin motion-reduce:animate-none" />}
-        {experience ? "Save experience" : "Create experience"}
+        {pending && <LoaderCircle className="size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />}
+        {pending ? "Saving…" : experience ? "Save experience" : "Create experience"}
       </button>
     </form>
   );

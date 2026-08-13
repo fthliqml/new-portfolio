@@ -57,7 +57,7 @@ export function ArchiveActions({
           onClick={() => startTransition(() => restoreContent(entity, id))}
           className="inline-flex min-h-10 items-center gap-2 border border-border px-3 font-mono text-[0.58rem] font-semibold uppercase tracking-[0.12em] hover:bg-accent disabled:opacity-35"
         >
-          {pending ? <LoaderCircle className="size-3.5 animate-spin motion-reduce:animate-none" /> : <RotateCcw className="size-3.5" />}
+          {pending ? <LoaderCircle className="size-3.5 animate-spin motion-reduce:animate-none" aria-hidden="true" /> : <RotateCcw className="size-3.5" aria-hidden="true" />}
           Restore
         </button>
         <button
@@ -67,7 +67,7 @@ export function ArchiveActions({
           onClick={remove}
           className="inline-flex min-h-10 items-center gap-2 border border-destructive/40 px-3 font-mono text-[0.58rem] font-semibold uppercase tracking-[0.12em] text-destructive hover:bg-destructive/5 disabled:opacity-35"
         >
-          <Trash2 className="size-3.5" /> Delete
+          <Trash2 className="size-3.5" aria-hidden="true" /> Delete
         </button>
       </div>
       {error && <p role="alert" className="mt-2 text-right text-xs text-destructive">{error}</p>}

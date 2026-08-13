@@ -1,7 +1,7 @@
 "use client";
 
 import { LoaderCircle } from "lucide-react";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 
 import {
   createSkill,
@@ -9,6 +9,7 @@ import {
   updateSkill,
 } from "@/app/admin/(protected)/skills/actions";
 import { createSlug } from "@/domain/content/format";
+import { useUnsavedChanges } from "@/hooks/useUnsavedChanges";
 
 interface SkillFormProps {
   skill?: {
@@ -34,13 +35,22 @@ const categories = [
 export function SkillForm({ skill, readOnly = false }: SkillFormProps) {
   const action = skill ? updateSkill.bind(null, skill.id) : createSkill;
   const [state, formAction, pending] = useActionState(action, initialState);
+  const errorRef = useRef<HTMLParagraphElement>(null);
+  const { markDirty, markClean, markDirtyOnButtonClick } = useUnsavedChanges(!readOnly);
   const [name, setName] = useState(skill?.name ?? "");
   const slug = skill?.slug ?? createSlug(name);
 
+  useEffect(() => {
+    if (state.error) {
+      markDirty();
+      errorRef.current?.focus();
+    }
+  }, [markDirty, state.error]);
+
   return (
-    <form action={formAction} className="space-y-7">
+    <form action={formAction} autoComplete="off" onChangeCapture={markDirty} onClickCapture={markDirtyOnButtonClick} onSubmit={markClean} className="space-y-7">
       {state.error && (
-        <p role="alert" className="border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+        <p ref={errorRef} tabIndex={-1} role="alert" aria-live="assertive" className="border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm text-destructive outline-none focus-visible:ring-2 focus-visible:ring-destructive/30">
           {state.error}
         </p>
       )}
@@ -58,7 +68,7 @@ export function SkillForm({ skill, readOnly = false }: SkillFormProps) {
             disabled={readOnly}
             onChange={(event) => setName(event.target.value)}
             aria-describedby={state.fieldErrors?.name ? "skill-name-error" : undefined}
-            className="mt-2 h-12 w-full border border-input bg-background px-3 outline-none focus:border-foreground focus:ring-2 focus:ring-ring/20 disabled:opacity-50"
+            className="mt-2 h-12 w-full border border-input bg-background px-3 outline-none focus-visible:border-foreground focus-visible:ring-2 focus-visible:ring-ring/20 disabled:opacity-50"
           />
           {state.fieldErrors?.name && (
             <span id="skill-name-error" className="mt-1 block text-xs text-destructive">
@@ -75,7 +85,7 @@ export function SkillForm({ skill, readOnly = false }: SkillFormProps) {
             name="category"
             defaultValue={skill?.category.toLowerCase() ?? "frontend"}
             disabled={readOnly}
-            className="mt-2 h-12 w-full border border-input bg-background px-3 capitalize outline-none focus:border-foreground focus:ring-2 focus:ring-ring/20 disabled:opacity-50"
+            className="mt-2 h-12 w-full border border-input bg-background px-3 capitalize outline-none focus-visible:border-foreground focus-visible:ring-2 focus-visible:ring-ring/20 disabled:opacity-50"
           >
             {categories.map((category) => (
               <option key={category} value={category}>
@@ -122,7 +132,7 @@ export function SkillForm({ skill, readOnly = false }: SkillFormProps) {
         className="inline-flex min-h-11 items-center gap-2 bg-primary px-5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"
       >
         {pending && <LoaderCircle className="size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />}
-        {skill ? "Save changes" : "Create skill"}
+        {pending ? "Saving…" : skill ? "Save changes" : "Create skill"}
       </button>
     </form>
   );

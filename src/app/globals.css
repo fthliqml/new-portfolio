@@ -54,16 +54,26 @@ body {
   font-family: var(--font-manrope), sans-serif;
 }
 
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+:where(button, [role="button"]) {
+  touch-action: manipulation;
+}
+
 @utility admin-input {
   margin-top: 0.5rem;
   min-height: 3rem;
   width: 100%;
   border: 1px solid var(--input);
   background: var(--background);
+  color: var(--foreground);
   padding-inline: 0.75rem;
   outline: none;
 
-  &:focus {
+  &:focus-visible {
     border-color: var(--foreground);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--ring) 20%, transparent);
   }
