@@ -11,7 +11,7 @@ Verified locally on 13 August 2026:
 - [x] Dependency audit reports zero known vulnerabilities.
 - [x] Unit tests, TypeScript, ESLint, and production build pass.
 - [x] Public pages remain backed by fixtures while `CONTENT_SOURCE=fixture`.
-- [x] GitHub Actions runs the same `pnpm verify` gate for pull requests and `main`.
+- [x] A repeatable `pnpm verify` release gate is available. GitHub-hosted Actions are intentionally not required while repository Actions are unavailable because of the account billing lock.
 - [ ] Production migration status is clean. Requires Supabase credentials.
 - [ ] Legacy import and object verification pass twice. Requires Supabase credentials.
 - [ ] Authenticated admin and database-backed public smoke tests pass. Requires Supabase and deployment credentials.
