@@ -32,7 +32,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   return (
     <main className="grid min-h-svh bg-background text-foreground lg:grid-cols-[minmax(20rem,0.8fr)_1.2fr]">
-      <section className="flex min-h-svh flex-col justify-between border-border bg-card px-6 py-7 lg:border-r lg:px-10 lg:py-10">
+      <section className="flex flex-col gap-10 border-border bg-card px-6 py-7 lg:min-h-svh lg:justify-between lg:border-r lg:px-10 lg:py-10">
         <Link
           href="/"
           className="w-fit font-mono text-xs font-semibold uppercase tracking-[0.2em]"
@@ -40,11 +40,11 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           Iqmal / Portfolio
         </Link>
 
-        <div className="max-w-md py-16">
+        <div className="max-w-md py-4 sm:py-10 lg:py-16">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.24em] text-muted-foreground">
             Private workspace
           </p>
-          <h1 className="mt-4 text-5xl font-bold uppercase leading-[0.86] tracking-[-0.065em] sm:text-6xl">
+          <h1 className="mt-4 text-balance text-5xl font-bold uppercase leading-[0.86] tracking-[-0.065em] sm:text-6xl">
             Content
             <br /> control room.
           </h1>
@@ -65,7 +65,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               Authenticate
             </p>
             <span className="flex items-center gap-2 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-muted-foreground">
-              <span className="size-2 rounded-full bg-[#78917b]" />
+              <span className="size-2 rounded-full bg-[#78917b]" aria-hidden="true" />
               Secure area
             </span>
           </div>
