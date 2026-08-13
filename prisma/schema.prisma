@@ -135,26 +135,27 @@ model ProjectImpactStat {
 }
 
 model Experience {
-  id           String                @id @default(uuid()) @db.Uuid
-  slug         String                @unique @db.VarChar(120)
-  company      String                @db.VarChar(180)
-  role         String                @db.VarChar(140)
-  type         String                @db.VarChar(80)
-  summary      String                @db.Text
-  startDate    DateTime              @map("start_date") @db.Date
-  endDate      DateTime?             @map("end_date") @db.Date
-  isCurrent    Boolean               @default(false) @map("is_current")
-  monogram     String                @db.VarChar(8)
-  sortOrder    Int                   @default(0) @map("sort_order")
-  status       ContentStatus         @default(ACTIVE)
-  coverMediaId String?               @map("cover_media_id") @db.Uuid
-  coverMedia   MediaAsset?           @relation("ExperienceCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
-  imageAlt     String?               @map("image_alt") @db.VarChar(320)
-  highlights   ExperienceHighlight[]
-  projects     Project[]
-  archivedAt   DateTime?             @map("archived_at") @db.Timestamptz(3)
-  createdAt    DateTime              @default(now()) @map("created_at") @db.Timestamptz(3)
-  updatedAt    DateTime              @updatedAt @map("updated_at") @db.Timestamptz(3)
+  id            String                @id @default(uuid()) @db.Uuid
+  slug          String                @unique @db.VarChar(120)
+  company       String                @db.VarChar(180)
+  role          String                @db.VarChar(140)
+  type          String                @db.VarChar(80)
+  summary       String                @db.Text
+  startDate     DateTime              @map("start_date") @db.Date
+  endDate       DateTime?             @map("end_date") @db.Date
+  isCurrent     Boolean               @default(false) @map("is_current")
+  durationLabel String?               @map("duration_label") @db.VarChar(80)
+  monogram      String                @db.VarChar(8)
+  sortOrder     Int                   @default(0) @map("sort_order")
+  status        ContentStatus         @default(ACTIVE)
+  coverMediaId  String?               @map("cover_media_id") @db.Uuid
+  coverMedia    MediaAsset?           @relation("ExperienceCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
+  imageAlt      String?               @map("image_alt") @db.VarChar(320)
+  highlights    ExperienceHighlight[]
+  projects      Project[]
+  archivedAt    DateTime?             @map("archived_at") @db.Timestamptz(3)
+  createdAt     DateTime              @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt     DateTime              @updatedAt @map("updated_at") @db.Timestamptz(3)
 
   @@index([status, sortOrder])
   @@index([coverMediaId])
