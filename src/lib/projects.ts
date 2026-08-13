@@ -1,4 +1,4 @@
-import projectsData from "@/data/projects.json";
+import projectsData from "../../prisma/seed/projects.v1.json";
 import { formatProjectCategory } from "@/domain/content/format";
 import type { Project } from "@/domain/content/types";
 

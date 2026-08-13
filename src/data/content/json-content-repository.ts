@@ -1,5 +1,5 @@
-import experiencesData from "@/data/experiences.json";
-import projectsData from "@/data/projects.json";
+import experiencesData from "../../../prisma/seed/experiences.v1.json";
+import projectsData from "../../../prisma/seed/projects.v1.json";
 import type {
   ContentQueryOptions,
   ContentRepository,
