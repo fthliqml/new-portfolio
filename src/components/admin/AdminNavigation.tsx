@@ -6,6 +6,7 @@ import {
   FolderKanban,
   ImageIcon,
   LayoutDashboard,
+  Archive,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -23,6 +24,7 @@ const navigation = [
   },
   { href: "/admin/skills", label: "Skills", icon: Blocks, exact: false },
   { href: "/admin/media", label: "Media", icon: ImageIcon, exact: false },
+  { href: "/admin/archive", label: "Archive", icon: Archive, exact: false },
 ] as const;
 
 interface AdminNavigationProps {
