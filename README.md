@@ -7,7 +7,7 @@ A Next.js portfolio with a single-owner CMS built on Prisma, Supabase Postgres, 
 - Next.js 16, React 19, TypeScript, and Tailwind CSS
 - Prisma 7 with Supabase PostgreSQL
 - Supabase SSR Auth and private Storage
-- Vitest, ESLint, repository security checks, and GitHub Actions
+- Vitest, ESLint, and repository security checks
 - Vercel Hobby-compatible daily maintenance
 
 The architecture targets Supabase Free and Vercel Hobby. No paid service is required for the expected personal-portfolio workload; quota monitoring and manual export/restore are included.
@@ -25,7 +25,7 @@ Without credentials, the public site uses the versioned fixtures in `prisma/seed
 
 ## Quality gate
 
-Run the same gate used by CI before opening a pull request:
+Run the complete release gate before opening or merging a pull request:
 
 ```powershell
 pnpm verify
