@@ -11,38 +11,56 @@ import { getDb } from "@/lib/db";
 async function normalizeOrder(entity: ContentEntity, status: ContentStatus) {
   const db = getDb();
   if (entity === "project") {
-    const rows = await db.project.findMany({
-      where: { status },
-      select: { id: true },
-      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-    });
-    await db.$transaction(
-      rows.map((row, sortOrder) =>
-        db.project.update({ where: { id: row.id }, data: { sortOrder } }),
-      ),
-    );
+    await db.$executeRaw`
+      WITH ordered AS (
+        SELECT
+          id,
+          (ROW_NUMBER() OVER (ORDER BY sort_order ASC, created_at ASC) - 1)::integer AS next_sort_order
+        FROM "cms"."projects"
+        WHERE status = ${status}::"cms"."ContentStatus"
+      )
+      UPDATE "cms"."projects" AS target
+      SET
+        sort_order = ordered.next_sort_order,
+        updated_at = CURRENT_TIMESTAMP
+      FROM ordered
+      WHERE target.id = ordered.id
+        AND target.sort_order IS DISTINCT FROM ordered.next_sort_order
+    `;
   } else if (entity === "experience") {
-    const rows = await db.experience.findMany({
-      where: { status },
-      select: { id: true },
-      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-    });
-    await db.$transaction(
-      rows.map((row, sortOrder) =>
-        db.experience.update({ where: { id: row.id }, data: { sortOrder } }),
-      ),
-    );
+    await db.$executeRaw`
+      WITH ordered AS (
+        SELECT
+          id,
+          (ROW_NUMBER() OVER (ORDER BY sort_order ASC, created_at ASC) - 1)::integer AS next_sort_order
+        FROM "cms"."experiences"
+        WHERE status = ${status}::"cms"."ContentStatus"
+      )
+      UPDATE "cms"."experiences" AS target
+      SET
+        sort_order = ordered.next_sort_order,
+        updated_at = CURRENT_TIMESTAMP
+      FROM ordered
+      WHERE target.id = ordered.id
+        AND target.sort_order IS DISTINCT FROM ordered.next_sort_order
+    `;
   } else {
-    const rows = await db.skill.findMany({
-      where: { status },
-      select: { id: true },
-      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-    });
-    await db.$transaction(
-      rows.map((row, sortOrder) =>
-        db.skill.update({ where: { id: row.id }, data: { sortOrder } }),
-      ),
-    );
+    await db.$executeRaw`
+      WITH ordered AS (
+        SELECT
+          id,
+          (ROW_NUMBER() OVER (ORDER BY sort_order ASC, created_at ASC) - 1)::integer AS next_sort_order
+        FROM "cms"."skills"
+        WHERE status = ${status}::"cms"."ContentStatus"
+      )
+      UPDATE "cms"."skills" AS target
+      SET
+        sort_order = ordered.next_sort_order,
+        updated_at = CURRENT_TIMESTAMP
+      FROM ordered
+      WHERE target.id = ordered.id
+        AND target.sort_order IS DISTINCT FROM ordered.next_sort_order
+    `;
   }
 }
 
