@@ -6,6 +6,9 @@ import GithubContributions from "@/sections/github-contributions";
 import ContactSection from "@/sections/contact-section";
 import StaggeredMenu from "@/components/StaggeredMenu";
 import { siteConfig } from "@/lib/site";
+import { getPublicHomeContent } from "@/data/content/public-content";
+
+export const revalidate = 3600;
 
 const personId = `${siteConfig.url}/#person`;
 const websiteId = `${siteConfig.url}/#website`;
@@ -89,7 +92,9 @@ const socialItems = [
   { label: "Instagram", link: "https://instagram.com/fthliqml" },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const content = await getPublicHomeContent();
+
   return (
     <>
       <script
@@ -111,9 +116,9 @@ export default function Home() {
           openMenuButtonColor="#111114"
         />
         <HeroSection />
-        <IntroSection />
-        <ExperienceSection />
-        <ProjectsSection />
+        <IntroSection skills={content.skills.map((skill) => skill.name)} />
+        <ExperienceSection experiences={content.experiences} />
+        <ProjectsSection projects={content.featuredProjects} />
         <GithubContributions />
         <ContactSection />
       </main>

@@ -2,7 +2,6 @@
 
 import { useGSAP } from "@gsap/react";
 import ExperienceCard, { type Experience } from "@/components/ExperienceCard";
-import experienceData from "../../prisma/seed/experiences.v1.json";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
@@ -11,9 +10,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const experiences: Experience[] = experienceData;
-
-export default function ExperienceSection() {
+export default function ExperienceSection({
+  experiences,
+}: {
+  experiences: Experience[];
+}) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);

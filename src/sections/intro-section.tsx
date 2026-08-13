@@ -33,9 +33,7 @@ const lines: IntroLinePart[][] = [
   ],
 ];
 
-const skills = ["Next.js", "Laravel", "Node.js", "Express", "Redis", "Redux"];
-
-export default function IntroSection() {
+export default function IntroSection({ skills }: { skills: string[] }) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const shapeRef = useRef<HTMLDivElement | null>(null);
   const marqueeRef = useRef<HTMLDivElement | null>(null);

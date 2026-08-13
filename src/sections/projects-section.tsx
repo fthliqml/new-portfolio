@@ -5,14 +5,18 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import ProjectCard from "@/components/ProjectCard";
-import { featuredProjects } from "@/lib/projects";
+import type { Project } from "@/domain/content/types";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export default function ProjectsSection() {
+export default function ProjectsSection({
+  projects: featuredProjects,
+}: {
+  projects: Project[];
+}) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const bgTextRef = useRef<HTMLDivElement | null>(null);
