@@ -10,7 +10,7 @@ Verified locally on 13 August 2026:
 - [x] Repository guard rejects tracked secrets, local agent instructions, backups, generated Prisma output, client-side server secrets, and unguarded protected actions.
 - [x] Dependency audit reports zero known vulnerabilities.
 - [x] Unit tests, TypeScript, ESLint, and production build pass.
-- [x] Public pages remain backed by fixtures while `CONTENT_SOURCE=fixture`.
+- [x] Prisma is the authoritative public source after the verified import.
 - [x] A repeatable `pnpm verify` release gate is available. GitHub-hosted Actions are intentionally not required while repository Actions are unavailable because of the account billing lock.
 - [ ] Production migration status is clean. Requires Supabase credentials.
 - [ ] Legacy import and object verification pass twice. Requires Supabase credentials.
@@ -30,7 +30,6 @@ Configure these values in Vercel Production. Keep Preview mutations disabled.
 | `ADMIN_USER_ID` | Production only | UUID of the single Supabase Auth owner |
 | `ADMIN_EMAIL` | Production only | Normalized owner email |
 | `CRON_SECRET` | Production only | Random value of at least 32 characters |
-| `CONTENT_SOURCE` | Production | Start with `fixture`; change to `database` after verification |
 | `CMS_MUTATIONS_ENABLED` | Production | Start with `false`; change to `true` after verification |
 
 ## Pre-deploy gate
@@ -77,10 +76,10 @@ Configure these values in Vercel Production. Keep Preview mutations disabled.
 
 ## Deploy and cut over
 
-1. Deploy with `CONTENT_SOURCE=fixture` and `CMS_MUTATIONS_ENABLED=false`.
-2. Verify `/`, `/projects`, every known project detail route, `/sitemap.xml`, and static media return successful responses.
+1. Deploy with `CMS_MUTATIONS_ENABLED=false`.
+2. Verify `/`, `/projects`, every known project detail route, `/sitemap.xml`, and Supabase media return successful responses.
 3. Verify `/admin` redirects an anonymous visitor to `/admin/login`; invalid credentials show a generic error; the configured owner can sign in; a different Auth user cannot enter.
-4. Change only `CONTENT_SOURCE` to `database`, redeploy, and compare public content, ordering, media, metadata, and sitemap with the fixture-backed deployment.
+4. Compare public content, ordering, media, metadata, and sitemap with the versioned import source.
 5. Change `CMS_MUTATIONS_ENABLED` to `true` in Production and redeploy. Keep it `false` in Preview.
 6. In admin, create a temporary skill, edit it, reorder it, archive it, restore it, and permanently delete it. Confirm every step changes the public result only when expected.
 7. Upload a small WebP through Media, verify dimensions and alt metadata, attach it to a temporary project, confirm referenced deletion is blocked, detach it, then delete it.
@@ -92,7 +91,7 @@ Configure these values in Vercel Production. Keep Preview mutations disabled.
 If database content, Storage, or admin behavior is wrong:
 
 1. Set `CMS_MUTATIONS_ENABLED=false` immediately.
-2. Set `CONTENT_SOURCE=fixture` and redeploy to restore the known public experience without deleting production data.
+2. Redeploy the last known-good release or restore the latest verified export into a replacement Supabase project.
 3. Preserve logs, importer output, and the latest export. Do not rerun destructive SQL manually.
 4. Fix forward with a reviewed Prisma migration or restore into an empty replacement project using the procedure in `docs/cms-operations.md`.
 

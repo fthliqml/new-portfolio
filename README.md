@@ -1,6 +1,6 @@
 # Dynamic portfolio
 
-A Next.js portfolio with a single-owner CMS built on Prisma, Supabase Postgres, Auth, and private Storage. The public site can run from versioned fixtures before cutover and switch to database content without changing its UI contract.
+A Next.js portfolio with a single-owner CMS built on Prisma, Supabase Postgres, Auth, and Storage. Prisma is the authoritative public content source; versioned fixtures are retained only for repeatable bootstrap imports.
 
 ## Stack
 
@@ -21,7 +21,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Without credentials, the public site uses the versioned fixtures in `prisma/seed`. To exercise the CMS, copy `.env.example` to `.env.local` and fill it with a Supabase project you control. `.env.local`, `AGENTS.md`, generated Prisma output, and local backups are ignored by Git.
+Copy `.env.example` to `.env.local` and fill it with a Supabase project you control. Apply migrations and run the legacy importer before starting the site. `.env.local`, `AGENTS.md`, generated Prisma output, and local backups are ignored by Git.
 
 ## Quality gate
 
@@ -43,4 +43,4 @@ Start with these documents:
 - [Release checklist](docs/cms-release-checklist.md) — migration, import, cutover, smoke tests, and rollback
 - [.env.example](.env.example) — required environment variable names and connection roles
 
-Keep `CONTENT_SOURCE=fixture` until the credentialed migration and repeated legacy import have been verified. The release checklist is the source of truth for switching production to `database`.
+The release checklist is the source of truth for provisioning, import verification, deployment, and rollback.

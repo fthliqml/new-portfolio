@@ -19,7 +19,7 @@ Vercel Hobby permits daily cron execution but not a more frequent schedule, and 
 7. Run `pnpm import:legacy` and inspect the dry-run counts.
 8. Run `pnpm import:legacy -- --apply` twice. Both runs must report the same database counts, source checksum, and verified object count.
 9. Sign in to `/admin`, inspect every content section, and compare all public routes.
-10. Set `CONTENT_SOURCE=database` and `CMS_MUTATIONS_ENABLED=true` only in the production environment. Preview deployments remain read-only by policy.
+10. Set `CMS_MUTATIONS_ENABLED=true` only in the production environment. Preview deployments remain read-only by policy.
 
 ## Daily maintenance
 
@@ -62,7 +62,7 @@ After restore, verify:
 2. `/admin/media` has no missing referenced objects;
 3. project and experience relations are intact;
 4. archived records remain absent from public pages and sitemap;
-5. `CONTENT_SOURCE=database` is enabled only after those checks pass.
+5. the restored database is connected only after those checks pass.
 
 ## Monthly free-plan routine
 
