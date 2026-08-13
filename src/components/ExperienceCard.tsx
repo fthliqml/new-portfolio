@@ -1,19 +1,8 @@
 import Image from "next/image";
+import type { Experience } from "@/domain/content/types";
 import { cn } from "@/lib/utils";
 
-export interface Experience {
-  id: string;
-  role: string;
-  company: string;
-  type: string;
-  period: string;
-  duration: string;
-  summary: string;
-  highlights: string[];
-  image: string | null;
-  imageAlt: string;
-  monogram: string;
-}
+export type { Experience } from "@/domain/content/types";
 
 interface ExperienceCardProps {
   experience: Experience;
