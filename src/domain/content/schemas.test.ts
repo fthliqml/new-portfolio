@@ -72,6 +72,16 @@ describe("projectInputSchema", () => {
     );
   });
 
+  it("rejects duplicate gallery assets and positions", () => {
+    const project = activeProject();
+    project.media.push({ ...project.media[0], isCover: false });
+
+    const result = projectInputSchema.safeParse(project);
+    expect(result.success).toBe(false);
+    if (result.success) return;
+    expect(result.error.issues.filter((issue) => issue.path[0] === "media").length).toBeGreaterThanOrEqual(2);
+  });
+
   it("requires an impact narrative for case-study details", () => {
     const result = projectInputSchema.safeParse({
       ...activeProject(),
