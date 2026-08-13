@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { AdminShell } from "@/components/admin/AdminShell";
 import { requireAdmin } from "@/lib/auth/admin";
 
 export const metadata: Metadata = {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 export default async function ProtectedAdminLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  await requireAdmin();
+  const admin = await requireAdmin();
 
-  return children;
+  return <AdminShell ownerEmail={admin.email}>{children}</AdminShell>;
 }
