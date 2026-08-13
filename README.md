@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dynamic portfolio
 
-## Getting Started
+A Next.js portfolio with a single-owner CMS built on Prisma, Supabase Postgres, Auth, and private Storage. The public site can run from versioned fixtures before cutover and switch to database content without changing its UI contract.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+- Next.js 16, React 19, TypeScript, and Tailwind CSS
+- Prisma 7 with Supabase PostgreSQL
+- Supabase SSR Auth and private Storage
+- Vitest, ESLint, repository security checks, and GitHub Actions
+- Vercel Hobby-compatible daily maintenance
+
+The architecture targets Supabase Free and Vercel Hobby. No paid service is required for the expected personal-portfolio workload; quota monitoring and manual export/restore are included.
+
+## Local development
+
+Node.js 20.19 or newer and pnpm 11.9 are required.
+
+```powershell
+pnpm install --frozen-lockfile
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Without credentials, the public site uses the versioned fixtures in `prisma/seed`. To exercise the CMS, copy `.env.example` to `.env.local` and fill it with a Supabase project you control. `.env.local`, `AGENTS.md`, generated Prisma output, and local backups are ignored by Git.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality gate
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the same gate used by CI before opening a pull request:
 
-## Learn More
+```powershell
+pnpm verify
+```
 
-To learn more about Next.js, take a look at the following resources:
+It validates Prisma, checks repository and secret boundaries, audits dependencies, runs tests and type checking, lints, and creates a production build.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## CMS workflow
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The admin workspace is available at `/admin`. It manages reusable media, skills, experiences, projects, ordering, archive/restore, and guarded permanent deletion. Production mutations require both an allowlisted Supabase Auth owner and `CMS_MUTATIONS_ENABLED=true`; preview deployments remain read-only.
 
-## Deploy on Vercel
+Start with these documents:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [CMS operations](docs/cms-operations.md) — provisioning, maintenance, export, restore, and free-plan routine
+- [Release checklist](docs/cms-release-checklist.md) — migration, import, cutover, smoke tests, and rollback
+- [.env.example](.env.example) — required environment variable names and connection roles
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Keep `CONTENT_SOURCE=fixture` until the credentialed migration and repeated legacy import have been verified. The release checklist is the source of truth for switching production to `database`.
