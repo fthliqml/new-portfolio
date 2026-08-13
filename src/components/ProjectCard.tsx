@@ -2,7 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 import ProjectMediaCarousel from "@/components/ProjectMediaCarousel";
-import type { Project } from "@/lib/projects";
+import type { Project } from "@/domain/content/types";
 
 interface ProjectCardProps {
   project: Project;

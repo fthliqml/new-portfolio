@@ -6,10 +6,10 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import {
-  formatProjectCategory,
   projectCategories,
   type Project,
-} from "@/lib/projects";
+} from "@/domain/content/types";
+import { formatProjectCategory } from "@/domain/content/format";
 
 type ProjectFilter = (typeof projectCategories)[number];
 

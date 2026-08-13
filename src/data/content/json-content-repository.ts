@@ -10,10 +10,21 @@ import type {
   Project,
   Skill,
 } from "@/domain/content/types";
+import { buildSkillUnion } from "@/domain/migration/legacy";
 
 const projects = projectsData as Project[];
 const experiences = experiencesData as Experience[];
-const skills: Skill[] = [];
+const skills: Skill[] = buildSkillUnion(
+  projects.map(({ techStack }) => techStack),
+).map((skill) => ({
+  id: skill.slug,
+  slug: skill.slug,
+  name: skill.name,
+  category: skill.category,
+  showOnHome: skill.showOnHome,
+  status: "active",
+  sortOrder: skill.sortOrder,
+}));
 
 function visible<T extends { status?: string }>(
   items: T[],
