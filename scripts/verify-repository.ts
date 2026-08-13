@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
@@ -22,7 +22,11 @@ for (const file of trackedFiles.filter(forbiddenTrackedFile)) {
   violations.push(`${file}: local or generated artifact must not be tracked`);
 }
 
-const sourceFiles = trackedFiles.filter((file) => /\.(?:[cm]?[jt]sx?|json|ya?ml|md)$/.test(file));
+const sourceFiles = trackedFiles.filter(
+  (file) =>
+    /\.(?:[cm]?[jt]sx?|json|ya?ml|md)$/.test(file) &&
+    existsSync(path.join(root, file)),
+);
 const secretPatterns = [
   /sb_secret_[A-Za-z0-9_-]+/,
   /postgres(?:ql)?:\/\/[^\s:@]+:[^\s@]+@[^\s/]+/,
