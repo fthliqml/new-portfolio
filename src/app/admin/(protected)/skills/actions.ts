@@ -13,6 +13,7 @@ import {
 import { requireAdminMutation } from "@/lib/auth/admin";
 import { getDb } from "@/lib/db";
 import { setContentArchived } from "@/lib/content/lifecycle";
+import { revalidatePublicContent } from "@/lib/content/revalidation";
 
 export interface SkillActionState {
   error?: string;
@@ -84,6 +85,7 @@ export async function createSkill(
 
   revalidatePath("/admin");
   revalidatePath("/admin/skills");
+  revalidatePublicContent();
   redirect("/admin/skills");
 }
 
@@ -122,6 +124,7 @@ export async function updateSkill(
   }
 
   revalidatePath("/admin/skills");
+  revalidatePublicContent();
   redirect("/admin/skills");
 }
 
@@ -130,6 +133,7 @@ export async function setSkillArchived(id: string, archived: boolean) {
   await setContentArchived("skill", id, archived);
   revalidatePath("/admin");
   revalidatePath("/admin/skills");
+  revalidatePublicContent();
 }
 
 export async function moveSkill(id: string, direction: "up" | "down") {
@@ -161,6 +165,7 @@ export async function moveSkill(id: string, direction: "up" | "down") {
     }),
   ]);
   revalidatePath("/admin/skills");
+  revalidatePublicContent();
 }
 
 export async function deleteUnusedSkill(id: string) {
@@ -174,4 +179,5 @@ export async function deleteUnusedSkill(id: string) {
   await getDb().skill.delete({ where: { id } });
   revalidatePath("/admin");
   revalidatePath("/admin/skills");
+  revalidatePublicContent();
 }
