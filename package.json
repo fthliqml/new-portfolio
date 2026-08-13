@@ -19,7 +19,9 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
-    "import:legacy": "tsx scripts/import-legacy-content.ts"
+    "import:legacy": "tsx scripts/import-legacy-content.ts",
+    "cms:export": "tsx scripts/export-cms.ts",
+    "cms:restore": "tsx scripts/restore-cms.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -58,6 +60,7 @@
     "@types/pg": "^8.21.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "prisma": "7.9.1",
