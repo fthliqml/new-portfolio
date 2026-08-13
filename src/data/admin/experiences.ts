@@ -1,11 +1,12 @@
 import "server-only";
 
-import { MediaStatus } from "@/generated/prisma/enums";
+import { ContentStatus, MediaStatus } from "@/generated/prisma/enums";
 
 import { getDb } from "@/lib/db";
 
 export async function getAdminExperiences() {
   return getDb().experience.findMany({
+    where: { status: ContentStatus.ACTIVE },
     include: {
       _count: { select: { projects: true } },
       highlights: { orderBy: { position: "asc" } },

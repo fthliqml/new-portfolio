@@ -15,6 +15,7 @@ const projectEditorInclude = {
 
 export async function getAdminProjects() {
   return getDb().project.findMany({
+    where: { status: ContentStatus.ACTIVE },
     include: { _count: { select: { media: true, skills: true } } },
     orderBy: [{ status: "asc" }, { sortOrder: "asc" }, { title: "asc" }],
   });

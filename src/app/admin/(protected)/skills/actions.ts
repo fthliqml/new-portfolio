@@ -12,6 +12,7 @@ import {
 } from "@/domain/content/skills";
 import { requireAdminMutation } from "@/lib/auth/admin";
 import { getDb } from "@/lib/db";
+import { setContentArchived } from "@/lib/content/lifecycle";
 
 export interface SkillActionState {
   error?: string;
@@ -126,14 +127,7 @@ export async function updateSkill(
 
 export async function setSkillArchived(id: string, archived: boolean) {
   await requireAdminMutation();
-  await getDb().skill.update({
-    where: { id },
-    data: {
-      status: archived ? ContentStatus.ARCHIVED : ContentStatus.ACTIVE,
-      archivedAt: archived ? new Date() : null,
-      showOnHome: archived ? false : undefined,
-    },
-  });
+  await setContentArchived("skill", id, archived);
   revalidatePath("/admin");
   revalidatePath("/admin/skills");
 }

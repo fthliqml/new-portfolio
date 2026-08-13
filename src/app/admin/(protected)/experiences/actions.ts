@@ -1,6 +1,5 @@
 "use server";
 
-import { ContentStatus } from "@/generated/prisma/enums";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -8,6 +7,7 @@ import { assertImmutableSlug, createSlug } from "@/domain/content/format";
 import { experienceInputSchema } from "@/domain/content/schemas";
 import { requireAdminMutation } from "@/lib/auth/admin";
 import { getDb } from "@/lib/db";
+import { setContentArchived } from "@/lib/content/lifecycle";
 
 export interface ExperienceActionState {
   error?: string;
@@ -155,13 +155,7 @@ export async function updateExperience(
 
 export async function setExperienceArchived(id: string, archived: boolean) {
   await requireAdminMutation();
-  await getDb().experience.update({
-    where: { id },
-    data: {
-      status: archived ? ContentStatus.ARCHIVED : ContentStatus.ACTIVE,
-      archivedAt: archived ? new Date() : null,
-    },
-  });
+  await setContentArchived("experience", id, archived);
   revalidatePath("/admin");
   revalidatePath("/admin/experiences");
 }
