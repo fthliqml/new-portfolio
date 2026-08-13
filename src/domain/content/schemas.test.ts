@@ -134,6 +134,23 @@ describe("experienceInputSchema", () => {
       expect.objectContaining({ path: ["imageAlt"] }),
     );
   });
+
+  it("allows a current experience only without an end month", () => {
+    expect(
+      experienceInputSchema.safeParse({
+        ...experience,
+        isCurrent: true,
+        endMonth: null,
+      }).success,
+    ).toBe(true);
+
+    const invalid = experienceInputSchema.safeParse({
+      ...experience,
+      isCurrent: true,
+      endMonth: "2025-01",
+    });
+    expect(invalid.success).toBe(false);
+  });
 });
 
 describe("skillInputSchema", () => {
