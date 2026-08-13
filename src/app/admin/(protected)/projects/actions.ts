@@ -11,6 +11,7 @@ import {
 } from "@/domain/content/schemas";
 import { requireAdminMutation } from "@/lib/auth/admin";
 import { getDb } from "@/lib/db";
+import { revalidatePublicContent } from "@/lib/content/revalidation";
 
 export interface ProjectActionState {
   error?: string;
@@ -130,6 +131,7 @@ export async function createProject(
 
   revalidatePath("/admin");
   revalidatePath("/admin/projects");
+  revalidatePublicContent(result.data.slug);
   redirect("/admin/projects");
 }
 
@@ -174,7 +176,7 @@ export async function updateProject(
 
   revalidatePath("/admin");
   revalidatePath("/admin/projects");
-  revalidatePath(`/projects/${current.slug}`);
+  revalidatePublicContent(current.slug);
   redirect("/admin/projects");
 }
 
@@ -202,4 +204,5 @@ export async function moveProject(id: string, direction: "up" | "down") {
     }),
   ]);
   revalidatePath("/admin/projects");
+  revalidatePublicContent();
 }

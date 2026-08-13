@@ -9,6 +9,7 @@ import {
   permanentlyDeleteContent,
   setContentArchived,
 } from "@/lib/content/lifecycle";
+import { revalidatePublicContent } from "@/lib/content/revalidation";
 
 const entitySchema = z.enum(["project", "experience", "skill"]);
 const idSchema = z.uuid();
@@ -17,6 +18,7 @@ function revalidateAdmin(entity: ContentEntity) {
   revalidatePath("/admin");
   revalidatePath("/admin/archive");
   revalidatePath(`/admin/${entity === "experience" ? "experiences" : `${entity}s`}`);
+  revalidatePublicContent();
 }
 
 export async function archiveContent(entity: ContentEntity, id: string) {

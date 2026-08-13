@@ -8,6 +8,7 @@ import { experienceInputSchema } from "@/domain/content/schemas";
 import { requireAdminMutation } from "@/lib/auth/admin";
 import { getDb } from "@/lib/db";
 import { setContentArchived } from "@/lib/content/lifecycle";
+import { revalidatePublicContent } from "@/lib/content/revalidation";
 
 export interface ExperienceActionState {
   error?: string;
@@ -104,6 +105,7 @@ export async function createExperience(
 
   revalidatePath("/admin");
   revalidatePath("/admin/experiences");
+  revalidatePublicContent();
   redirect("/admin/experiences");
 }
 
@@ -150,6 +152,7 @@ export async function updateExperience(
   }
 
   revalidatePath("/admin/experiences");
+  revalidatePublicContent();
   redirect("/admin/experiences");
 }
 
@@ -158,6 +161,7 @@ export async function setExperienceArchived(id: string, archived: boolean) {
   await setContentArchived("experience", id, archived);
   revalidatePath("/admin");
   revalidatePath("/admin/experiences");
+  revalidatePublicContent();
 }
 
 export async function moveExperience(id: string, direction: "up" | "down") {
@@ -188,4 +192,5 @@ export async function moveExperience(id: string, direction: "up" | "down") {
     }),
   ]);
   revalidatePath("/admin/experiences");
+  revalidatePublicContent();
 }
