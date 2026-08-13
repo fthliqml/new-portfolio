@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import ProjectPageHeader from "@/components/ProjectPageHeader";
 import ProjectsExplorer from "@/components/ProjectsExplorer";
-import { projects } from "@/lib/projects";
+import { getPublicProjects } from "@/data/content/public-content";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -20,7 +20,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProjectsPage() {
+export const revalidate = 3600;
+
+export default async function ProjectsPage() {
+  const projects = await getPublicProjects();
   return (
     <main className="min-h-dvh bg-background text-foreground">
       <ProjectPageHeader />

@@ -5,28 +5,37 @@ import { notFound } from "next/navigation";
 
 import ProjectMediaCarousel from "@/components/ProjectMediaCarousel";
 import ProjectPageHeader from "@/components/ProjectPageHeader";
-import {
-  formatProjectCategory,
-  getProjectBySlug,
-  projects,
-} from "@/lib/projects";
+import { getPublicProjects } from "@/data/content/public-content";
+import { formatProjectCategory } from "@/domain/content/format";
 import { siteConfig } from "@/lib/site";
 
 interface ProjectDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.id }));
+export const revalidate = 3600;
+
+async function getProjectContext(slug: string) {
+  const projects = await getPublicProjects();
+  const projectIndex = projects.findIndex((project) => project.id === slug);
+  if (projectIndex < 0) return null;
+
+  return {
+    project: projects[projectIndex],
+    previousProject:
+      projects[(projectIndex - 1 + projects.length) % projects.length],
+    nextProject: projects[(projectIndex + 1) % projects.length],
+  };
 }
 
 export async function generateMetadata({
   params,
 }: ProjectDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const context = await getProjectContext(slug);
 
-  if (!project) return {};
+  if (!context) return {};
+  const { project } = context;
 
   return {
     title: project.name,
@@ -45,14 +54,10 @@ export default async function ProjectDetailPage({
   params,
 }: ProjectDetailPageProps) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const context = await getProjectContext(slug);
 
-  if (!project) notFound();
-
-  const projectIndex = projects.findIndex((item) => item.id === project.id);
-  const previousProject =
-    projects[(projectIndex - 1 + projects.length) % projects.length];
-  const nextProject = projects[(projectIndex + 1) % projects.length];
+  if (!context) notFound();
+  const { project, previousProject, nextProject } = context;
   const hasProjectStory = Boolean(
     project.contributions?.length && project.impacts?.length,
   );
