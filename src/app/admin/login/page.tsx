@@ -99,10 +99,11 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               <input
                 required
                 autoComplete="email"
+                spellCheck={false}
                 inputMode="email"
                 type="email"
                 name="email"
-                className="mt-2 h-12 w-full rounded-none border border-input bg-card px-3 text-base outline-none transition focus:border-foreground focus:ring-2 focus:ring-ring/20"
+                className="mt-2 h-12 w-full rounded-none border border-input bg-card px-3 text-base outline-none transition focus-visible:border-foreground focus-visible:ring-2 focus-visible:ring-ring/20"
               />
             </label>
 
@@ -115,7 +116,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
                 autoComplete="current-password"
                 type="password"
                 name="password"
-                className="mt-2 h-12 w-full rounded-none border border-input bg-card px-3 text-base outline-none transition focus:border-foreground focus:ring-2 focus:ring-ring/20"
+                className="mt-2 h-12 w-full rounded-none border border-input bg-card px-3 text-base outline-none transition focus-visible:border-foreground focus-visible:ring-2 focus-visible:ring-ring/20"
               />
             </label>
 

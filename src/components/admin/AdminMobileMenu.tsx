@@ -20,7 +20,7 @@ export function AdminMobileMenu() {
         <span className="sr-only">
           {isOpen ? "Close navigation" : "Open navigation"}
         </span>
-        {isOpen ? <X className="size-4" /> : <Menu className="size-4" />}
+        {isOpen ? <X className="size-4" aria-hidden="true" /> : <Menu className="size-4" aria-hidden="true" />}
       </button>
 
       {isOpen && (
