@@ -1,0 +1,250 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas  = ["cms"]
+}
+
+enum ContentStatus {
+  ACTIVE
+  ARCHIVED
+
+  @@schema("cms")
+}
+
+enum ProjectCategory {
+  FRONTEND
+  BACKEND
+  FULLSTACK
+
+  @@schema("cms")
+}
+
+enum SkillCategory {
+  FRONTEND
+  BACKEND
+  DATABASE
+  DEVOPS
+  TOOLS
+  OTHER
+
+  @@schema("cms")
+}
+
+enum MediaStatus {
+  PENDING
+  READY
+
+  @@schema("cms")
+}
+
+model AdminUser {
+  userId      String       @id @map("user_id") @db.Uuid
+  email       String       @unique @db.VarChar(320)
+  mediaAssets MediaAsset[]
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt   DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@map("admin_users")
+  @@schema("cms")
+}
+
+model Project {
+  id                  String                @id @default(uuid()) @db.Uuid
+  slug                String                @unique @db.VarChar(120)
+  title               String                @db.VarChar(160)
+  role                String                @db.VarChar(120)
+  category            ProjectCategory
+  summary             String                @db.Text
+  liveUrl             String?               @map("live_url") @db.VarChar(2048)
+  featured            Boolean               @default(false)
+  sortOrder           Int                   @default(0) @map("sort_order")
+  status              ContentStatus         @default(ACTIVE)
+  relatedExperienceId String?               @map("related_experience_id") @db.Uuid
+  relatedExperience   Experience?           @relation(fields: [relatedExperienceId], references: [id], onDelete: SetNull)
+  impactSummary       String?               @map("impact_summary") @db.Text
+  highlights          ProjectHighlight[]
+  contributions       ProjectContribution[]
+  impacts             ProjectImpact[]
+  impactStats         ProjectImpactStat[]
+  skills              ProjectSkill[]
+  media               ProjectMedia[]
+  publishedAt         DateTime              @default(now()) @map("published_at") @db.Timestamptz(3)
+  archivedAt          DateTime?             @map("archived_at") @db.Timestamptz(3)
+  createdAt           DateTime              @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt           DateTime              @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([status, sortOrder])
+  @@index([status, featured, sortOrder])
+  @@index([category, status])
+  @@index([relatedExperienceId])
+  @@map("projects")
+  @@schema("cms")
+}
+
+model ProjectHighlight {
+  id        String  @id @default(uuid()) @db.Uuid
+  projectId String  @map("project_id") @db.Uuid
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  text      String  @db.Text
+  position  Int
+
+  @@unique([projectId, position])
+  @@map("project_highlights")
+  @@schema("cms")
+}
+
+model ProjectContribution {
+  id        String  @id @default(uuid()) @db.Uuid
+  projectId String  @map("project_id") @db.Uuid
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  text      String  @db.Text
+  position  Int
+
+  @@unique([projectId, position])
+  @@map("project_contributions")
+  @@schema("cms")
+}
+
+model ProjectImpact {
+  id        String  @id @default(uuid()) @db.Uuid
+  projectId String  @map("project_id") @db.Uuid
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  text      String  @db.Text
+  position  Int
+
+  @@unique([projectId, position])
+  @@map("project_impacts")
+  @@schema("cms")
+}
+
+model ProjectImpactStat {
+  id        String  @id @default(uuid()) @db.Uuid
+  projectId String  @map("project_id") @db.Uuid
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  label     String  @db.VarChar(120)
+  value     String  @db.VarChar(80)
+  position  Int
+
+  @@unique([projectId, position])
+  @@map("project_impact_stats")
+  @@schema("cms")
+}
+
+model Experience {
+  id           String                @id @default(uuid()) @db.Uuid
+  slug         String                @unique @db.VarChar(120)
+  company      String                @db.VarChar(180)
+  role         String                @db.VarChar(140)
+  type         String                @db.VarChar(80)
+  summary      String                @db.Text
+  startDate    DateTime              @map("start_date") @db.Date
+  endDate      DateTime?             @map("end_date") @db.Date
+  isCurrent    Boolean               @default(false) @map("is_current")
+  monogram     String                @db.VarChar(8)
+  sortOrder    Int                   @default(0) @map("sort_order")
+  status       ContentStatus         @default(ACTIVE)
+  coverMediaId String?               @map("cover_media_id") @db.Uuid
+  coverMedia   MediaAsset?           @relation("ExperienceCover", fields: [coverMediaId], references: [id], onDelete: SetNull)
+  imageAlt     String?               @map("image_alt") @db.VarChar(320)
+  highlights   ExperienceHighlight[]
+  projects     Project[]
+  archivedAt   DateTime?             @map("archived_at") @db.Timestamptz(3)
+  createdAt    DateTime              @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime              @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([status, sortOrder])
+  @@index([coverMediaId])
+  @@map("experiences")
+  @@schema("cms")
+}
+
+model ExperienceHighlight {
+  id           String     @id @default(uuid()) @db.Uuid
+  experienceId String     @map("experience_id") @db.Uuid
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+  text         String     @db.Text
+  position     Int
+
+  @@unique([experienceId, position])
+  @@map("experience_highlights")
+  @@schema("cms")
+}
+
+model Skill {
+  id         String         @id @default(uuid()) @db.Uuid
+  slug       String         @unique @db.VarChar(120)
+  name       String         @db.VarChar(80)
+  category   SkillCategory
+  showOnHome Boolean        @default(false) @map("show_on_home")
+  sortOrder  Int            @default(0) @map("sort_order")
+  status     ContentStatus  @default(ACTIVE)
+  projects   ProjectSkill[]
+  archivedAt DateTime?      @map("archived_at") @db.Timestamptz(3)
+  createdAt  DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt  DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([status, showOnHome, sortOrder])
+  @@map("skills")
+  @@schema("cms")
+}
+
+model ProjectSkill {
+  projectId String  @map("project_id") @db.Uuid
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  skillId   String  @map("skill_id") @db.Uuid
+  skill     Skill   @relation(fields: [skillId], references: [id], onDelete: Restrict)
+  position  Int
+
+  @@id([projectId, skillId])
+  @@unique([projectId, position])
+  @@index([skillId])
+  @@map("project_skills")
+  @@schema("cms")
+}
+
+model MediaAsset {
+  id               String         @id @default(uuid()) @db.Uuid
+  bucket           String         @default("portfolio-media") @db.VarChar(100)
+  objectPath       String         @unique @map("object_path") @db.VarChar(1024)
+  originalName     String         @map("original_name") @db.VarChar(255)
+  mimeType         String         @map("mime_type") @db.VarChar(100)
+  sizeBytes        Int            @map("size_bytes")
+  width            Int
+  height           Int
+  blurDataUrl      String?        @map("blur_data_url") @db.Text
+  status           MediaStatus    @default(PENDING)
+  createdBy        String         @map("created_by") @db.Uuid
+  creator          AdminUser      @relation(fields: [createdBy], references: [userId], onDelete: Restrict)
+  projectMedia     ProjectMedia[]
+  experienceCovers Experience[]   @relation("ExperienceCover")
+  createdAt        DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt        DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([status, createdAt])
+  @@index([createdBy])
+  @@map("media_assets")
+  @@schema("cms")
+}
+
+model ProjectMedia {
+  id           String     @id @default(uuid()) @db.Uuid
+  projectId    String     @map("project_id") @db.Uuid
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  mediaAssetId String     @map("media_asset_id") @db.Uuid
+  mediaAsset   MediaAsset @relation(fields: [mediaAssetId], references: [id], onDelete: Restrict)
+  altText      String     @map("alt_text") @db.VarChar(320)
+  label        String     @db.VarChar(120)
+  description  String     @db.Text
+  position     Int
+  isCover      Boolean    @default(false) @map("is_cover")
+
+  @@unique([projectId, position])
+  @@unique([projectId, mediaAssetId])
+  @@index([mediaAssetId])
+  @@map("project_media")
+  @@schema("cms")
+}
