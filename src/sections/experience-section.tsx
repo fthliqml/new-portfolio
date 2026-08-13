@@ -2,7 +2,7 @@
 
 import { useGSAP } from "@gsap/react";
 import ExperienceCard, { type Experience } from "@/components/ExperienceCard";
-import experienceData from "@/data/experiences.json";
+import experienceData from "../../prisma/seed/experiences.v1.json";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
