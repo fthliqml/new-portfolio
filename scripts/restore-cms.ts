@@ -66,6 +66,33 @@ async function main() {
       if (error) throw new Error(`Media restore failed: ${error.message}`);
     }
 
+    for (const file of manifest.resumeFiles ?? []) {
+      const absoluteFile = path.resolve(input, file.file);
+      const relative = path.relative(input, absoluteFile);
+      if (relative.startsWith("..") || path.isAbsolute(relative)) {
+        throw new Error(`Unsafe resume path in manifest: ${file.file}`);
+      }
+      const buffer = await readFile(absoluteFile);
+      const checksum = createHash("sha256").update(buffer).digest("hex");
+      if (checksum !== file.sha256 || buffer.byteLength !== file.sizeBytes) {
+        throw new Error(`Resume checksum mismatch: ${file.file}`);
+      }
+      const asset = manifest.resumeAssets?.find(
+        ({ id }) => id === file.resumeAssetId,
+      );
+      if (!asset) {
+        throw new Error(`Missing resume metadata: ${file.resumeAssetId}`);
+      }
+      const { error } = await supabase.storage
+        .from(file.bucket)
+        .upload(file.objectPath, buffer, {
+          contentType: "application/pdf",
+          cacheControl: "31536000",
+          upsert: true,
+        });
+      if (error) throw new Error(`Resume restore failed: ${error.message}`);
+    }
+
     for (const admin of manifest.adminUsers) {
       await db.adminUser.upsert({
         where: { userId: admin.userId },
@@ -94,6 +121,23 @@ async function main() {
         updatedAt: date(asset.updatedAt),
       };
       await db.mediaAsset.upsert({
+        where: { id: asset.id },
+        update: data,
+        create: { id: asset.id, ...data, createdAt: date(asset.createdAt) },
+      });
+    }
+
+    for (const asset of manifest.resumeAssets ?? []) {
+      const data = {
+        bucket: asset.bucket,
+        objectPath: asset.objectPath,
+        originalName: asset.originalName,
+        mimeType: asset.mimeType,
+        sizeBytes: asset.sizeBytes,
+        createdBy: asset.createdBy,
+        updatedAt: date(asset.updatedAt),
+      };
+      await db.resumeAsset.upsert({
         where: { id: asset.id },
         update: data,
         create: { id: asset.id, ...data, createdAt: date(asset.createdAt) },
@@ -211,6 +255,7 @@ async function main() {
           experiences: manifest.experiences.length,
           skills: manifest.skills.length,
           mediaFiles: manifest.mediaFiles.length,
+          resumeFiles: manifest.resumeFiles?.length ?? 0,
         },
         null,
         2,

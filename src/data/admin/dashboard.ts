@@ -27,6 +27,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     experiences,
     skills,
     media,
+    resume,
   ] = await Promise.all([
     db.project.groupBy({ by: ["status"], _count: true }),
     db.experience.groupBy({ by: ["status"], _count: true }),
@@ -56,6 +57,10 @@ export async function getDashboardData(): Promise<DashboardData> {
       orderBy: { updatedAt: "desc" },
       take: 5,
     }),
+    db.resumeAsset.findUnique({
+      where: { id: "primary" },
+      select: { id: true, originalName: true, sizeBytes: true, updatedAt: true },
+    }),
   ]);
 
   const recentActivity: DashboardActivity[] = [
@@ -83,6 +88,16 @@ export async function getDashboardData(): Promise<DashboardData> {
       label: item.originalName,
       updatedAt: item.updatedAt,
     })),
+    ...(resume
+      ? [
+          {
+            id: resume.id,
+            type: "resume" as const,
+            label: resume.originalName,
+            updatedAt: resume.updatedAt,
+          },
+        ]
+      : []),
   ]
     .sort((left, right) => right.updatedAt.getTime() - left.updatedAt.getTime())
     .slice(0, 8);
@@ -106,7 +121,7 @@ export async function getDashboardData(): Promise<DashboardData> {
       sizeBytes: mediaCounts.reduce(
         (total, row) => total + (row._sum.sizeBytes ?? 0),
         0,
-      ),
+      ) + (resume?.sizeBytes ?? 0),
     },
     recentActivity,
   };

@@ -25,14 +25,17 @@ function outputDirectory() {
 async function main() {
   const output = outputDirectory();
   const mediaDirectory = path.join(output, "media");
+  const resumeDirectory = path.join(output, "resume");
   await mkdir(mediaDirectory, { recursive: true });
+  await mkdir(resumeDirectory, { recursive: true });
   const { db, supabase } = createCmsRuntime();
 
   try {
-    const [adminUsers, mediaAssets, skills, experiences, projects] =
+    const [adminUsers, mediaAssets, resumeAssets, skills, experiences, projects] =
       await Promise.all([
         db.adminUser.findMany({ orderBy: { userId: "asc" } }),
         db.mediaAsset.findMany({ orderBy: { id: "asc" } }),
+        db.resumeAsset.findMany({ orderBy: { id: "asc" } }),
         db.skill.findMany({ orderBy: { id: "asc" } }),
         db.experience.findMany({
           include: { highlights: { orderBy: { position: "asc" } } },
@@ -60,6 +63,7 @@ async function main() {
       ),
     ]);
     const mediaFiles = [];
+    const resumeFiles = [];
 
     for (const asset of mediaAssets) {
       if (!referencedMediaIds.has(asset.id) || asset.status !== "READY") continue;
@@ -90,16 +94,38 @@ async function main() {
       });
     }
 
+    for (const asset of resumeAssets) {
+      const { data, error } = await supabase.storage
+        .from(asset.bucket)
+        .download(asset.objectPath);
+      if (error || !data) {
+        throw new Error(`Cannot export ${asset.objectPath}: ${error?.message}`);
+      }
+      const buffer = Buffer.from(await data.arrayBuffer());
+      const relativeFile = `resume/${asset.id}.pdf`;
+      await writeFile(path.join(output, relativeFile), buffer);
+      resumeFiles.push({
+        resumeAssetId: asset.id,
+        bucket: asset.bucket,
+        objectPath: asset.objectPath,
+        file: relativeFile,
+        sha256: createHash("sha256").update(buffer).digest("hex"),
+        sizeBytes: buffer.byteLength,
+      });
+    }
+
     const serialized: unknown = JSON.parse(
       JSON.stringify({
         version: 1,
         exportedAt: new Date().toISOString(),
         adminUsers,
         mediaAssets,
+        resumeAssets,
         skills,
         experiences,
         projects,
         mediaFiles,
+        resumeFiles,
       }),
     );
     const payload = cmsBackupPayloadSchema.parse(serialized);
@@ -119,6 +145,7 @@ async function main() {
             skills: skills.length,
             mediaMetadata: mediaAssets.length,
             mediaFiles: mediaFiles.length,
+            resumeFiles: resumeFiles.length,
           },
         },
         null,
