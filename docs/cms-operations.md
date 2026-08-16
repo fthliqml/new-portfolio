@@ -29,7 +29,7 @@ The route:
 
 - checks database connectivity;
 - deletes Storage objects and rows left `PENDING` for more than one hour;
-- reports tracked media bytes and the free-tier warning state;
+- reports tracked media and resume bytes plus the free-tier warning state;
 - is safe to retry because cleanup selects only still-pending rows.
 
 For a manual production check, send the same bearer header. Do not place the secret in a URL or log it.
@@ -42,7 +42,7 @@ Run:
 pnpm cms:export
 ```
 
-The command loads `.env.local`, creates a new timestamped directory under `backups/`, exports all managed metadata, downloads every referenced ready media object, records SHA-256 checksums, and writes `manifest.json`. The entire `backups/` directory is ignored by Git.
+The command loads `.env.local`, creates a new timestamped directory under `backups/`, exports all managed metadata, downloads every referenced ready media object and the active resume, records SHA-256 checksums, and writes `manifest.json`. The entire `backups/` directory is ignored by Git.
 
 Copy completed backup directories to storage you already control. A local disk copy is not a backup if it stays on the same machine.
 
@@ -54,7 +54,7 @@ Restore only into an empty database or the same database lineage represented by 
 pnpm cms:restore -- --input=backups/cms-YYYY-MM-DDTHH-MM-SS
 ```
 
-The command rejects paths outside `backups/`, validates the manifest checksum and every media checksum before writing, uploads objects with their original paths, and upserts records with their original IDs. Re-running the same restore is idempotent.
+The command rejects paths outside `backups/`, validates the manifest checksum and every media or resume checksum before writing, uploads objects with their original paths, and upserts records with their original IDs. Re-running the same restore is idempotent. Backups created before managed resumes were introduced remain valid.
 
 After restore, verify:
 
@@ -64,10 +64,18 @@ After restore, verify:
 4. archived records remain absent from public pages and sitemap;
 5. the restored database is connected only after those checks pass.
 
+## Resume replacement
+
+Open `/admin/resume` to inspect or replace the public resume. Uploads must be non-empty PDF files no larger than 5 MB. The browser uploads the candidate directly to the `portfolio-files` bucket, then the server verifies the stored MIME type and size before switching the singleton resume record. The previously active object is removed only after the database switch succeeds.
+
+All public resume buttons link to `/resume`, so replacing the object does not require editing page content. Until the first managed upload succeeds, `/resume` redirects to the bundled `public/resume.pdf`. Keep that file in the repository as a deploy-safe fallback.
+
+The `portfolio-files` bucket is public for document delivery, while insert, update, and delete policies restrict browser writes to the authenticated owner's UUID folder. The secret key remains server-only.
+
 ## Monthly free-plan routine
 
 - Export and copy the backup off the development machine.
-- Review Supabase database and Storage usage dashboards.
+- Review Supabase database and Storage usage dashboards, including the active resume.
 - Delete unused media through the admin library; referenced media is protected.
 - Review maintenance failures in Vercel logs before the Hobby one-hour log window expires.
 - Open the public site and admin at least weekly if you want to reduce the chance of inactivity pausing.

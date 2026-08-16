@@ -58,7 +58,7 @@ Configure these values in Vercel Production. Keep Preview mutations disabled.
    pnpm exec prisma migrate status
    ```
 
-5. Confirm all three migrations are applied and the `cms` schema plus private `portfolio-media` bucket exist.
+5. Confirm every repository migration is applied and the `cms` schema plus the `portfolio-media` and `portfolio-files` buckets exist. Both buckets are public for delivery and enforce owner-only browser writes through Storage policies.
 6. Run the importer without writes and save the counts shown in the terminal:
 
    ```powershell
@@ -83,8 +83,9 @@ Configure these values in Vercel Production. Keep Preview mutations disabled.
 5. Change `CMS_MUTATIONS_ENABLED` to `true` in Production and redeploy. Keep it `false` in Preview.
 6. In admin, create a temporary skill, edit it, reorder it, archive it, restore it, and permanently delete it. Confirm every step changes the public result only when expected.
 7. Upload a small WebP through Media, verify dimensions and alt metadata, attach it to a temporary project, confirm referenced deletion is blocked, detach it, then delete it.
-8. Call `/api/maintenance` once with `Authorization: Bearer $CRON_SECRET`. Confirm `200`, database connectivity, pending-upload cleanup, and storage usage fields without logging the secret.
-9. Run `pnpm cms:export`, inspect `manifest.json`, and copy the completed backup to storage outside this machine.
+8. Upload a small PDF through Resume, confirm `/resume` opens it, confirm `/resume?download=1` downloads it with the original filename, then replace it with the intended production CV.
+9. Call `/api/maintenance` once with `Authorization: Bearer $CRON_SECRET`. Confirm `200`, database connectivity, pending-upload cleanup, and storage usage fields without logging the secret.
+10. Run `pnpm cms:export`, inspect `manifest.json` and its resume checksum entry, and copy the completed backup to storage outside this machine.
 
 ## Rollback
 

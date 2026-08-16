@@ -6,7 +6,7 @@ A Next.js portfolio with a single-owner CMS built on Prisma, Supabase Postgres, 
 
 - Next.js 16, React 19, TypeScript, and Tailwind CSS
 - Prisma 7 with Supabase PostgreSQL
-- Supabase SSR Auth and private Storage
+- Supabase SSR Auth and owner-guarded Storage
 - Vitest, ESLint, and repository security checks
 - Vercel Hobby-compatible daily maintenance
 
@@ -35,7 +35,7 @@ It validates Prisma, checks repository and secret boundaries, audits dependencie
 
 ## CMS workflow
 
-The admin workspace is available at `/admin`. It manages reusable media, skills, experiences, projects, ordering, archive/restore, and guarded permanent deletion. Production mutations require both an allowlisted Supabase Auth owner and `CMS_MUTATIONS_ENABLED=true`; preview deployments remain read-only.
+The admin workspace is available at `/admin`. It manages the public resume, reusable media, skills, experiences, projects, ordering, archive/restore, and guarded permanent deletion. The public resume always uses `/resume`; before the first managed upload, that route falls back to the bundled `public/resume.pdf`. Production mutations require both an allowlisted Supabase Auth owner and `CMS_MUTATIONS_ENABLED=true`; preview deployments remain read-only.
 
 Start with these documents:
 
