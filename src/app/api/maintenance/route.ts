@@ -13,12 +13,16 @@ export async function GET(request: NextRequest) {
   }
 
   const db = getDb();
-  const [health, storageBytes, cleanup] = await Promise.all([
+  const [health, mediaStorage, resumeStorage, cleanup] = await Promise.all([
     db.$queryRaw<Array<{ ok: number }>>`SELECT 1 AS ok`,
     db.mediaAsset.aggregate({ _sum: { sizeBytes: true } }),
+    db.resumeAsset.aggregate({ _sum: { sizeBytes: true } }),
     cleanupStalePendingMedia(),
   ]);
-  const usage = storageUsageState(storageBytes._sum.sizeBytes ?? 0);
+  const usage = storageUsageState(
+    (mediaStorage._sum.sizeBytes ?? 0) +
+      (resumeStorage._sum.sizeBytes ?? 0),
+  );
 
   return NextResponse.json({
     ok: health[0]?.ok === 1,

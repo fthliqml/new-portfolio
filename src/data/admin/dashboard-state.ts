@@ -5,7 +5,7 @@ export interface DashboardCount {
 
 export interface DashboardActivity {
   id: string;
-  type: "project" | "experience" | "skill" | "media";
+  type: "project" | "experience" | "skill" | "media" | "resume";
   label: string;
   updatedAt: Date;
 }

@@ -21,6 +21,7 @@ const activityLabels = {
   experience: "Experience",
   skill: "Skill",
   media: "Media",
+  resume: "Resume",
 } as const;
 
 function formatActivityTime(value: Date) {
