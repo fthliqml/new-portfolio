@@ -42,13 +42,31 @@ enum MediaStatus {
 }
 
 model AdminUser {
-  userId      String       @id @map("user_id") @db.Uuid
-  email       String       @unique @db.VarChar(320)
-  mediaAssets MediaAsset[]
-  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
-  updatedAt   DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
+  userId       String        @id @map("user_id") @db.Uuid
+  email        String        @unique @db.VarChar(320)
+  mediaAssets  MediaAsset[]
+  resumeAssets ResumeAsset[]
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(3)
 
   @@map("admin_users")
+  @@schema("cms")
+}
+
+model ResumeAsset {
+  id           String    @id @default("primary") @db.VarChar(32)
+  bucket       String    @default("portfolio-files") @db.VarChar(100)
+  objectPath   String    @unique @map("object_path") @db.VarChar(1024)
+  originalName String    @map("original_name") @db.VarChar(255)
+  mimeType     String    @map("mime_type") @db.VarChar(100)
+  sizeBytes    Int       @map("size_bytes")
+  createdBy    String    @map("created_by") @db.Uuid
+  creator      AdminUser @relation(fields: [createdBy], references: [userId], onDelete: Restrict)
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([createdBy])
+  @@map("resume_assets")
   @@schema("cms")
 }
 
