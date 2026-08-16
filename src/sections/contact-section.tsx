@@ -204,7 +204,7 @@ export default function ContactSection() {
 
             <div className="flex flex-wrap justify-center gap-8 font-mono text-[11px] uppercase tracking-wider text-white/45">
               <a
-                href="/resume.pdf"
+                href="/resume"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors duration-300"

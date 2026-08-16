@@ -229,7 +229,7 @@ export default function HeroSection() {
 
         <div className="hero-resume mt-4 flex sm:mt-5 lg:mt-6">
           <a
-            href="/resume.pdf"
+            href="/resume"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex w-fit items-center rounded-full border border-foreground/15 bg-foreground px-5 py-3 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-background transition-colors duration-300 hover:bg-transparent hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
